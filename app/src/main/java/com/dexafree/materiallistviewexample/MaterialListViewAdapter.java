@@ -15,10 +15,10 @@ import java.util.ArrayList;
 public class MaterialListViewAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<Card> mCardList;
+    private CardList mCardList;
     private ArrayList<Class> mClassList = new ArrayList<Class>();
 
-    public MaterialListViewAdapter(Context context, ArrayList<Card> cardList){
+    public MaterialListViewAdapter(Context context, CardList cardList){
         mContext = context;
         mCardList = cardList;
 
@@ -51,7 +51,6 @@ public class MaterialListViewAdapter extends BaseAdapter {
                 mClassList.add(cl);
             }
         }
-        Log.d("SIZE", mClassList.size()+"");
     }
 
     @Override
@@ -80,14 +79,12 @@ public class MaterialListViewAdapter extends BaseAdapter {
         return -1;
     }
 
-
     @Override
     public int getViewTypeCount (){
         return mClassList.size();
     }
 
     public void remove(Card card) {
-
         if (mCardList != null)
             mCardList.remove(card);
 

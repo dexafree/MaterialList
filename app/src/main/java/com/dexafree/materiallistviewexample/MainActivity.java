@@ -11,15 +11,14 @@ import android.widget.Toast;
 import com.dexafree.materiallistviewexample.model.BasicCard;
 import com.dexafree.materiallistviewexample.model.BigImageCard;
 import com.dexafree.materiallistviewexample.model.Card;
+import com.dexafree.materiallistviewexample.model.CardList;
 import com.dexafree.materiallistviewexample.model.ImageButtonsCard;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private MaterialListView mListView;
-    private ArrayList<Card> cardsList;
+    private CardList cardsList;
     private Context mContext;
 
     @Override
@@ -31,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
 
         mListView = (MaterialListView) findViewById(R.id.material_listview);
 
-        cardsList = new ArrayList<Card>();
+        cardsList = new CardList();
 
         fillArray();
 

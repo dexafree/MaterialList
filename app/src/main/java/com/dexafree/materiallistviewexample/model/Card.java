@@ -12,6 +12,7 @@ public abstract class Card {
     private String title;
     private String description;
     private Bitmap bitmap;
+    private int layout;
 
     public Card(){}
 
@@ -82,4 +83,11 @@ public abstract class Card {
         return bitmap;
     }
 
+    public int getLayout() {
+        return layout;
+    }
+
+    public void setLayout(int layout) {
+        this.layout = layout;
+    }
 }

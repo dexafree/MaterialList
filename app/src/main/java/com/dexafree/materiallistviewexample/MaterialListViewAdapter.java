@@ -1,6 +1,7 @@
 package com.dexafree.materiallistviewexample;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,33 +14,27 @@ import java.util.ArrayList;
 
 public class MaterialListViewAdapter extends BaseAdapter {
 
-    private final static int BASIC_CARD = 0;
-    private final static int BIG_IMAGE_CARD = 1;
-    private final static int IMAGE_BUTTON_CARD = 2;
-
-
     private Context mContext;
     private ArrayList<Card> mCardList;
+    private ArrayList<Class> mClassList = new ArrayList<Class>();
 
     public MaterialListViewAdapter(Context context, ArrayList<Card> cardList){
         mContext = context;
         mCardList = cardList;
+
+        fillClassList();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup){
 
         if(convertView == null){
-            switch (getItemViewType(position)){
-                case BASIC_CARD:
-                    convertView = View.inflate(mContext, R.layout.simple_card_layout, null);
-                    break;
-                case BIG_IMAGE_CARD:
-                    convertView = View.inflate(mContext, R.layout.image_card_layout, null);
-                    break;
-                default:
-                    convertView = View.inflate(mContext, R.layout.image_card_layout_with_buttons, null);
-                    break;
+            boolean found = false;
+            for(int i = 0;i<mClassList.size() && !found;i++){
+                if(mClassList.get(i).isInstance(getItem(position))){
+                    convertView = View.inflate(mContext, getItem(position).getLayout(), null);
+                    found = true;
+                }
             }
         }
 
@@ -49,6 +44,15 @@ public class MaterialListViewAdapter extends BaseAdapter {
     	return convertView;
     }
 
+    private void fillClassList(){
+        for(Card card : mCardList){
+            Class cl = card.getClass();
+            if(!mClassList.contains(cl)){
+                mClassList.add(cl);
+            }
+        }
+        Log.d("SIZE", mClassList.size()+"");
+    }
 
     @Override
     public int getCount() {
@@ -67,9 +71,11 @@ public class MaterialListViewAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType (int position){
-        if(getItem(position) instanceof BasicCard) return BASIC_CARD;
-        if(getItem(position) instanceof BigImageCard) return BIG_IMAGE_CARD;
-        if(getItem(position) instanceof ImageButtonsCard) return IMAGE_BUTTON_CARD;
+
+        for(int i=0;i<mClassList.size();i++){
+            Class cl = mClassList.get(i);
+            if(cl.isInstance(getItem(position))) return i;
+        }
 
         return -1;
     }
@@ -77,7 +83,7 @@ public class MaterialListViewAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount (){
-        return 3;
+        return mClassList.size();
     }
 
     public void remove(Card card) {

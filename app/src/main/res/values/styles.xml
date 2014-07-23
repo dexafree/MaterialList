@@ -4,7 +4,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">200dp</item>
         <item name="android:layout_marginBottom">16dp</item>
-
         <item name="android:background">@drawable/card_background</item>
     </style>
 
@@ -14,6 +13,13 @@
 
         <item name="android:tint">@color/photo_tint</item>
         <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="MyCardPhoto" parent="CardPhoto">
+
+        <item name="android:layout_height">wrap_content</item>
+
+
     </style>
 
     <style name="CardTitle">

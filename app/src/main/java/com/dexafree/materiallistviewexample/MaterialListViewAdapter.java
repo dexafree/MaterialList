@@ -1,65 +1,52 @@
 package com.dexafree.materiallistviewexample;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.BaseAdapter;
+
+import com.dexafree.materiallistviewexample.model.*;
+import com.dexafree.materiallistviewexample.model.Card;
 
 import java.util.ArrayList;
 
 
-public class MaterialListViewAdapter extends ArrayAdapter<Card> {
+public class MaterialListViewAdapter extends BaseAdapter {
+
+    private final static int BASIC_CARD = 0;
+    private final static int BIG_IMAGE_CARD = 1;
+    private final static int IMAGE_BUTTON_CARD = 2;
+
 
     private Context mContext;
-    private LayoutInflater inflater;
     private ArrayList<Card> mCardList;
 
     public MaterialListViewAdapter(Context context, ArrayList<Card> cardList){
-        super(context, R.layout.simple_card_layout, cardList);
         mContext = context;
-        inflater = LayoutInflater.from(mContext);
         mCardList = cardList;
-    }
-
-    static class ViewHolder{
-        TextView title;
-        TextView description;
-        ImageView image;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup){
 
-        ViewHolder holder;
+        if(convertView == null){
+            switch (getItemViewType(position)){
+                case BASIC_CARD:
+                    convertView = View.inflate(mContext, R.layout.simple_card_layout, null);
+                    break;
+                case BIG_IMAGE_CARD:
+                    convertView = View.inflate(mContext, R.layout.image_card_layout, null);
+                    break;
+                default:
+                    convertView = View.inflate(mContext, R.layout.image_card_layout_with_buttons, null);
+                    break;
+            }
+        }
 
-    	if(convertView == null){
-    		holder = new ViewHolder();
-    		convertView = inflater.inflate(R.layout.image_card_layout, null);
-    		bindViews(holder, convertView);
-    		convertView.setTag(holder);
-    	} else {
-    		holder = (ViewHolder) convertView.getTag();
-    	}
+        ((GridItemView)convertView).configureView(getItem(position));
 
-    	setViewsContent(holder, position);
 
     	return convertView;
-    }
-
-    private void bindViews(ViewHolder holder, View convertView){
-        holder.title = (TextView) convertView.findViewById(R.id.titleTextView);
-        holder.description = (TextView) convertView.findViewById(R.id.descriptionTextView);
-        holder.image = (ImageView) convertView.findViewById(R.id.imageView);
-    }
-
-    public void setViewsContent(ViewHolder holder, int position){
-        Card card = getItem(position);
-        holder.title.setText(card.getTitle());
-        holder.description.setText(card.getDescription());
-        holder.image.setImageBitmap(card.getBitmap());
     }
 
 
@@ -76,6 +63,30 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> {
     @Override
     public long getItemId(int id){
     	return 0;
+    }
+
+    @Override
+    public int getItemViewType (int position){
+        if(getItem(position) instanceof BasicCard) return BASIC_CARD;
+        if(getItem(position) instanceof BigImageCard) return BIG_IMAGE_CARD;
+        if(getItem(position) instanceof ImageButtonsCard) return IMAGE_BUTTON_CARD;
+
+        return -1;
+    }
+
+
+    @Override
+    public int getViewTypeCount (){
+        return 3;
+    }
+
+    public void remove(Card card) {
+
+        if (mCardList != null)
+            mCardList.remove(card);
+
+        notifyDataSetChanged();
+
     }
 
 }

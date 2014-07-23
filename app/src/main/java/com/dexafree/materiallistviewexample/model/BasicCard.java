@@ -1,5 +1,4 @@
-package com.dexafree.materiallistviewexample;
-
+package com.dexafree.materiallistviewexample.model;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -8,27 +7,27 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-public class Card {
+public class BasicCard extends Card {
 
     private String title;
     private String description;
     private Bitmap bitmap;
 
-    public Card(){}
+    public BasicCard(){}
 
-    public Card(String title, String description, Bitmap bitmap) {
+    public BasicCard(String title, String description, Bitmap bitmap) {
         this.title = title;
         this.description = description;
         this.bitmap = bitmap;
     }
 
-    public Card(String title, String description, int resourceId) {
+    public BasicCard(String title, String description, int resourceId) {
         this.title = title;
         this.description = description;
         this.bitmap = resourceToBitmap(resourceId);
     }
 
-    public Card(String title, String description, Drawable drawable) {
+    public BasicCard(String title, String description, Drawable drawable) {
         this.title = title;
         this.description = description;
         this.bitmap = drawableToBitmap(drawable);
@@ -82,4 +81,5 @@ public class Card {
 
         return bitmap;
     }
+
 }

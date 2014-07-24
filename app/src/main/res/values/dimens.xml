@@ -11,4 +11,12 @@
 
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_corner_radius">2dp</dimen>
+
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="bigger_title_size">28sp</dimen>
+    <dimen name="description_size">16sp</dimen>
+    <dimen name="button_size">14sp</dimen>
+
+    <dimen name="big_padding">16dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
 </resources>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="photo_tint">#7f101010</color>
+    <color name="grey_title">#626262</color>
+    <color name="description_color">#878787</color>
+    <color name="orange_button">#FD9B32</color>
+    <color name="black_button">#3C3C3C</color>
 </resources>

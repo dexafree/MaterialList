@@ -3,12 +3,12 @@
 <com.dexafree.materiallistviewexample.view.BigImageButtonsCardItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/MainLayout">
 
     <android.support.v7.widget.CardView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        style="@style/MainCardView">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,8 +31,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/descriptionTextView"
-                android:padding="16dp"
-                android:textSize="16sp"
+                android:padding="@dimen/big_padding"
+                android:textSize="@dimen/description_size"
                 android:layout_below="@+id/imageView"
                 tools:text="Test description"/>
             
@@ -41,12 +41,10 @@
                 android:layout_height="wrap_content"
                 android:id="@id/left_text_button"
                 android:layout_below="@id/descriptionTextView"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="8dp"
-                android:textColor="#7B7B7B"
-                android:textSize="14sp"
-                android:maxLines="1"/>
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:paddingBottom="@dimen/small_padding"
+                style="@style/LeftButtonBaseStyle"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,11 +52,9 @@
                 android:id="@id/right_text_button"
                 android:layout_toRightOf="@id/left_text_button"
                 android:layout_alignBottom="@+id/left_text_button"
-                android:textSize="14sp"
-                android:maxLines="1"
-                android:paddingLeft="8dp"
-                android:paddingBottom="8dp"
-                android:textColor="#FF9C26"/>
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingBottom="@dimen/small_padding"
+                style="@style/RightButtonBaseStyle"/>
 
         </RelativeLayout>
 

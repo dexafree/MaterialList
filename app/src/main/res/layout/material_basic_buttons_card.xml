@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@id/right_text_button"
+                android:id="@+id/right_text_button"
                 android:paddingLeft="@dimen/small_padding"
                 android:paddingTop="@dimen/big_padding"
                 android:paddingRight="@dimen/big_padding"

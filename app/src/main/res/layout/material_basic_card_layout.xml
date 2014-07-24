@@ -67,7 +67,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@id/right_text_button"
+                android:id="@+id/right_text_button"
                 android:textColor="@color/orange_button"
                 android:textSize="@dimen/button_size"
                 android:layout_toRightOf="@+id/left_text_button"

@@ -12,6 +12,7 @@ public abstract class Card {
     private String title;
     private String description;
     private Bitmap bitmap;
+    private boolean canDismiss = true;
 
     public Card(){}
 
@@ -82,6 +83,15 @@ public abstract class Card {
         return bitmap;
     }
 
+    public boolean canDismiss() {
+        return canDismiss;
+    }
+
+    public void setCanDismiss(boolean canDismiss) {
+        this.canDismiss = canDismiss;
+    }
+
     public abstract int getLayout();
+
 
 }

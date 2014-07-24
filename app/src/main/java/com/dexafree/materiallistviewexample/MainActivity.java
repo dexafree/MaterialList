@@ -83,6 +83,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.photo);
                 card.setBitmap(icon);
+                card.setCanDismiss(false);
                 return card;
 
             case 2:

@@ -28,11 +28,13 @@ public class MaterialListView extends ListView {
     }
 
     public void setMaterialListViewAdapter (MaterialListViewAdapter adapter) {
+
         mAdapter = adapter;
         setAdapter (mAdapter);
         setDivider (null);
         setDividerHeight (8);
         setDefaultListeners();
+
     }
 
     public MaterialListViewAdapter getMaterialListViewAdapter(){
@@ -54,20 +56,25 @@ public class MaterialListView extends ListView {
 
                             @Override
                             public void onDismiss (MaterialListView listView, int[] reverseSortedPositions) {
+
                                 for (int position : reverseSortedPositions) {
+
                                     Card currentCard = mAdapter.getItem(position);
-                                    if(mDismissCallback != null){
+
+                                    if (mDismissCallback != null) {
+
                                         mDismissCallback.onDismiss(currentCard, position);
+
                                     }
+
                                     mAdapter.remove(currentCard);
+
                                 }
+
                                 mAdapter.notifyDataSetChanged();
+
                             }
 
-                            @Override
-                            public boolean canDismiss (MaterialListView listView, int position){
-                                return true;
-                            }
                         });
 
         setOnTouchListener (touchListener);

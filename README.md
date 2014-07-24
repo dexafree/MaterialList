@@ -64,12 +64,12 @@ One of the features I've always loved is the SwipeToDismiss gesture.
 MaterialList brings you this feature, and in order to set a callback to the dismissing action, you only need to create your own OnDismissCallback:
 
 ```java
-        mListView.setOnDismissCallback(new OnDismissCallback() {
-            @Override
-            public void onDismiss(Card card, int position) {
-                // Do whatever you want here
-            }
-        });
+mListView.setOnDismissCallback(new OnDismissCallback() {
+    @Override
+    public void onDismiss(Card card, int position) {
+        // Do whatever you want here
+    }
+});
 ```
 On future releases I'll try to provide a firendly way for being able to select if a Card should be dismissable or not.
 
@@ -97,7 +97,6 @@ The first thing you'll need to do is declaring your Card class (a class which wi
 
 ```java
 public class CustomCard extends Card {
-
     @Override
     public int getLayout(){
         return R.layout.my_custom_layout;
@@ -116,7 +115,6 @@ Here you have an example of how to implement it:
 public class CustomCardItemView extends GridItemView<CustomCard> {
 
     TextView mTitle;
-
     TextView mDescription;
 
     // Default constructors
@@ -131,7 +129,6 @@ public class CustomCardItemView extends GridItemView<CustomCard> {
     public CustomCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-
 
     @Override
     public void configureView(CustomCard card) {

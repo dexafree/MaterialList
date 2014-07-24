@@ -3,6 +3,7 @@ package com.dexafree.materiallistviewexample.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,7 +35,6 @@ public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButton
     public BasicImageButtonsCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-
 
     @Override
     public void configureView(BasicImageButtonsCard card) {

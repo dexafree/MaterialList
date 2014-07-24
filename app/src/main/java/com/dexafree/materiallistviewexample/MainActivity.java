@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dexafree.materiallistviewexample.controller.OnButtonPressListener;
+import com.dexafree.materiallistviewexample.controller.OnDismissCallback;
 import com.dexafree.materiallistviewexample.model.BasicButtonsCard;
 import com.dexafree.materiallistviewexample.model.SmallImageCard;
 import com.dexafree.materiallistviewexample.model.BasicImageButtonsCard;
@@ -40,6 +41,13 @@ public class MainActivity extends ActionBarActivity {
         MaterialListViewAdapter adapter = new MaterialListViewAdapter(this, cardsList);
 
         mListView.setMaterialListViewAdapter(adapter);
+
+        mListView.setOnDismissCallback(new OnDismissCallback() {
+            @Override
+            public void onDismiss(Card card, int position) {
+                Toast.makeText(mContext, "CARD NUMBER "+position+" dismissed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

@@ -3,7 +3,9 @@ package com.dexafree.materiallistviewexample.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dexafree.materiallistviewexample.R;
@@ -34,7 +36,7 @@ public class BigImageCardItemView extends GridItemView<BigImageCard> {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if(mImage != null) {
-            LayoutParams params = (LayoutParams) mImage.getLayoutParams();
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mImage.getLayoutParams();
             params.height = getMeasuredWidth();
             mImage.setLayoutParams(params);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);

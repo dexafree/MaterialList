@@ -5,12 +5,15 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.dexafree.materiallistviewexample.MaterialListViewAdapter;
+import com.dexafree.materiallistviewexample.controller.OnDismissCallback;
 import com.dexafree.materiallistviewexample.controller.SwipeDismissListener;
+import com.dexafree.materiallistviewexample.model.Card;
 
 
 public class MaterialListView extends ListView {
 
     private MaterialListViewAdapter mAdapter;
+    private OnDismissCallback mDismissCallback;
 
     public MaterialListView (Context context) {
         super (context);
@@ -36,16 +39,13 @@ public class MaterialListView extends ListView {
         return mAdapter;
     }
 
-    public void setOnDismissCallback (SwipeDismissListener.OnDismissCallback callback) {
+    public void setOnDismissCallback (OnDismissCallback callback) {
 
-        SwipeDismissListener touchListener = new SwipeDismissListener(this, callback);
-
-        setOnTouchListener (touchListener);
-        setOnScrollListener (touchListener.makeScrollListener());
+        mDismissCallback = callback;
 
     }
 
-    public void setDefaultListeners () {
+    private void setDefaultListeners () {
 
         SwipeDismissListener touchListener =
                 new SwipeDismissListener(
@@ -55,7 +55,11 @@ public class MaterialListView extends ListView {
                             @Override
                             public void onDismiss (MaterialListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    mAdapter.remove(mAdapter.getItem(position));
+                                    Card currentCard = mAdapter.getItem(position);
+                                    if(mDismissCallback != null){
+                                        mDismissCallback.onDismiss(currentCard, position);
+                                    }
+                                    mAdapter.remove(currentCard);
                                 }
                                 mAdapter.notifyDataSetChanged();
                             }

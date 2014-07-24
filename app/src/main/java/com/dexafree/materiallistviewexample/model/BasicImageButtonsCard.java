@@ -14,22 +14,22 @@ public class BasicImageButtonsCard extends Card {
 
     public BasicImageButtonsCard(){
         super();
-        this.setLayout(R.layout.material_basic_card_layout);
+        this.setLayout(R.layout.material_basic_image_buttons_card_layout);
     }
 
     public BasicImageButtonsCard(String title, String description, Bitmap bitmap) {
         super(title, description, bitmap);
-        this.setLayout(R.layout.material_basic_card_layout);
+        this.setLayout(R.layout.material_basic_image_buttons_card_layout);
     }
 
     public BasicImageButtonsCard(String title, String description, int resourceId) {
         super(title, description, resourceId);
-        this.setLayout(R.layout.material_basic_card_layout);
+        this.setLayout(R.layout.material_basic_image_buttons_card_layout);
     }
 
     public BasicImageButtonsCard(String title, String description, Drawable drawable) {
         super(title, description, drawable);
-        this.setLayout(R.layout.material_basic_card_layout);
+        this.setLayout(R.layout.material_basic_image_buttons_card_layout);
     }
 
     public String getLeftButtonText() {

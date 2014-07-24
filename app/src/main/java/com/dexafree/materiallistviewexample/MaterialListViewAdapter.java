@@ -17,6 +17,7 @@ public class MaterialListViewAdapter extends BaseAdapter {
     private Context mContext;
     private CardList mCardList;
     private ArrayList<Class> mClassList = new ArrayList<Class>();
+    private ArrayList<Class> mDeletedList = new ArrayList<Class>();
 
     public MaterialListViewAdapter(Context context, CardList cardList){
         mContext = context;
@@ -35,6 +36,12 @@ public class MaterialListViewAdapter extends BaseAdapter {
                     convertView = View.inflate(mContext, getItem(position).getLayout(), null);
                     found = true;
                 }
+            }
+        } else {
+
+            // Dirty hack to prevent imageview violations
+            if(mDeletedList.contains(getItem(position).getClass())){
+                convertView = View.inflate(mContext, getItem(position).getLayout(), null);
             }
         }
 
@@ -85,8 +92,14 @@ public class MaterialListViewAdapter extends BaseAdapter {
     }
 
     public void remove(Card card) {
-        if (mCardList != null)
+        if (mCardList != null){
+            if(!mDeletedList.contains(card.getClass())){
+                mDeletedList.add(card.getClass());
+                Log.d("AÑADIDA", card.getClass().toString());
+            }
             mCardList.remove(card);
+        }
+
 
         notifyDataSetChanged();
 

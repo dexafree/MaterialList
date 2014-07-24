@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.dexafree.materialList.view.BasicImageButtonsCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainLayout">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        style="@style/MainCardView"
+        card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:id="@+id/imageView" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleTextView"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toRightOf="@+id/imageView"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:textSize="@dimen/title_size"
+                android:textColor="@color/grey_title"
+                tools:text="El Pooch"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/description_color"
+                android:textSize="@dimen/description_size"
+                android:layout_below="@+id/titleTextView"
+                android:layout_alignLeft="@+id/titleTextView"
+                android:id="@+id/descriptionTextView"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                tools:text="By Alex Nelson"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_button"
+                android:textSize="@dimen/button_size"
+                android:layout_below="@+id/descriptionTextView"
+                android:layout_alignLeft="@+id/descriptionTextView"
+                android:id="@+id/left_text_button"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingBottom="@dimen/big_padding"
+                android:paddingTop="@dimen/big_padding"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                tools:text="Free sample"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/right_text_button"
+                android:textColor="@color/orange_button"
+                android:textSize="@dimen/button_size"
+                android:layout_toRightOf="@+id/left_text_button"
+                android:layout_alignTop="@+id/left_text_button"
+                android:textAllCaps="true"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingTop="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding"
+                android:textStyle="bold"
+                tools:text="Review"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</com.dexafree.materialList.view.BasicImageButtonsCardItemView>

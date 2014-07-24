@@ -1,12 +1,12 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '20.0.0'
+    compileSdkVersion 21
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.dexafree.materiallistviewexample"
-        minSdkVersion 10
+        applicationId "com.dexafree.materialList"
+        minSdkVersion 9
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':materialList')
     compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.android.support:cardview-v7:+'
+    compile 'com.nineoldandroids:library:2.4.+'
 }

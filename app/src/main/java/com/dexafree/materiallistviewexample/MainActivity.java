@@ -4,20 +4,19 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.dexafree.materiallistviewexample.controller.OnButtonPressListener;
-import com.dexafree.materiallistviewexample.controller.OnDismissCallback;
-import com.dexafree.materiallistviewexample.model.BasicButtonsCard;
-import com.dexafree.materiallistviewexample.model.SmallImageCard;
-import com.dexafree.materiallistviewexample.model.BasicImageButtonsCard;
-import com.dexafree.materiallistviewexample.model.BigImageButtonsCard;
-import com.dexafree.materiallistviewexample.model.BigImageCard;
-import com.dexafree.materiallistviewexample.model.Card;
-import com.dexafree.materiallistviewexample.model.CardList;
-import com.dexafree.materiallistviewexample.view.MaterialListView;
+import com.dexafree.materialList.MaterialListViewAdapter;
+import com.dexafree.materialList.controller.OnButtonPressListener;
+import com.dexafree.materialList.controller.OnDismissCallback;
+import com.dexafree.materialList.model.BasicButtonsCard;
+import com.dexafree.materialList.model.SmallImageCard;
+import com.dexafree.materialList.model.BasicImageButtonsCard;
+import com.dexafree.materialList.model.BigImageButtonsCard;
+import com.dexafree.materialList.model.BigImageCard;
+import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.model.CardList;
+import com.dexafree.materialList.view.MaterialListView;
 
 
 public class MainActivity extends ActionBarActivity {

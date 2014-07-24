@@ -75,8 +75,8 @@ You will also be able to decide if a card should be dismissable or not, just by 
 
 ## Creating your own cards
 
-### The Card class
-By default, Card includes:
+### The base Card class
+By default, Card (which all Card classes inherit from) includes:
 * String title
 * String description
 * Bitmap bitmap
@@ -105,7 +105,7 @@ public class CustomCard extends Card {
 }
 ```
 
-If you need more things like a callback, a String for extra elements... you should declare it here.
+If you need more things like a callback, a String for extra textviews... you should declare it here.
 
 Also, if you wanted this kind of card always to be dismissable (or not), you could override the canDismiss() method and make it return whatever you want.
 
@@ -151,7 +151,7 @@ public class CustomCardItemView extends GridItemView<CustomCard> {
 }
 ```
 
-## Layout
+### Layout
 Finally you'll have to declare your own layout (feel free to take a look at the layouts provided in order to look for inspiration or taking a starting point).
 The most important thing is that you must provide a CustomCardItemView element as the root of the view:
 

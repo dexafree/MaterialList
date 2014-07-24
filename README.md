@@ -88,6 +88,7 @@ Feel free to add any extra elements you'll need.
 
 ## How to create new cards
 In order to provide an extensible library, in order to create your own Cards you'll need to do 3 things:
+
 1. Declare your Card class
 2. Declare your ItemView Class
 3. Declare your Layout
@@ -105,6 +106,7 @@ public class CustomCard extends Card {
 ```
 
 If you need more things like a callback, a String for extra elements... you should declare it here.
+
 Also, if you wanted this kind of card always to be dismissable (or not), you could override the canDismiss() method and make it return whatever you want.
 
 ### ItemView class

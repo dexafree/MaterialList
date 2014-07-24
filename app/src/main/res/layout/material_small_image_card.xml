@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.dexafree.materiallistviewexample.view.SmallImageCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainLayout">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        style="@style/MainCardView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/big_padding"
+                android:textSize="@dimen/title_size"
+                android:id="@+id/titleTextView"
+                tools:text="Title"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@id/imageView"
+                android:layout_alignLeft="@+id/titleTextView"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:layout_below="@+id/titleTextView"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_launcher"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@id/descriptionTextView"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toRightOf="@+id/imageView"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding"
+                android:textSize="@dimen/description_size"
+                android:textColor="@color/description_color"
+                tools:text="Lorem ipsum dolor sit amet"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</com.dexafree.materiallistviewexample.view.SmallImageCardItemView>

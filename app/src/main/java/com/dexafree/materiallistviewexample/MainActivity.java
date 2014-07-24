@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.dexafree.materiallistviewexample.controller.OnButtonPressListener;
 import com.dexafree.materiallistviewexample.model.BasicButtonsCard;
-import com.dexafree.materiallistviewexample.model.BasicCard;
+import com.dexafree.materiallistviewexample.model.SmallImageCard;
 import com.dexafree.materiallistviewexample.model.BasicImageButtonsCard;
 import com.dexafree.materiallistviewexample.model.BigImageButtonsCard;
 import com.dexafree.materiallistviewexample.model.BigImageCard;
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         switch (type){
 
             case 0:
-                card = new BasicCard();
+                card = new SmallImageCard();
                 card.setDescription(description);
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.ic_launcher);

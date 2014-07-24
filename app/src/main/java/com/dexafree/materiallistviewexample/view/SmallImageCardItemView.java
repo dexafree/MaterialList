@@ -3,15 +3,15 @@ package com.dexafree.materiallistviewexample.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dexafree.materiallistviewexample.R;
-import com.dexafree.materiallistviewexample.model.BasicCard;
+import com.dexafree.materiallistviewexample.model.SmallImageCard;
 import com.dexafree.materiallistviewexample.model.GridItemView;
 
-public class BasicCardItemView extends GridItemView<BasicCard> {
+public class SmallImageCardItemView extends GridItemView<SmallImageCard> {
 
     TextView mTitle;
 
@@ -19,32 +19,20 @@ public class BasicCardItemView extends GridItemView<BasicCard> {
 
     TextView mDescription;
 
-    public BasicCardItemView(Context context) {
+    public SmallImageCardItemView(Context context) {
         super(context);
     }
 
-    public BasicCardItemView(Context context, AttributeSet attrs) {
+    public SmallImageCardItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BasicCardItemView(Context context, AttributeSet attrs, int defStyle) {
+    public SmallImageCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(mImage != null) {
-            LayoutParams params = (LayoutParams) mImage.getLayoutParams();
-            params.height = getMeasuredWidth();
-            mImage.setLayoutParams(params);
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        }
-    }
-
-
-    @Override
-    public void configureView(BasicCard card) {
+    public void configureView(SmallImageCard card) {
         setTitle(card.getTitle());
         setDescription(card.getDescription());
         setImage(card.getBitmap());

@@ -1,4 +1,4 @@
-package com.dexafree.materiallistviewexample;
+package com.dexafree.materiallistviewexample.controller;
 
 import android.graphics.Rect;
 import android.view.MotionEvent;
@@ -20,46 +20,8 @@ import static com.nineoldandroids.view.ViewHelper.setAlpha;
 import static com.nineoldandroids.view.ViewHelper.setTranslationX;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
-/**
- * A {@link android.view.View.OnTouchListener} that makes the list items in a {@link ListView}
- * dismissable. {@link ListView} is given special treatment because by default it handles touches
- * for its list items... i.e. it's in charge of drawing the pressed state (the list selector),
- * handling list item clicks, etc.
- *
- * <p>After creating the listener, the caller should also call
- * {@link ListView#setOnScrollListener(android.widget.AbsListView.OnScrollListener)}, passing
- * in the scroll listener returned by {@link #makeScrollListener()}. If a scroll listener is
- * already assigned, the caller should still pass scroll changes through to this listener. This will
- * ensure that this {@link SwipeDismissListViewTouchListener} is paused during list view
- * scrolling.</p>
- *
- * <p>Example usage:</p>
- *
- * <pre>
- * SwipeDismissListViewTouchListener touchListener =
- *         new SwipeDismissListViewTouchListener(
- *                 listView,
- *                 new SwipeDismissListViewTouchListener.OnDismissCallback() {
- *                     public void onDismiss(ListView listView, int[] reverseSortedPositions) {
- *                         for (int position : reverseSortedPositions) {
- *                             adapter.remove(adapter.getItem(position));
- *                         }
- *                         adapter.notifyDataSetChanged();
- *                     }
- *                 });
- * listView.setOnTouchListener(touchListener);
- * listView.setOnScrollListener(touchListener.makeScrollListener());
- * </pre>
- *
- * <p>This class Requires API level 12 or later due to use of {@link
- * android.view.ViewPropertyAnimator}.</p>
- *
- * <p>For a generalized {@link android.view.View.OnTouchListener} that makes any view dismissable,
- * see {@link SwipeDismissTouchListener}.</p>
- *
- * @see SwipeDismissTouchListener
- */
-public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
+
+public class SwipeDismissListener implements View.OnTouchListener {
     // Cached ViewConfiguration and system-wide constant values
     private int mSlop;
     private int mMinFlingVelocity;
@@ -82,7 +44,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     private boolean mPaused;
 
     /**
-     * The callback interface used by {@link SwipeDismissListViewTouchListener} to inform its client
+     * The callback interface used by {@link SwipeDismissListener} to inform its client
      * about a successful dismissal of one or more list item positions.
      */
     public interface OnDismissCallback {
@@ -105,7 +67,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss one or more list items.
      */
-    public SwipeDismissListViewTouchListener(ListView listView, OnDismissCallback callback) {
+    public SwipeDismissListener(ListView listView, OnDismissCallback callback) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
@@ -131,9 +93,9 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
      * {@link ListView#setOnScrollListener(android.widget.AbsListView.OnScrollListener)}.
      * If a scroll listener is already assigned, the caller should still pass scroll changes
      * through to this listener. This will ensure that this
-     * {@link SwipeDismissListViewTouchListener} is paused during list view scrolling.</p>
+     * {@link SwipeDismissListener} is paused during list view scrolling.</p>
      *
-     * @see {@link SwipeDismissListViewTouchListener}
+     * @see {@link SwipeDismissListener}
      */
     public AbsListView.OnScrollListener makeScrollListener() {
         return new AbsListView.OnScrollListener() {

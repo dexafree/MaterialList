@@ -5,14 +5,13 @@ import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dexafree.materiallistviewexample.R;
+import com.dexafree.materiallistviewexample.model.BigImageButtonsCard;
 import com.dexafree.materiallistviewexample.model.GridItemView;
-import com.dexafree.materiallistviewexample.model.ImageButtonsCard;
 
-public class ImageButtonsCardItemView extends GridItemView<ImageButtonsCard>{
+public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCard>{
 
     TextView mTitle;
 
@@ -24,32 +23,21 @@ public class ImageButtonsCardItemView extends GridItemView<ImageButtonsCard>{
 
     TextView mRightText;
 
-    public ImageButtonsCardItemView(Context context) {
+    public BigImageButtonsCardItemView(Context context) {
         super(context);
     }
 
-    public ImageButtonsCardItemView(Context context, AttributeSet attrs) {
+    public BigImageButtonsCardItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ImageButtonsCardItemView(Context context, AttributeSet attrs, int defStyle) {
+    public BigImageButtonsCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    /*@Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(mImage != null) {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mImage.getLayoutParams();
-            params.height = getMeasuredWidth();
-            mImage.setLayoutParams(params);
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        }
-    }*/
-
 
     @Override
-    public void configureView(ImageButtonsCard card) {
+    public void configureView(BigImageButtonsCard card) {
         setTitle(card.getTitle());
         setDescription(card.getDescription());
         setImage(card.getBitmap());
@@ -72,7 +60,7 @@ public class ImageButtonsCardItemView extends GridItemView<ImageButtonsCard>{
         mImage.setImageBitmap(bm);
     }
 
-    public void setLeftText(final ImageButtonsCard card){
+    public void setLeftText(final BigImageButtonsCard card){
         mLeftText = (TextView) findViewById(R.id.left_text_button);
         mLeftText.setText(card.getLeftButtonText());
         mLeftText.setOnClickListener(new OnClickListener() {
@@ -83,7 +71,7 @@ public class ImageButtonsCardItemView extends GridItemView<ImageButtonsCard>{
         });
     }
 
-    public void setRightText(final ImageButtonsCard card){
+    public void setRightText(final BigImageButtonsCard card){
         mRightText = (TextView) findViewById(R.id.right_text_button);
         mRightText.setText(card.getRightButtonText());
         mRightText.setOnClickListener(new OnClickListener() {

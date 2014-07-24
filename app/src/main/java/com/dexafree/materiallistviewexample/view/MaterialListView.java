@@ -1,8 +1,11 @@
-package com.dexafree.materiallistviewexample;
+package com.dexafree.materiallistviewexample.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
+
+import com.dexafree.materiallistviewexample.MaterialListViewAdapter;
+import com.dexafree.materiallistviewexample.controller.SwipeDismissListener;
 
 
 public class MaterialListView extends ListView {
@@ -28,9 +31,9 @@ public class MaterialListView extends ListView {
         setDividerHeight (8);
     }
 
-    public void setOnDismissCallback (SwipeDismissListViewTouchListener.OnDismissCallback callback) {
+    public void setOnDismissCallback (SwipeDismissListener.OnDismissCallback callback) {
 
-        SwipeDismissListViewTouchListener touchListener = new SwipeDismissListViewTouchListener (this, callback);
+        SwipeDismissListener touchListener = new SwipeDismissListener(this, callback);
 
         setOnTouchListener (touchListener);
         setOnScrollListener (touchListener.makeScrollListener());
@@ -38,10 +41,10 @@ public class MaterialListView extends ListView {
     }
 
     public void setDefaultListeners () {
-        SwipeDismissListViewTouchListener touchListener =
-                new SwipeDismissListViewTouchListener(
+        SwipeDismissListener touchListener =
+                new SwipeDismissListener(
                         this,
-                        new SwipeDismissListViewTouchListener.OnDismissCallback () {
+                        new SwipeDismissListener.OnDismissCallback () {
 
                             @Override
                             public void onDismiss (ListView listView, int[] reverseSortedPositions) {

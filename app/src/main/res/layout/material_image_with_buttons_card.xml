@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.dexafree.materiallistviewexample.view.BigImageButtonsCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:src="@drawable/photo"
+                android:id="@+id/imageView"/>
+
+            <TextView
+                style="@style/CardTitle"
+                android:layout_alignBottom="@+id/imageView"
+                android:id="@+id/titleTextView"
+                tools:text="Title"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionTextView"
+                android:padding="16dp"
+                android:textSize="16sp"
+                android:layout_below="@+id/imageView"
+                tools:text="Test description"/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@id/left_text_button"
+                android:layout_below="@id/descriptionTextView"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:textColor="#7B7B7B"
+                android:textSize="14sp"
+                android:maxLines="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@id/right_text_button"
+                android:layout_toRightOf="@id/left_text_button"
+                android:layout_alignBottom="@+id/left_text_button"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:paddingLeft="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="#FF9C26"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</com.dexafree.materiallistviewexample.view.BigImageButtonsCardItemView>

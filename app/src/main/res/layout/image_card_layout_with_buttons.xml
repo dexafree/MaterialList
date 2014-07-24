@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.dexafree.materiallistviewexample.view.ImageButtonsCardItemView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.dexafree.materiallistviewexample.view.BigImageButtonsCardItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,8 +15,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="4dp">
+            android:orientation="vertical">
 
             <FrameLayout
                 style="@style/Card">
@@ -34,26 +33,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
                 android:id="@+id/descriptionTextView"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="4">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/left_text_button"
                     android:textColor="#7B7B7B"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="2dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/right_text_button"
                     android:textColor="#FF9C26"
-                    android:maxLines="1"/>
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="4dp"
+                    android:maxLines="1"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 
@@ -61,4 +71,4 @@
 
     </android.support.v7.widget.CardView>
 
-</com.dexafree.materiallistviewexample.view.ImageButtonsCardItemView>
+</com.dexafree.materiallistviewexample.view.BigImageButtonsCardItemView>

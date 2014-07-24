@@ -4,15 +4,17 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dexafree.materiallistviewexample.controller.OnButtonPressListener;
 import com.dexafree.materiallistviewexample.model.BasicCard;
+import com.dexafree.materiallistviewexample.model.BasicImageButtonsCard;
+import com.dexafree.materiallistviewexample.model.BigImageButtonsCard;
 import com.dexafree.materiallistviewexample.model.BigImageCard;
 import com.dexafree.materiallistviewexample.model.Card;
 import com.dexafree.materiallistviewexample.model.CardList;
-import com.dexafree.materiallistviewexample.model.ImageButtonsCard;
+import com.dexafree.materiallistviewexample.view.MaterialListView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -42,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void fillArray(){
-        for(int i=0;i<15;i++){
+        for(int i=0;i<20;i++){
             Card card = getRandomCard(i);
             cardsList.add(card);
         }
@@ -51,11 +53,11 @@ public class MainActivity extends ActionBarActivity {
     private Card getRandomCard(final int position){
         String title = "Card number "+(position+1);
         String description = "Lorem ipsum dolor sit amet";
-        Drawable icon = getResources().getDrawable(R.drawable.photo);
 
-        int type = position % 3;
+        int type = position % 4;
 
         Card card;
+        Drawable icon;
 
         switch (type){
 
@@ -63,6 +65,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new BasicCard();
                 card.setDescription(description);
                 card.setTitle(title);
+                icon = getResources().getDrawable(R.drawable.ic_launcher);
                 card.setBitmap(icon);
                 return card;
 
@@ -70,17 +73,40 @@ public class MainActivity extends ActionBarActivity {
                 card = new BigImageCard();
                 card.setDescription(description);
                 card.setTitle(title);
+                icon = getResources().getDrawable(R.drawable.photo);
                 card.setBitmap(icon);
                 return card;
 
-            default:
-                card = new ImageButtonsCard();
+            case 2:
+                card = new BasicImageButtonsCard();
                 card.setDescription(description);
                 card.setTitle(title);
+                icon = getResources().getDrawable(R.drawable.dog);
                 card.setBitmap(icon);
-                ((ImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
-                ((ImageButtonsCard)card).setRightButtonText("DERECHA");
-                ((ImageButtonsCard)card).setOnButtonPressListener(new ImageButtonsCard.OnButtonPressListener() {
+                ((BasicImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
+                ((BasicImageButtonsCard)card).setRightButtonText("DERECHA");
+                ((BasicImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
+                    @Override
+                    public void onLeftTextPressed(TextView textView) {
+                        Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onRightTextPressed(TextView textView) {
+                        Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return card;
+
+            default:
+                card = new BigImageButtonsCard();
+                card.setDescription(description);
+                card.setTitle(title);
+                icon = getResources().getDrawable(R.drawable.photo);
+                card.setBitmap(icon);
+                ((BigImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
+                ((BigImageButtonsCard)card).setRightButtonText("DERECHA");
+                ((BigImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
                         Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();

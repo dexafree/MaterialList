@@ -19,7 +19,6 @@
 
         <item name="android:layout_height">wrap_content</item>
 
-
     </style>
 
     <style name="CardTitle">
@@ -35,6 +34,13 @@
         <item name="android:paddingBottom">8dp</item>
 
         <item name="android:background">?android:selectableItemBackground</item>
+    </style>
+
+    <style name="CardDescription">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 
 </resources>

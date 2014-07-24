@@ -5,36 +5,32 @@ import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 
 import com.dexafree.materiallistviewexample.R;
+import com.dexafree.materiallistviewexample.controller.OnButtonPressListener;
 
-public class ImageButtonsCard extends Card {
-
-    public interface OnButtonPressListener{
-        void onLeftTextPressed(TextView textView);
-        void onRightTextPressed(TextView textView);
-    }
+public class BigImageButtonsCard extends Card {
 
     private String leftButtonText;
     private String rightButtonText;
     private OnButtonPressListener mListener;
 
-    public ImageButtonsCard(){
+    public BigImageButtonsCard(){
         super();
-        this.setLayout(R.layout.image_card_layout_with_buttons);
+        this.setLayout(R.layout.material_image_with_buttons_card);
     }
 
-    public ImageButtonsCard(String title, String description, Bitmap bitmap) {
+    public BigImageButtonsCard(String title, String description, Bitmap bitmap) {
         super(title, description, bitmap);
-        this.setLayout(R.layout.image_card_layout_with_buttons);
+        this.setLayout(R.layout.material_image_with_buttons_card);
     }
 
-    public ImageButtonsCard(String title, String description, int resourceId) {
+    public BigImageButtonsCard(String title, String description, int resourceId) {
         super(title, description, resourceId);
-        this.setLayout(R.layout.image_card_layout_with_buttons);
+        this.setLayout(R.layout.material_image_with_buttons_card);
     }
 
-    public ImageButtonsCard(String title, String description, Drawable drawable) {
+    public BigImageButtonsCard(String title, String description, Drawable drawable) {
         super(title, description, drawable);
-        this.setLayout(R.layout.image_card_layout_with_buttons);
+        this.setLayout(R.layout.material_image_with_buttons_card);
     }
 
     public String getLeftButtonText() {

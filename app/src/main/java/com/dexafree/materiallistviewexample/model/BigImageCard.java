@@ -9,7 +9,7 @@ public class BigImageCard extends Card {
     
     public BigImageCard(){
         super();
-        this.setLayout(R.layout.image_card_layout);
+        this.setLayout(R.layout.new_image_card_layout);
     }
 
     public BigImageCard(String title, String description, Bitmap bitmap) {

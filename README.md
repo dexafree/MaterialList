@@ -71,7 +71,7 @@ mListView.setOnDismissCallback(new OnDismissCallback() {
     }
 });
 ```
-On future releases I'll try to provide a firendly way for being able to select if a Card should be dismissable or not.
+You will also be able to decide if a card should be dismissable or not, just by calling Card.setCanDismiss().
 
 ## Creating your own cards
 
@@ -105,10 +105,11 @@ public class CustomCard extends Card {
 ```
 
 If you need more things like a callback, a String for extra elements... you should declare it here.
+Also, if you wanted this kind of card always to be dismissable (or not), you could override the canDismiss() method and make it return whatever you want.
 
 ### ItemView class
 After having your CustomCard class, you'll need to define a class which will render its content.
-In order to be consisten with the system (and being able to attach it to the MaterialAdapter), you'll need to extend GridItemView<CustomCard> and provide a configureView(CustomCard card).
+In order to be consistent with the system (and being able to attach it to the MaterialAdapter), you'll need to extend GridItemView<CustomCard> and provide a configureView(CustomCard card).
 Here you have an example of how to implement it:
 
 ```java
@@ -160,7 +161,8 @@ The most important thing is that you must provide a CustomCardItemView element a
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 
-    <!--YOUR ELEMENTS.-->
+    <!--YOUR UI ELEMENTS.-->
+
 </CustomCardItemView>
 ```
 

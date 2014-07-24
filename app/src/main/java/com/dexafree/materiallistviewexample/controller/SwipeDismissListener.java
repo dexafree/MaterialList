@@ -8,6 +8,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+
+import com.dexafree.materiallistviewexample.view.MaterialListView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -29,7 +31,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
     private long mAnimationTime;
 
     // Fixed properties
-    private ListView mListView;
+    private MaterialListView mListView;
     private OnDismissCallback mCallback;
     private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
 
@@ -52,12 +54,12 @@ public class SwipeDismissListener implements View.OnTouchListener {
          * Called when the user has indicated they she would like to dismiss one or more list item
          * positions.
          *
-         * @param listView               The originating {@link ListView}.
+         * @param listView               The originating {@link MaterialListView}.
          * @param reverseSortedPositions An array of positions to dismiss, sorted in descending
          *                               order for convenience.
          */
-        void onDismiss(ListView listView, int[] reverseSortedPositions);
-        boolean canDismiss(ListView listView, int position);
+        void onDismiss(MaterialListView listView, int[] reverseSortedPositions);
+        boolean canDismiss(MaterialListView listView, int position);
     }
 
     /**
@@ -67,7 +69,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss one or more list items.
      */
-    public SwipeDismissListener(ListView listView, OnDismissCallback callback) {
+    public SwipeDismissListener(MaterialListView listView, OnDismissCallback callback) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();

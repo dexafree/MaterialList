@@ -29,6 +29,11 @@ public class MaterialListView extends ListView {
         setAdapter (mAdapter);
         setDivider (null);
         setDividerHeight (8);
+        setDefaultListeners();
+    }
+
+    public MaterialListViewAdapter getMaterialListViewAdapter(){
+        return mAdapter;
     }
 
     public void setOnDismissCallback (SwipeDismissListener.OnDismissCallback callback) {
@@ -41,13 +46,14 @@ public class MaterialListView extends ListView {
     }
 
     public void setDefaultListeners () {
+
         SwipeDismissListener touchListener =
                 new SwipeDismissListener(
                         this,
                         new SwipeDismissListener.OnDismissCallback () {
 
                             @Override
-                            public void onDismiss (ListView listView, int[] reverseSortedPositions) {
+                            public void onDismiss (MaterialListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
                                     mAdapter.remove(mAdapter.getItem(position));
                                 }
@@ -55,7 +61,7 @@ public class MaterialListView extends ListView {
                             }
 
                             @Override
-                            public boolean canDismiss (ListView listView, int position){
+                            public boolean canDismiss (MaterialListView listView, int position){
                                 return true;
                             }
                         });

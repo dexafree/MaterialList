@@ -40,7 +40,6 @@ public class MainActivity extends ActionBarActivity {
         MaterialListViewAdapter adapter = new MaterialListViewAdapter(this, cardsList);
 
         mListView.setMaterialListViewAdapter(adapter);
-        mListView.setDefaultListeners();
 
     }
 

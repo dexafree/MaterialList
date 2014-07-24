@@ -13,26 +13,6 @@ public class BasicButtonsCard extends Card {
     private String rightButtonText;
     private OnButtonPressListener mListener;
 
-    public BasicButtonsCard(){
-        super();
-        this.setLayout(R.layout.material_basic_buttons_card);
-    }
-
-    public BasicButtonsCard(String title, String description, Bitmap bitmap) {
-        super(title, description, bitmap);
-        this.setLayout(R.layout.material_basic_buttons_card);
-    }
-
-    public BasicButtonsCard(String title, String description, int resourceId) {
-        super(title, description, resourceId);
-        this.setLayout(R.layout.material_basic_buttons_card);
-    }
-
-    public BasicButtonsCard(String title, String description, Drawable drawable) {
-        super(title, description, drawable);
-        this.setLayout(R.layout.material_basic_buttons_card);
-    }
-
     public String getLeftButtonText() {
         return leftButtonText;
     }
@@ -55,6 +35,11 @@ public class BasicButtonsCard extends Card {
 
     public void setOnButtonPressListener(OnButtonPressListener listener) {
         this.mListener = listener;
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.material_basic_buttons_card;
     }
 
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dexafree.materiallistviewexample.controller.OnButtonPressListener;
+import com.dexafree.materiallistviewexample.model.BasicButtonsCard;
 import com.dexafree.materiallistviewexample.model.BasicCard;
 import com.dexafree.materiallistviewexample.model.BasicImageButtonsCard;
 import com.dexafree.materiallistviewexample.model.BigImageButtonsCard;
@@ -44,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void fillArray(){
-        for(int i=0;i<20;i++){
+        for(int i=0;i<25;i++){
             Card card = getRandomCard(i);
             cardsList.add(card);
         }
@@ -54,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         String title = "Card number "+(position+1);
         String description = "Lorem ipsum dolor sit amet";
 
-        int type = position % 4;
+        int type = position % 5;
 
         Card card;
         Drawable icon;
@@ -86,6 +87,25 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
                 ((BasicImageButtonsCard)card).setRightButtonText("DERECHA");
                 ((BasicImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
+                    @Override
+                    public void onLeftTextPressed(TextView textView) {
+                        Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onRightTextPressed(TextView textView) {
+                        Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return card;
+
+            case 3:
+                card = new BasicButtonsCard();
+                card.setDescription(description);
+                card.setTitle(title);
+                ((BasicButtonsCard)card).setLeftButtonText("IZQUIERDA");
+                ((BasicButtonsCard)card).setRightButtonText("DERECHA");
+                ((BasicButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
                         Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();

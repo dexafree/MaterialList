@@ -1,21 +1,17 @@
 package com.dexafree.materiallistviewexample.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dexafree.materiallistviewexample.R;
-import com.dexafree.materiallistviewexample.model.BasicImageButtonsCard;
+import com.dexafree.materiallistviewexample.model.BasicButtonsCard;
 import com.dexafree.materiallistviewexample.model.GridItemView;
 
-public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButtonsCard> {
+public class BasicButtonsCardItemView extends GridItemView<BasicButtonsCard> {
 
     TextView mTitle;
-
-    ImageView mImage;
 
     TextView mDescription;
 
@@ -23,24 +19,23 @@ public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButton
 
     TextView mRightText;
 
-    public BasicImageButtonsCardItemView(Context context) {
+    public BasicButtonsCardItemView(Context context) {
         super(context);
     }
 
-    public BasicImageButtonsCardItemView(Context context, AttributeSet attrs) {
+    public BasicButtonsCardItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BasicImageButtonsCardItemView(Context context, AttributeSet attrs, int defStyle) {
+    public BasicButtonsCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
 
     @Override
-    public void configureView(BasicImageButtonsCard card) {
+    public void configureView(BasicButtonsCard card) {
         setTitle(card.getTitle());
         setDescription(card.getDescription());
-        setImage(card.getBitmap());
         setLeftText(card);
         setRightText(card);
     }
@@ -55,12 +50,7 @@ public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButton
         mDescription.setText(description);
     }
 
-    public void setImage(Bitmap bm){
-        mImage = (ImageView)findViewById(R.id.imageView);
-        mImage.setImageBitmap(bm);
-    }
-
-    public void setLeftText(final BasicImageButtonsCard card){
+    public void setLeftText(final BasicButtonsCard card){
         mLeftText = (TextView) findViewById(R.id.left_text_button);
         mLeftText.setText(card.getLeftButtonText());
         mLeftText.setOnClickListener(new OnClickListener() {
@@ -71,7 +61,7 @@ public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButton
         });
     }
 
-    public void setRightText(final BasicImageButtonsCard card){
+    public void setRightText(final BasicButtonsCard card){
         mRightText = (TextView) findViewById(R.id.right_text_button);
         mRightText.setText(card.getRightButtonText());
         mRightText.setOnClickListener(new OnClickListener() {
@@ -81,4 +71,5 @@ public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButton
             }
         });
     }
+
 }

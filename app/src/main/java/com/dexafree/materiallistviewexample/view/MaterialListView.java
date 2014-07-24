@@ -59,15 +59,18 @@ public class MaterialListView extends ListView {
 
                                 for (int position : reverseSortedPositions) {
 
-                                    Card currentCard = mAdapter.getItem(position);
+                                    if(position < listView.getMaterialListViewAdapter().getCount()) {
 
-                                    if (mDismissCallback != null) {
+                                        Card currentCard = mAdapter.getItem(position);
 
-                                        mDismissCallback.onDismiss(currentCard, position);
+                                        if (mDismissCallback != null) {
 
+                                            mDismissCallback.onDismiss(currentCard, position);
+
+                                        }
+
+                                        mAdapter.remove(currentCard);
                                     }
-
-                                    mAdapter.remove(currentCard);
 
                                 }
 

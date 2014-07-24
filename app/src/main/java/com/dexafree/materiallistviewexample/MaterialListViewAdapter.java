@@ -95,7 +95,6 @@ public class MaterialListViewAdapter extends BaseAdapter {
         if (mCardList != null){
             if(!mDeletedList.contains(card.getClass())){
                 mDeletedList.add(card.getClass());
-                Log.d("AÑADIDA", card.getClass().toString());
             }
             mCardList.remove(card);
         }

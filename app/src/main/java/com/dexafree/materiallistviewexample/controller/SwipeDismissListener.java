@@ -215,35 +215,37 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_MOVE: {
 
-                if(mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss()) {
-                    if (mVelocityTracker == null || mPaused) {
+                if(mDownPosition != ListView.INVALID_POSITION) {
+
+                    if (mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss()) {
+                        if (mVelocityTracker == null || mPaused) {
+                            break;
+                        }
+
+                        mVelocityTracker.addMovement(motionEvent);
+                        float deltaX = motionEvent.getRawX() - mDownX;
+                        if (Math.abs(deltaX) > mSlop) {
+                            mSwiping = true;
+                            mListView.requestDisallowInterceptTouchEvent(true);
+
+                            // Cancel ListView's touch (un-highlighting the item)
+                            MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
+                            cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
+                                    (motionEvent.getActionIndex()
+                                            << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
+                            mListView.onTouchEvent(cancelEvent);
+                        }
+
+                        if (mSwiping) { // AQUIIIIIII
+                            setTranslationX(mDownView, deltaX);
+                            setAlpha(mDownView, Math.max(0f, Math.min(1f,
+                                    1f - 2f * Math.abs(deltaX) / mViewWidth)));
+                            return true;
+                        }
                         break;
                     }
-
-                    mVelocityTracker.addMovement(motionEvent);
-                    float deltaX = motionEvent.getRawX() - mDownX;
-                    if (Math.abs(deltaX) > mSlop) {
-                        mSwiping = true;
-                        mListView.requestDisallowInterceptTouchEvent(true);
-
-                        // Cancel ListView's touch (un-highlighting the item)
-                        MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
-                        cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
-                                (motionEvent.getActionIndex()
-                                        << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
-                        mListView.onTouchEvent(cancelEvent);
-                    }
-
-                    if (mSwiping) { // AQUIIIIIII
-                        setTranslationX(mDownView, deltaX);
-                        setAlpha(mDownView, Math.max(0f, Math.min(1f,
-                                1f - 2f * Math.abs(deltaX) / mViewWidth)));
-                        return true;
-                    }
-                    break;
                 }
             }
-
         }
         return false;
     }
@@ -317,6 +319,12 @@ public class SwipeDismissListener implements View.OnTouchListener {
     }
 
     private boolean isCurrentItemDismissable(){
-        return mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss();
+
+        return !isOutOfBounds() && mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss();
+
+    }
+
+    private boolean isOutOfBounds(){
+        return mDownPosition >= mListView.getMaterialListViewAdapter().getCount();
     }
 }

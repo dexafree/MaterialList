@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
         mListView.setOnDismissCallback(new OnDismissCallback() {
             @Override
             public void onDismiss(Card card, int position) {
-                Toast.makeText(mContext, "CARD NUMBER "+position+" dismissed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "CARD NUMBER "+position+" dismissed", //Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -97,12 +98,12 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
-                        Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onRightTextPressed(TextView textView) {
-                        Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
                     }
                 });
                 return card;
@@ -116,12 +117,12 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
-                        Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onRightTextPressed(TextView textView) {
-                        Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
                     }
                 });
                 return card;
@@ -137,12 +138,12 @@ public class MainActivity extends ActionBarActivity {
                 ((BigImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
-                        Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onRightTextPressed(TextView textView) {
-                        Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
                     }
                 });
                 return card;

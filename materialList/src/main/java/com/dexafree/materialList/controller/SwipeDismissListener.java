@@ -31,7 +31,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
     private long mAnimationTime;
 
     // Fixed properties
-    private MaterialListView mListView;
+    private MaterialInterface mListView;
     private OnDismissCallback mCallback;
     private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
 
@@ -58,7 +58,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
          * @param reverseSortedPositions An array of positions to dismiss, sorted in descending
          *                               order for convenience.
          */
-        void onDismiss(MaterialListView listView, int[] reverseSortedPositions);
+        void onDismiss(MaterialInterface listView, int[] reverseSortedPositions);
     }
 
     /**
@@ -68,7 +68,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss one or more list items.
      */
-    public SwipeDismissListener(MaterialListView listView, OnDismissCallback callback) {
+    public SwipeDismissListener(MaterialInterface listView, OnDismissCallback callback) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
@@ -216,7 +216,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
                 if(mDownPosition != ListView.INVALID_POSITION) {
 
-                    if (mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss()) {
+                    if (mListView.getMaterialAdapter().getItem(mDownPosition).canDismiss()) {
                         if (mVelocityTracker == null || mPaused) {
                             break;
                         }
@@ -319,11 +319,11 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
     private boolean isCurrentItemDismissable(){
 
-        return !isOutOfBounds() && mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss();
+        return !isOutOfBounds() && mListView.getMaterialAdapter().getItem(mDownPosition).canDismiss();
 
     }
 
     private boolean isOutOfBounds(){
-        return mDownPosition >= mListView.getMaterialListViewAdapter().getCount();
+        return mDownPosition >= mListView.getMaterialAdapter().getCount();
     }
 }

@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.dexafree.materialList.MaterialListViewAdapter;
+import com.dexafree.materialList.MaterialAdapter;
 import com.dexafree.materialList.controller.OnButtonPressListener;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.model.BasicButtonsCard;
@@ -16,12 +16,13 @@ import com.dexafree.materialList.model.BigImageButtonsCard;
 import com.dexafree.materialList.model.BigImageCard;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardList;
+import com.dexafree.materialList.view.MaterialGridView;
 import com.dexafree.materialList.view.MaterialListView;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private MaterialListView mListView;
+    private MaterialGridView mListView;
     private CardList cardsList;
     private Context mContext;
 
@@ -32,13 +33,13 @@ public class MainActivity extends ActionBarActivity {
 
         mContext = this;
 
-        mListView = (MaterialListView) findViewById(R.id.material_listview);
+        mListView = (MaterialGridView) findViewById(R.id.material_listview);
 
         cardsList = new CardList();
 
         fillArray();
 
-        MaterialListViewAdapter adapter = new MaterialListViewAdapter(this, cardsList);
+        MaterialAdapter adapter = new MaterialAdapter(this, cardsList);
 
         mListView.setMaterialListViewAdapter(adapter);
 

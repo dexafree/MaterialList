@@ -4,15 +4,16 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-import com.dexafree.materialList.MaterialListViewAdapter;
+import com.dexafree.materialList.MaterialAdapter;
+import com.dexafree.materialList.controller.MaterialInterface;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.model.Card;
 
 
-public class MaterialListView extends ListView {
+public class MaterialListView extends ListView implements MaterialInterface{
 
-    private MaterialListViewAdapter mAdapter;
+    private MaterialAdapter mAdapter;
     private OnDismissCallback mDismissCallback;
 
     public MaterialListView (Context context) {
@@ -27,7 +28,7 @@ public class MaterialListView extends ListView {
         super (context, attrs);
     }
 
-    public void setMaterialListViewAdapter (MaterialListViewAdapter adapter) {
+    public void setMaterialListViewAdapter (MaterialAdapter adapter) {
 
         mAdapter = adapter;
         setAdapter (mAdapter);
@@ -37,7 +38,7 @@ public class MaterialListView extends ListView {
 
     }
 
-    public MaterialListViewAdapter getMaterialListViewAdapter(){
+    public MaterialAdapter getMaterialAdapter(){
         return mAdapter;
     }
 
@@ -55,11 +56,11 @@ public class MaterialListView extends ListView {
                         new SwipeDismissListener.OnDismissCallback () {
 
                             @Override
-                            public void onDismiss (MaterialListView listView, int[] reverseSortedPositions) {
+                            public void onDismiss (MaterialInterface listView, int[] reverseSortedPositions) {
 
                                 for (int position : reverseSortedPositions) {
 
-                                    if(position < listView.getMaterialListViewAdapter().getCount()) {
+                                    if(position < listView.getMaterialAdapter().getCount()) {
 
                                         Card currentCard = mAdapter.getItem(position);
 

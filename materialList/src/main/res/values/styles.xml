@@ -3,8 +3,6 @@
     <style name="MainLayout">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
-        <!--<item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
-        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>-->
         <item name="android:layout_height">match_parent</item>
     </style>
 
@@ -48,8 +46,6 @@
         <item name="android:gravity">bottom|left</item>
         <item name="android:paddingLeft">@dimen/big_padding</item>
         <item name="android:paddingBottom">@dimen/small_padding</item>
-
-        <item name="android:background">?android:selectableItemBackground</item>
     </style>
 
     <style name="CardDescription">

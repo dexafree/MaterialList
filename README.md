@@ -170,6 +170,9 @@ The most important thing is that you must provide a CustomCardItemView element a
 
 After that, you'll be able to use your new custom card just by creating it, setting its content and inserting it in a CardList.
 
+## Compatibility
+MaterialList is compatible with Android 2.3+
+
 ## Credits
 * Jake Wharton: [SwipeToDismissNOA](https://github.com/JakeWharton/SwipeToDismissNOA)
 * Romain Guy: The sand picture provided as example was taken from one of his projects

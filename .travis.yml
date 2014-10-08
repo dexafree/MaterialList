@@ -1,1 +1,15 @@
 language: android
+
+script:
+    - ./gradlew assembleDebug
+
+android:
+  components:
+      # The BuildTools version used by your project
+      - build-tools-20.0.0
+      # Uncomment the lines below if you want to
+      # use the latest revision of Android SDK Tools
+      - platform-tools
+      - tools
+      # The SDK version used to compile your project
+      - android-19

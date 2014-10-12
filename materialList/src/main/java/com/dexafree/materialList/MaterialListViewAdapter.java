@@ -22,6 +22,7 @@ public class MaterialListViewAdapter extends BaseAdapter {
         for (Card c : newCards) {
             mCardList.add(c);
         }
+        fillClassList();
         notifyDataSetChanged();
     }
 
@@ -58,6 +59,7 @@ public class MaterialListViewAdapter extends BaseAdapter {
     }
 
     private void fillClassList(){
+        mClassList.clear();
         for(Card card : mCardList){
             Class cl = card.getClass();
             if(!mClassList.contains(cl)){

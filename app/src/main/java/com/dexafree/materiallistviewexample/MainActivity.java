@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.dexafree.materialList.MaterialListViewAdapter;
@@ -138,6 +139,12 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
                         //Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
+                        Log.d("ADDING", "CARD");
+
+                        CardList newCards = new CardList();
+                        newCards.add(generateNewCard());
+
+                        mListView.addCardsToExistingAdapter(newCards);
                     }
 
                     @Override
@@ -149,5 +156,14 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
+    }
+
+    private Card generateNewCard(){
+        Card card = new BasicImageButtonsCard();
+        card.setBitmap(mContext, R.drawable.dog);
+        card.setTitle("I'm new");
+        card.setDescription("I've been generated on runtime!");
+
+        return card;
     }
 }

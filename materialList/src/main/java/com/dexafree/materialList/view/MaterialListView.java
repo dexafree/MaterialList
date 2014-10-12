@@ -8,6 +8,7 @@ import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.model.CardList;
 
 
 public class MaterialListView extends ListView {
@@ -35,6 +36,10 @@ public class MaterialListView extends ListView {
         setDividerHeight (8);
         setDefaultListeners();
 
+    }
+
+    public void addCardsToExistingAdapter(CardList newCards){
+        mAdapter.addCardsToExistingSet(newCards);
     }
 
     public MaterialListViewAdapter getMaterialListViewAdapter(){

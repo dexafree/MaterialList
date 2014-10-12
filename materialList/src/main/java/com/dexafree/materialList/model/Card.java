@@ -1,5 +1,6 @@
 package com.dexafree.materialList.model;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,10 +23,10 @@ public abstract class Card {
         this.bitmap = bitmap;
     }
 
-    public Card(String title, String description, int resourceId) {
+    public Card(String title, String description, Context context, int resourceId) {
         this.title = title;
         this.description = description;
-        this.bitmap = resourceToBitmap(resourceId);
+        this.bitmap = resourceToBitmap(context, resourceId);
     }
 
     public Card(String title, String description, Drawable drawable) {
@@ -58,16 +59,18 @@ public abstract class Card {
         this.bitmap = bitmap;
     }
 
-    public void setBitmap(int resourceId){
-        bitmap = resourceToBitmap(resourceId);
+    public void setBitmap(Context context, int resourceId){
+        bitmap = resourceToBitmap(context, resourceId);
     }
 
     public void setBitmap(Drawable drawable){
         bitmap = drawableToBitmap(drawable);
     }
 
-    private Bitmap resourceToBitmap (int resourceId){
-        return BitmapFactory.decodeResource(Resources.getSystem(), resourceId);
+    private Bitmap resourceToBitmap (Context context, int resourceId){
+        Resources res = context.getResources();
+        Drawable d = res.getDrawable(resourceId);
+        return drawableToBitmap(d);
     }
 
     private Bitmap drawableToBitmap (Drawable drawable) {

@@ -18,6 +18,13 @@ public class MaterialListViewAdapter extends BaseAdapter {
     private ArrayList<Class> mClassList = new ArrayList<Class>();
     private ArrayList<Class> mDeletedList = new ArrayList<Class>();
 
+    public void addCardsToExistingSet(CardList newCards){
+        for (Card c : newCards) {
+            mCardList.add(c);
+        }
+        notifyDataSetChanged();
+    }
+
     public MaterialListViewAdapter(Context context, CardList cardList){
         mContext = context;
         mCardList = cardList;

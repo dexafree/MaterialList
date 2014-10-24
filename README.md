@@ -1,4 +1,4 @@
-# MaterialList [![Build Status](https://travis-ci.org/dexafree/MaterialList.svg?branch=master)](https://travis-ci.org/dexafree/MaterialList)
+# MaterialList [![Build Status](https://travis-ci.org/dexafree/MaterialList.svg?branch=master)](https://travis-ci.org/dexafree/MaterialList) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dexafree/materiallist/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.github.dexafree/materiallist)
 
 MaterialList is an Android library created to help all Android developers get the beautiful CardViews that Google shows at its [official design specifications](http://www.google.com/design/spec/components/cards.html#cards-usage).
 
@@ -173,6 +173,16 @@ After that, you'll be able to use your new custom card just by creating it, sett
 
 ## Compatibility
 MaterialList is compatible with Android 2.3+
+
+## How to use
+In order to use MaterialList, you can either clone the project and import it as a module, or you can add this line to your build.gradle script:
+
+```groovy
+dependencies {
+    ...
+    compile 'com.github.dexafree:materiallist:1.0.0'
+}
+```
 
 ## Credits
 * Jake Wharton: [SwipeToDismissNOA](https://github.com/JakeWharton/SwipeToDismissNOA)

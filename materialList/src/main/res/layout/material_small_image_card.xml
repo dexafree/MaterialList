@@ -20,6 +20,7 @@
                 android:padding="@dimen/big_padding"
                 android:textSize="@dimen/title_size"
                 android:id="@+id/titleTextView"
+                android:textColor="@color/black_button"
                 tools:text="Title"/>
 
             <ImageView

@@ -31,7 +31,7 @@
                 android:paddingRight="16dp"
                 android:paddingBottom="8dp"
                 android:textSize="@dimen/title_size"
-                android:textColor="@color/grey_title"
+                android:textColor="@color/black_button"
                 tools:text="El Pooch"/>
 
             <TextView

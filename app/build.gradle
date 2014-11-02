@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    //compile project(':materialList')
-    compile 'com.github.dexafree:materiallist:1.0.0'
+    compile project(':materialList')
+    //compile 'com.github.dexafree:materiallist:1.0.0'
     compile 'com.android.support:appcompat-v7:21.0.0'
 }

@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/descriptionTextView"
                 android:layout_below="@+id/titleTextView"
+                android:textColor="@color/description_color"
                 android:padding="@dimen/big_padding"
                 android:textSize="@dimen/description_size"
                 tools:text="And this is the description"/>

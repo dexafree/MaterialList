@@ -4,7 +4,7 @@ MaterialList is an Android library created to help all Android developers get th
 
 Provided as a ListView extension, it can receive a list of Cards (stored in a CardList, provided by the library) and show them accordingly to the android style and design patterns.
 
-It also has been developed while keeping extensibility in mind, which meens that you are able to create your own card layouts and add them to the CardList without any pain (see examples below).
+It also has been developed while keeping extensibility in mind, which means that you are able to create your own card layouts and add them to the CardList without any pain (see examples below).
 
 ## Cards provided
 These are the cards that the library offers by default:
@@ -74,7 +74,7 @@ mListView.setOnDismissCallback(new OnDismissCallback() {
     }
 });
 ```
-You will also be able to decide if a card should be dismissable or not, just by calling Card.setCanDismiss().
+You will also be able to decide if a card should be dismissible or not, just by calling Card.setCanDismiss().
 
 ## Extensibility
 MaterialList was created with extensibility in mind, so it makes things easy for you if you want to create your own Cards.
@@ -90,9 +90,16 @@ In order to use MaterialList, you can either clone the project and import it as 
 ```groovy
 dependencies {
     ...
-    compile 'com.github.dexafree:materiallist:1.0.0'
+    compile 'com.github.dexafree:materiallist:1.1.0'
 }
 ```
+
+## Sample
+You can clone the project and compile it yourself (it includes a sample), or you can check it out already compiled at Google Play
+
+[![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.dexafree.materiallistviewexample)
+
+> Notice that it might not be the last version
 
 ## Credits
 * Jake Wharton: [SwipeToDismissNOA](https://github.com/JakeWharton/SwipeToDismissNOA)

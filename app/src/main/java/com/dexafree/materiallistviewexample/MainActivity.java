@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnButtonPressListener;
@@ -93,8 +94,8 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.dog);
                 card.setBitmap(icon);
-                ((BasicImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
-                ((BasicImageButtonsCard)card).setRightButtonText("DERECHA");
+                ((BasicImageButtonsCard)card).setLeftButtonText("LEFT");
+                ((BasicImageButtonsCard)card).setRightButtonText("RIGHT");
 
                 if (position % 2 == 0)
                     ((BasicImageButtonsCard)card).setShowDivider(true);
@@ -102,12 +103,12 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
-                        //Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onRightTextPressed(TextView textView) {
-                        //Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
                 return card;
@@ -116,8 +117,8 @@ public class MainActivity extends ActionBarActivity {
                 card = new BasicButtonsCard();
                 card.setDescription(description);
                 card.setTitle(title);
-                ((BasicButtonsCard)card).setLeftButtonText("IZQUIERDA");
-                ((BasicButtonsCard)card).setRightButtonText("DERECHA");
+                ((BasicButtonsCard)card).setLeftButtonText("LEFT");
+                ((BasicButtonsCard)card).setRightButtonText("RIGHT");
 
                 if (position % 2 == 0)
                     ((BasicButtonsCard)card).setShowDivider(true);
@@ -125,12 +126,12 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
-                        //Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onRightTextPressed(TextView textView) {
-                        //Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
                 return card;
@@ -141,29 +142,28 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.photo);
                 card.setBitmap(icon);
-                ((BigImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
-                ((BigImageButtonsCard)card).setRightButtonText("DERECHA");
+                ((BigImageButtonsCard)card).setLeftButtonText("ADD CARD");
+                ((BigImageButtonsCard)card).setRightButtonText("RIGHT BUTTON");
 
                 if (position % 2 == 0) {
                     ((BigImageButtonsCard) card).setShowDivider(true);
-                    //((BigImageButtonsCard) card).setFullDividerLength(true);
                 }
 
                 ((BigImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
-                        //Toast.makeText(mContext, "PULSADA IZQUIERDA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
                         Log.d("ADDING", "CARD");
 
                         CardList newCards = new CardList();
                         newCards.add(generateNewCard());
 
                         mListView.addCardsToExistingAdapter(newCards);
+                        Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onRightTextPressed(TextView textView) {
-                        //Toast.makeText(mContext, "PULSADA DERECHA EN NUMERO "+(position+1), //Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
                 return card;

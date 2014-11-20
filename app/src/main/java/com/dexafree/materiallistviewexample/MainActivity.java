@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
 
         int type = position % 5;
 
-        Card card;
+        final Card card;
         Drawable icon;
 
         switch (type){
@@ -95,6 +95,10 @@ public class MainActivity extends ActionBarActivity {
                 card.setBitmap(icon);
                 ((BasicImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
                 ((BasicImageButtonsCard)card).setRightButtonText("DERECHA");
+
+                if (position % 2 == 0)
+                    ((BasicImageButtonsCard)card).setShowDivider(true);
+
                 ((BasicImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
@@ -114,6 +118,10 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 ((BasicButtonsCard)card).setLeftButtonText("IZQUIERDA");
                 ((BasicButtonsCard)card).setRightButtonText("DERECHA");
+
+                if (position % 2 == 0)
+                    ((BasicButtonsCard)card).setShowDivider(true);
+
                 ((BasicButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {
@@ -135,6 +143,12 @@ public class MainActivity extends ActionBarActivity {
                 card.setBitmap(icon);
                 ((BigImageButtonsCard)card).setLeftButtonText("IZQUIERDA");
                 ((BigImageButtonsCard)card).setRightButtonText("DERECHA");
+
+                if (position % 2 == 0) {
+                    ((BigImageButtonsCard) card).setShowDivider(true);
+                    //((BigImageButtonsCard) card).setFullDividerLength(true);
+                }
+
                 ((BigImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
                     @Override
                     public void onLeftTextPressed(TextView textView) {

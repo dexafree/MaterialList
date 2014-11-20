@@ -37,12 +37,24 @@
                 android:textSize="@dimen/description_size"
                 android:layout_below="@+id/imageView"
                 tools:text="Test description"/>
+
+            <View
+                android:id="@+id/cardDivider"
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/divider_grey"
+                android:layout_below="@id/descriptionTextView"
+                android:layout_alignLeft="@id/titleTextView"
+                android:layout_alignStart="@id/titleTextView"
+                android:visibility="invisible"/>
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@id/left_text_button"
                 android:layout_below="@id/descriptionTextView"
+                android:layout_marginTop="@dimen/big_padding"
+                android:layout_marginBottom="@dimen/small_padding"
                 android:paddingLeft="@dimen/big_padding"
                 android:paddingRight="@dimen/big_padding"
                 android:paddingBottom="@dimen/small_padding"

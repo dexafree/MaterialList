@@ -47,6 +47,17 @@
                 android:paddingRight="@dimen/big_padding"
                 tools:text="By Alex Nelson"/>
 
+
+            <View
+                android:id="@+id/cardDivider"
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/divider_grey"
+                android:layout_below="@id/descriptionTextView"
+                android:layout_alignLeft="@id/titleTextView"
+                android:layout_alignStart="@id/titleTextView"
+                android:visibility="invisible"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -9,6 +9,8 @@ public class BasicButtonsCard extends Card {
     private String leftButtonText;
     private String rightButtonText;
     private OnButtonPressListener mListener;
+    private boolean showDivider = false;
+    private boolean fullDividerLength = false;
 
     public String getLeftButtonText() {
         return leftButtonText;
@@ -24,6 +26,22 @@ public class BasicButtonsCard extends Card {
 
     public void setRightButtonText(String rightButtonText) {
         this.rightButtonText = rightButtonText;
+    }
+
+    public boolean getShowDivider() {
+        return showDivider;
+    }
+
+    public boolean getFullDividerLength() {
+        return fullDividerLength;
+    }
+
+    public void setFullDividerLength(boolean fullDividerLength) {
+        this.fullDividerLength = fullDividerLength;
+    }
+
+    public void setShowDivider(boolean showDivider) {
+        this.showDivider = showDivider;
     }
 
     public OnButtonPressListener getOnButtonPressedListener() {

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 
-public abstract class GridItemView<T> extends LinearLayout implements View.OnClickListener{
+public abstract class GridItemView<T extends Card> extends LinearLayout implements View.OnClickListener{
 
     public GridItemView(Context context) {
         super(context);

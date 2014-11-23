@@ -64,7 +64,7 @@ public class BasicButtonsCardItemView extends GridItemView<BasicButtonsCard> {
         mLeftText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnButtonPressedListener().onLeftTextPressed(mLeftText);
+                card.getOnLeftButtonPressedListener().onButtonPressedListener(mLeftText);
             }
         });
     }
@@ -75,7 +75,7 @@ public class BasicButtonsCardItemView extends GridItemView<BasicButtonsCard> {
         mRightText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnButtonPressedListener().onRightTextPressed(mRightText);
+                card.getOnRightButtonPressedListener().onButtonPressedListener(mRightText);
             }
         });
     }

@@ -7,7 +7,8 @@ public class BigImageButtonsCard extends Card {
 
     private String leftButtonText;
     private String rightButtonText;
-    private OnButtonPressListener mListener;
+    private OnButtonPressListener onLeftButtonPressedListener;
+    private OnButtonPressListener onRightButtonPressedListener;
     private boolean showDivider = false;
     private boolean fullDividerLength = false;
 
@@ -43,12 +44,20 @@ public class BigImageButtonsCard extends Card {
         this.fullDividerLength = fullDividerLength;
     }
 
-    public OnButtonPressListener getOnButtonPressedListener() {
-        return mListener;
+    public OnButtonPressListener getOnLeftButtonPressedListener() {
+        return onLeftButtonPressedListener;
     }
 
-    public void setOnButtonPressListener(OnButtonPressListener listener) {
-        this.mListener = listener;
+    public void setOnLeftButtonPressedListener(OnButtonPressListener onLeftButtonPressedListener) {
+        this.onLeftButtonPressedListener = onLeftButtonPressedListener;
+    }
+
+    public OnButtonPressListener getOnRightButtonPressedListener() {
+        return onRightButtonPressedListener;
+    }
+
+    public void setOnRightButtonPressedListener(OnButtonPressListener onRightButtonPressedListener) {
+        this.onRightButtonPressedListener = onRightButtonPressedListener;
     }
 
     @Override

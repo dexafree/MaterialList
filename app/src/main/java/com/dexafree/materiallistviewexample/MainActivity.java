@@ -18,6 +18,7 @@ import com.dexafree.materialList.model.BigImageButtonsCard;
 import com.dexafree.materialList.model.BigImageCard;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardList;
+import com.dexafree.materialList.model.WelcomeCard;
 import com.dexafree.materialList.view.MaterialListView;
 
 
@@ -26,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
     private MaterialListView mListView;
     private CardList cardsList;
     private Context mContext;
+    private MaterialListViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
 
         fillArray();
 
-        MaterialListViewAdapter adapter = new MaterialListViewAdapter(this, cardsList);
+        adapter = new MaterialListViewAdapter(this, cardsList);
 
         mListView.setMaterialListViewAdapter(adapter);
 
@@ -54,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void fillArray(){
-        for(int i=0;i<25;i++){
+        for(int i=0;i<35;i++){
             Card card = getRandomCard(i);
             cardsList.add(card);
         }
@@ -100,17 +102,22 @@ public class MainActivity extends ActionBarActivity {
                 if (position % 2 == 0)
                     ((BasicImageButtonsCard)card).setShowDivider(true);
 
-                ((BasicImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
+                ((BasicImageButtonsCard)card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
                     @Override
-                    public void onLeftTextPressed(TextView textView) {
+                    public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
+                        adapter.getItem(0).setTitle("CHANGED ON RUNTIME");
+                        adapter.notifyDataSetChanged();
                     }
+                });
 
+                ((BasicImageButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
                     @Override
-                    public void onRightTextPressed(TextView textView) {
+                    public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
+
                 return card;
 
             case 3:
@@ -123,17 +130,30 @@ public class MainActivity extends ActionBarActivity {
                 if (position % 2 == 0)
                     ((BasicButtonsCard)card).setShowDivider(true);
 
-                ((BasicButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
+                ((BasicButtonsCard)card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
                     @Override
-                    public void onLeftTextPressed(TextView textView) {
+                    public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
+                });
 
+                ((BasicButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
                     @Override
-                    public void onRightTextPressed(TextView textView) {
+                    public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+                return card;
+
+            case 4:
+                card = new WelcomeCard();
+                card.setTitle("Welcome Card");
+                card.setDescription("I am the description");
+                ((WelcomeCard)card).setSubtitle("My subtitle!");
+                ((WelcomeCard)card).setButtonText("Okay!");
+
                 return card;
 
             default:
@@ -149,9 +169,9 @@ public class MainActivity extends ActionBarActivity {
                     ((BigImageButtonsCard) card).setShowDivider(true);
                 }
 
-                ((BigImageButtonsCard)card).setOnButtonPressListener(new OnButtonPressListener() {
+                ((BigImageButtonsCard)card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
                     @Override
-                    public void onLeftTextPressed(TextView textView) {
+                    public void onButtonPressedListener(TextView textView) {
                         Log.d("ADDING", "CARD");
 
                         CardList newCards = new CardList();
@@ -160,12 +180,16 @@ public class MainActivity extends ActionBarActivity {
                         mListView.addCardsToExistingAdapter(newCards);
                         Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
+                });
 
+                ((BigImageButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
                     @Override
-                    public void onRightTextPressed(TextView textView) {
+                    public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
                 return card;
 
         }

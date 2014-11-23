@@ -18,15 +18,15 @@ public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCar
 
     private final static int DIVIDER_MARGIN_DP = 16;
 
-    TextView mTitle;
+    private TextView mTitle;
 
-    ImageView mImage;
+    private ImageView mImage;
 
-    TextView mDescription;
+    private TextView mDescription;
 
-    TextView mLeftText;
+    private TextView mLeftText;
 
-    TextView mRightText;
+    private TextView mRightText;
 
     public BigImageButtonsCardItemView(Context context) {
         super(context);
@@ -72,7 +72,7 @@ public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCar
         mLeftText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnButtonPressedListener().onLeftTextPressed(mLeftText);
+                card.getOnLeftButtonPressedListener().onButtonPressedListener(mLeftText);
             }
         });
     }
@@ -83,7 +83,7 @@ public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCar
         mRightText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnButtonPressedListener().onRightTextPressed(mRightText);
+                card.getOnRightButtonPressedListener().onButtonPressedListener(mRightText);
             }
         });
     }

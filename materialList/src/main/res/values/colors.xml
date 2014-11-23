@@ -5,4 +5,5 @@
     <color name="orange_button">#FD9B32</color>
     <color name="black_button">#3C3C3C</color>
     <color name="divider_grey">#D4D4D4</color>
+    <color name="divider_white">#608DFA</color>
 </resources>

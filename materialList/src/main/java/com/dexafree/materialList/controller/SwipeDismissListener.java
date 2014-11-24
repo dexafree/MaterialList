@@ -265,7 +265,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
         }
     }
 
-    private void performDismiss(final View dismissView, final int dismissPosition) {
+    public void performDismiss(final View dismissView, final int dismissPosition) {
         // Animate the dismissed list item to zero-height and fire the dismiss callback when
         // all dismissed list item animations have completed. This triggers layout on each animation
         // frame; in the future we may want to do something smarter and more performant.

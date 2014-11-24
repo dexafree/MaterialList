@@ -1,6 +1,9 @@
 package com.dexafree.materialList.view;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
@@ -13,8 +16,12 @@ import com.dexafree.materialList.model.CardList;
 
 public class MaterialListView extends ListView {
 
+    public final static String DISMISS_VIEW_ACTION = "COM.DEXAFREE.MATERIALLIST.DISMISS_VIEW_ACTION";
+    public final static String DISMISSED_VIEW_INDEX = "COM.DEXAFREE.MATERIALLIST.DISMISSED_VIEW_INDEX";
+
     private MaterialListViewAdapter mAdapter;
     private OnDismissCallback mDismissCallback;
+    private SwipeDismissListener mListener;
 
     public MaterialListView (Context context) {
         super (context);
@@ -54,7 +61,7 @@ public class MaterialListView extends ListView {
 
     private void setDefaultListeners () {
 
-        SwipeDismissListener touchListener =
+        mListener =
                 new SwipeDismissListener(
                         this,
                         new SwipeDismissListener.OnDismissCallback () {
@@ -85,8 +92,8 @@ public class MaterialListView extends ListView {
 
                         });
 
-        setOnTouchListener (touchListener);
-        setOnScrollListener (touchListener.makeScrollListener());
+        setOnTouchListener (mListener);
+        setOnScrollListener (mListener.makeScrollListener());
     }
 
 }

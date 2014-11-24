@@ -1,10 +1,11 @@
 package com.dexafree.materialList.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.MyRoundRectDrawableWithShadow;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -78,22 +79,26 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
 
     private void setColors(WelcomeCard card){
 
+        CardView cardView = (CardView)findViewById(R.id.cardView);
+        MyRoundRectDrawableWithShadow backgroundDrawable = new MyRoundRectDrawableWithShadow(
+                getContext().getResources(),
+                card.getBackgroundColor(),
+                cardView.getRadius(),
+                6f,
+                6f
+        );
 
-        CardView cv = (CardView)findViewById(R.id.cardView);
-        cv.setBackgroundColor(Color.BLUE);
+        int textSize = pxToDp(36);
 
-
-
-
-        backgroundView = (RelativeLayout)findViewById(R.id.backgroundView);
+        cardView.setBackgroundDrawable(backgroundDrawable);
         checkMark = (ImageView)findViewById(R.id.check_mark);
         mDivider = findViewById(R.id.cardDivider);
-        backgroundView.setBackgroundColor(card.getBackgroundColor());
         mDivider.setBackgroundColor(card.getDividerColor());
         mTitle.setTextColor(card.getTitleColor());
         mSubtitle.setTextColor(card.getSubtitleColor());
         mDescription.setTextColor(card.getDescriptionColor());
         mButton.setTextColor(card.getButtonTextColor());
+        mButton.setTextSize((float) textSize);
         checkMark.setColorFilter(card.getButtonTextColor(), PorterDuff.Mode.SRC_IN);
 
     }

@@ -12,7 +12,6 @@
         style="@style/MainCardView">
 
         <RelativeLayout
-            android:id="@+id/backgroundView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -64,7 +63,7 @@
                 android:visibility="visible"/>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/descriptionTextView"
                 android:layout_marginTop="@dimen/small_padding"
@@ -78,26 +77,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/check_mark"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
+
+                    android:scaleType="fitCenter"
+                    android:layout_alignTop="@+id/ok_button"
+                    android:layout_alignBottom="@+id/ok_button"
                     android:layout_alignParentLeft="true"
-                    android:padding="@dimen/small_padding"
                     android:src="@drawable/ic_check"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/ok_button"
-                    style="@style/LeftButtonBaseStyle"
-                    android:layout_alignTop="@+id/check_mark"
+                    android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/check_mark"
-                    android:paddingLeft="@dimen/small_padding"
+                    style="@style/LeftButtonBaseStyle"
                     tools:text="CLICK ME"/>
 
 
             </RelativeLayout>
-
-
 
 
         </RelativeLayout>

@@ -23,6 +23,9 @@ These are the cards that the library offers by default:
 * **BigImageButtonsCard**
 ![BigImageButtonsCard](http://i.imgur.com/vr4vP6o.png)
 
+* **WelcomeCard**
+![WelcomeCard](http://i.imgur.com/ZGPmfaf.jpg)
+
 ## How to use
 First of all, you'll need to declare a MaterialListView in your layout:
 ```xml

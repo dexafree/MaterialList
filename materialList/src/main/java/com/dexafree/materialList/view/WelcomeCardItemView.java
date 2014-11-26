@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
+import com.dexafree.materialList.events.BusProvider;
+import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.GridItemView;
 import com.dexafree.materialList.model.WelcomeCard;
 
@@ -67,14 +69,22 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
         mButton.setText(card.getButtonText());
         mButton.setTextColor(card.getBackgroundColor());
 
-        if(card.getOnButtonPressedListener() != null) {
-            mButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        final GridItemView<WelcomeCard> refView = this;
+
+        mButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("CLICK", "Text clicked");
+
+                if(card.getOnButtonPressedListener() != null) {
                     card.getOnButtonPressedListener().onButtonPressedListener(mButton);
                 }
-            });
-        }
+
+                BusProvider.getInstance().post(new DismissEvent(card, refView));
+            }
+        });
+
+
     }
 
     private void setColors(WelcomeCard card){

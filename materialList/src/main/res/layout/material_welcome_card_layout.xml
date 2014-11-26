@@ -70,6 +70,7 @@
                 android:layout_marginBottom="@dimen/small_padding"
                 android:paddingLeft="@dimen/big_padding"
                 android:paddingTop="@dimen/big_padding"
+
                 android:paddingBottom="@dimen/big_padding"
                 android:paddingRight="@dimen/small_padding">
 
@@ -88,6 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/ok_button"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/check_mark"
                     style="@style/LeftButtonBaseStyle"

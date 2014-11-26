@@ -153,6 +153,15 @@ public class MainActivity extends ActionBarActivity {
                 card.setDescription("I am the description");
                 ((WelcomeCard)card).setSubtitle("My subtitle!");
                 ((WelcomeCard)card).setButtonText("Okay!");
+                ((WelcomeCard)card).setOnButtonPressedListener(new OnButtonPressListener() {
+                    @Override
+                    public void onButtonPressedListener(TextView textView) {
+                        Toast.makeText(mContext, "A welcome card has been dismissed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                if(position%2 == 0)
+                    ((WelcomeCard)card).setBackgroundColorFromId(mContext, R.color.background_material_dark);
 
                 return card;
 

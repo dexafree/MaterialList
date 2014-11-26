@@ -112,4 +112,8 @@ public class MaterialListViewAdapter extends BaseAdapter {
 
     }
 
+    public CardList getCardList(){
+        return mCardList;
+    }
+
 }

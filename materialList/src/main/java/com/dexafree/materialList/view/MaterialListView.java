@@ -1,23 +1,35 @@
 package com.dexafree.materialList.view;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.SwipeDismissListener;
+import com.dexafree.materialList.events.BusProvider;
+import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardList;
+import com.squareup.otto.Subscribe;
 
 
 public class MaterialListView extends ListView {
 
-    public final static String DISMISS_VIEW_ACTION = "COM.DEXAFREE.MATERIALLIST.DISMISS_VIEW_ACTION";
-    public final static String DISMISSED_VIEW_INDEX = "COM.DEXAFREE.MATERIALLIST.DISMISSED_VIEW_INDEX";
+    @Subscribe
+    public void onCardDismiss(DismissEvent event){
+        Card dismissedCard = event.getDismissedCard();
+        View dismissedCardView = event.getCardView();
+
+        int cardPosition = mAdapter.getCardList().indexOf(dismissedCard);
+
+        Log.d("POSITION", cardPosition+"");
+
+        mListener.dismissCard(dismissedCardView, cardPosition);
+        //mAdapter.notifyDataSetChanged();
+    }
 
     private MaterialListViewAdapter mAdapter;
     private OnDismissCallback mDismissCallback;
@@ -36,7 +48,7 @@ public class MaterialListView extends ListView {
     }
 
     public void setMaterialListViewAdapter (MaterialListViewAdapter adapter) {
-
+        BusProvider.getInstance().register(this);
         mAdapter = adapter;
         setAdapter (mAdapter);
         setDivider (null);
@@ -96,4 +108,9 @@ public class MaterialListView extends ListView {
         setOnScrollListener (mListener.makeScrollListener());
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        BusProvider.getInstance().unregister(this);
+    }
 }

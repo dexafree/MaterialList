@@ -1,6 +1,7 @@
 package com.dexafree.materialList.controller;
 
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -265,7 +266,24 @@ public class SwipeDismissListener implements View.OnTouchListener {
         }
     }
 
-    public void performDismiss(final View dismissView, final int dismissPosition) {
+    public void dismissCard(final View downView, final int downPosition){
+
+        float viewWidth = downView.getMeasuredWidth();
+
+        ++mDismissAnimationRefCount;
+        animate(downView)
+                .translationX(viewWidth)
+                .alpha(0)
+                .setDuration(mAnimationTime)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        performDismiss(downView, downPosition);
+                    }
+                });
+    }
+
+    private void performDismiss(final View dismissView, final int dismissPosition) {
         // Animate the dismissed list item to zero-height and fire the dismiss callback when
         // all dismissed list item animations have completed. This triggers layout on each animation
         // frame; in the future we may want to do something smarter and more performant.
@@ -283,6 +301,8 @@ public class SwipeDismissListener implements View.OnTouchListener {
                     // No active animations, process all pending dismisses.
                     // Sort by descending position
                     Collections.sort(mPendingDismisses);
+
+                    Log.d("PENDING", mPendingDismisses.size()+"");
 
                     int[] dismissPositions = new int[mPendingDismisses.size()];
                     for (int i = mPendingDismisses.size() - 1; i >= 0; i--) {

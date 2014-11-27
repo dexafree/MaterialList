@@ -22,8 +22,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.0'
-    compile 'com.android.support:cardview-v7:+'
-    compile 'com.nineoldandroids:library:2.4.+'
+    compile 'com.android.support:cardview-v7:21.0.0'
+    compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.squareup:otto:1.3.5'
 }
 

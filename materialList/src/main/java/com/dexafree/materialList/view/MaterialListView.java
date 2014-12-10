@@ -48,7 +48,6 @@ public class MaterialListView extends ListView {
     }
 
     public void setMaterialListViewAdapter (MaterialListViewAdapter adapter) {
-        BusProvider.getInstance().register(this);
         mAdapter = adapter;
         setAdapter (mAdapter);
         setDivider (null);
@@ -106,6 +105,12 @@ public class MaterialListView extends ListView {
 
         setOnTouchListener (mListener);
         setOnScrollListener (mListener.makeScrollListener());
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        BusProvider.getInstance().register(this);
     }
 
     @Override

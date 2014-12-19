@@ -217,7 +217,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
                 if(mDownPosition != ListView.INVALID_POSITION) {
 
-                    if (mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss()) {
+                    if (mListView.getAdapter().getItem(mDownPosition).canDismiss()) {
                         if (mVelocityTracker == null || mPaused) {
                             break;
                         }
@@ -339,11 +339,11 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
     private boolean isCurrentItemDismissable(){
 
-        return !isOutOfBounds() && mListView.getMaterialListViewAdapter().getItem(mDownPosition).canDismiss();
+        return !isOutOfBounds() && mListView.getAdapter().getItem(mDownPosition).canDismiss();
 
     }
 
     private boolean isOutOfBounds(){
-        return mDownPosition >= mListView.getMaterialListViewAdapter().getCount();
+        return mDownPosition >= mListView.getAdapter().getCount();
     }
 }

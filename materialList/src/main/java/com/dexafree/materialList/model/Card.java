@@ -8,12 +8,15 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-public abstract class Card {
+import java.util.Observable;
+import java.util.Observer;
 
+public abstract class Card extends Observable {
     private String title;
     private String description;
     private Bitmap bitmap;
     private boolean canDismiss = true;
+    private boolean dismissed = false;
 
     public Card(){}
 
@@ -41,6 +44,7 @@ public abstract class Card {
 
     public void setTitle(String title) {
         this.title = title;
+        notifyAdapter();
     }
 
     public String getDescription() {
@@ -49,6 +53,7 @@ public abstract class Card {
 
     public void setDescription(String description) {
         this.description = description;
+        notifyAdapter();
     }
 
     public Bitmap getBitmap() {
@@ -57,14 +62,17 @@ public abstract class Card {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+        notifyAdapter();
     }
 
     public void setBitmap(Context context, int resourceId){
         bitmap = resourceToBitmap(context, resourceId);
+        notifyAdapter();
     }
 
     public void setBitmap(Drawable drawable){
         bitmap = drawableToBitmap(drawable);
+        notifyAdapter();
     }
 
     private Bitmap resourceToBitmap (Context context, int resourceId){
@@ -94,7 +102,19 @@ public abstract class Card {
         this.canDismiss = canDismiss;
     }
 
+    public void dismiss() {
+        dismissed = true;
+        notifyAdapter();
+    }
+
+    public boolean isDismissed() {
+        return dismissed;
+    }
+
     public abstract int getLayout();
 
-
+    private void notifyAdapter() {
+        setChanged();
+        notifyObservers(this);
+    }
 }

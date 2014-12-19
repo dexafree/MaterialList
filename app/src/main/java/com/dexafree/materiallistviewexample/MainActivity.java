@@ -17,16 +17,13 @@ import com.dexafree.materialList.model.BasicImageButtonsCard;
 import com.dexafree.materialList.model.BigImageButtonsCard;
 import com.dexafree.materialList.model.BigImageCard;
 import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.model.CardList;
 import com.dexafree.materialList.model.WelcomeCard;
 import com.dexafree.materialList.view.MaterialListView;
 
 
 public class MainActivity extends ActionBarActivity {
-
-    private MaterialListView mListView;
-    private CardList cardsList;
     private Context mContext;
+    private MaterialListView mListView;
     private MaterialListViewAdapter adapter;
 
     @Override
@@ -37,14 +34,10 @@ public class MainActivity extends ActionBarActivity {
         mContext = this;
 
         mListView = (MaterialListView) findViewById(R.id.material_listview);
-
-        cardsList = new CardList();
+        adapter = new MaterialListViewAdapter(this);
+        mListView.setAdapter(adapter);
 
         fillArray();
-
-        adapter = new MaterialListViewAdapter(this, cardsList);
-
-        mListView.setMaterialListViewAdapter(adapter);
 
         mListView.setOnDismissCallback(new OnDismissCallback() {
             @Override
@@ -58,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
     private void fillArray(){
         for(int i=0;i<35;i++){
             Card card = getRandomCard(i);
-            cardsList.add(card);
+            adapter.add(card);
         }
     }
 
@@ -115,6 +108,7 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                        card.dismiss();
                     }
                 });
 
@@ -183,10 +177,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onButtonPressedListener(TextView textView) {
                         Log.d("ADDING", "CARD");
 
-                        CardList newCards = new CardList();
-                        newCards.add(generateNewCard());
-
-                        mListView.addCardsToExistingAdapter(newCards);
+                        adapter.add(generateNewCard());
                         Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
                 });

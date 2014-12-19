@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.dexafree.materialList.MaterialListViewAdapter;
@@ -12,99 +14,63 @@ import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.model.CardList;
 import com.squareup.otto.Subscribe;
 
 
 public class MaterialListView extends ListView {
-
-    @Subscribe
-    public void onCardDismiss(DismissEvent event){
-        Card dismissedCard = event.getDismissedCard();
-        View dismissedCardView = event.getCardView();
-
-        int cardPosition = mAdapter.getCardList().indexOf(dismissedCard);
-
-        Log.d("POSITION", cardPosition+"");
-
-        mListener.dismissCard(dismissedCardView, cardPosition);
-        //mAdapter.notifyDataSetChanged();
-    }
-
-    private MaterialListViewAdapter mAdapter;
     private OnDismissCallback mDismissCallback;
-    private SwipeDismissListener mListener;
 
     public MaterialListView (Context context) {
-        super (context);
+        super(context);
+        init();
     }
 
     public MaterialListView (Context context, AttributeSet attrs, int defStyle) {
-        super (context, attrs, defStyle);
+        super(context, attrs, defStyle);
+        init();
     }
 
     public MaterialListView (Context context, AttributeSet attrs) {
-        super (context, attrs);
+        super(context, attrs);
+        init();
     }
 
-    public void setMaterialListViewAdapter (MaterialListViewAdapter adapter) {
-        mAdapter = adapter;
-        setAdapter (mAdapter);
+    private void init() {
         setDivider (null);
         setDividerHeight (8);
-        setDefaultListeners();
 
-    }
-
-    public void addCardsToExistingAdapter(CardList newCards){
-        mAdapter.addCardsToExistingSet(newCards);
-    }
-
-    public MaterialListViewAdapter getMaterialListViewAdapter(){
-        return mAdapter;
-    }
-
-    public void setOnDismissCallback (OnDismissCallback callback) {
-
-        mDismissCallback = callback;
-
-    }
-
-    private void setDefaultListeners () {
-
-        mListener =
+        SwipeDismissListener mListener =
                 new SwipeDismissListener(
                         this,
                         new SwipeDismissListener.OnDismissCallback () {
-
                             @Override
                             public void onDismiss (MaterialListView listView, int[] reverseSortedPositions) {
-
                                 for (int position : reverseSortedPositions) {
-
-                                    if(position < listView.getMaterialListViewAdapter().getCount()) {
-
-                                        Card currentCard = mAdapter.getItem(position);
+                                    if(position < listView.getAdapter().getCount()) {
+                                        Card currentCard = getAdapter().getItem(position);
 
                                         if (mDismissCallback != null) {
-
                                             mDismissCallback.onDismiss(currentCard, position);
-
                                         }
 
-                                        mAdapter.remove(currentCard);
+                                        getAdapter().remove(currentCard);
                                     }
-
                                 }
 
-                                mAdapter.notifyDataSetChanged();
-
+                                getAdapter().notifyDataSetChanged();
                             }
-
                         });
 
         setOnTouchListener (mListener);
         setOnScrollListener (mListener.makeScrollListener());
+    }
+
+    public ArrayAdapter<Card> getAdapter() {
+        return (ArrayAdapter<Card>) super.getAdapter();
+    }
+
+    public void setOnDismissCallback (OnDismissCallback callback) {
+        mDismissCallback = callback;
     }
 
     @Override

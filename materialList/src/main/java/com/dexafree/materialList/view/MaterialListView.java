@@ -2,22 +2,24 @@ package com.dexafree.materialList.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.events.BusProvider;
-import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.Card;
-import com.squareup.otto.Subscribe;
+import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.SwingLeftInAnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.SwingRightInAnimationAdapter;
 
 
 public class MaterialListView extends ListView {
+	private MaterialListViewAdapter mAdapter;
     private OnDismissCallback mDismissCallback;
 
     public MaterialListView (Context context) {
@@ -63,10 +65,47 @@ public class MaterialListView extends ListView {
 
         setOnTouchListener (mListener);
         setOnScrollListener (mListener.makeScrollListener());
+
+		mAdapter = new MaterialListViewAdapter(getContext());
+		setAdapter(mAdapter);
     }
 
-    public ArrayAdapter<Card> getAdapter() {
-        return (ArrayAdapter<Card>) super.getAdapter();
+	public void setCardAnimation(CardAnimation type) {
+		BaseAdapter baseAdapter = mAdapter;
+
+		switch (type) {
+			case ALPHA_IN: {
+				AnimationAdapter animationAdapter = new AlphaInAnimationAdapter(baseAdapter);
+				animationAdapter.setAbsListView(this);
+				baseAdapter = animationAdapter;
+			} break;
+			case SCALE_IN: {
+				AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(baseAdapter);
+				animationAdapter.setAbsListView(this);
+				baseAdapter = animationAdapter;
+			} break;
+			case SWING_BOTTOM_IN: {
+				AnimationAdapter animationAdapter = new SwingBottomInAnimationAdapter(baseAdapter);
+				animationAdapter.setAbsListView(this);
+				baseAdapter = animationAdapter;
+			} break;
+			case SWING_LEFT_IN: {
+				AnimationAdapter animationAdapter = new SwingLeftInAnimationAdapter(baseAdapter);
+				animationAdapter.setAbsListView(this);
+				baseAdapter = animationAdapter;
+			} break;
+			case SWING_RIGHT_IN: {
+				AnimationAdapter animationAdapter = new SwingRightInAnimationAdapter(baseAdapter);
+				animationAdapter.setAbsListView(this);
+				baseAdapter = animationAdapter;
+			} break;
+		}
+
+		super.setAdapter(baseAdapter);
+	}
+
+	public MaterialListViewAdapter getAdapter() {
+        return mAdapter;
     }
 
     public void setOnDismissCallback (OnDismissCallback callback) {
@@ -84,4 +123,8 @@ public class MaterialListView extends ListView {
         super.onDetachedFromWindow();
         BusProvider.getInstance().unregister(this);
     }
+
+	public enum CardAnimation {
+		ALPHA_IN, SCALE_IN, SWING_BOTTOM_IN, SWING_LEFT_IN, SWING_RIGHT_IN
+	}
 }

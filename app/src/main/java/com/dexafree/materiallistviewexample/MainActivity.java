@@ -2,8 +2,8 @@ package com.dexafree.materiallistviewexample;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,16 +11,15 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnButtonPressListener;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.model.BasicButtonsCard;
-import com.dexafree.materialList.model.BasicListCard;
-import com.dexafree.materialList.model.SmallImageCard;
 import com.dexafree.materialList.model.BasicImageButtonsCard;
+import com.dexafree.materialList.model.BasicListCard;
 import com.dexafree.materialList.model.BigImageButtonsCard;
 import com.dexafree.materialList.model.BigImageCard;
 import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.model.SmallImageCard;
 import com.dexafree.materialList.model.WelcomeCard;
 import com.dexafree.materialList.view.MaterialListView;
 
@@ -28,7 +27,6 @@ import com.dexafree.materialList.view.MaterialListView;
 public class MainActivity extends ActionBarActivity {
     private Context mContext;
     private MaterialListView mListView;
-    private MaterialListViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +36,7 @@ public class MainActivity extends ActionBarActivity {
         mContext = this;
 
         mListView = (MaterialListView) findViewById(R.id.material_listview);
-        adapter = new MaterialListViewAdapter(this);
-        mListView.setAdapter(adapter);
+		mListView.setCardAnimation(MaterialListView.CardAnimation.SWING_BOTTOM_IN);
 
         fillArray();
 
@@ -55,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
     private void fillArray(){
         for(int i=0;i<35;i++){
             Card card = getRandomCard(i);
-            adapter.add(card);
+            mListView.getAdapter().add(card);
         }
     }
 
@@ -103,8 +100,8 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-                        adapter.getItem(0).setTitle("CHANGED ON RUNTIME");
-                        adapter.notifyDataSetChanged();
+						mListView.getAdapter().getItem(0).setTitle("CHANGED ON RUNTIME");
+						mListView.getAdapter().notifyDataSetChanged();
                     }
                 });
 
@@ -196,7 +193,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onButtonPressedListener(TextView textView) {
                         Log.d("ADDING", "CARD");
 
-                        adapter.add(generateNewCard());
+						mListView.getAdapter().add(generateNewCard());
                         Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -5,7 +5,6 @@ android {
     buildToolsVersion "21.0.1"
 
     defaultConfig {
-        applicationId "com.dexafree.materialList"
         minSdkVersion 9
         targetSdkVersion 21
         versionCode 7

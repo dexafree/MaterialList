@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.model.BigImageCard;
-import com.dexafree.materialList.model.GridItemView;
 
 public class BigImageCardItemView extends GridItemView<BigImageCard> {
 

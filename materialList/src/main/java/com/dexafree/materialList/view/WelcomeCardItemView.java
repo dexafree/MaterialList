@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.events.DismissEvent;
-import com.dexafree.materialList.model.GridItemView;
 import com.dexafree.materialList.model.WelcomeCard;
 
 public class WelcomeCardItemView extends GridItemView<WelcomeCard> {

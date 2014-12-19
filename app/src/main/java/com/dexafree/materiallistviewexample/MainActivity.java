@@ -5,6 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +15,7 @@ import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnButtonPressListener;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.model.BasicButtonsCard;
+import com.dexafree.materialList.model.BasicListCard;
 import com.dexafree.materialList.model.SmallImageCard;
 import com.dexafree.materialList.model.BasicImageButtonsCard;
 import com.dexafree.materialList.model.BigImageButtonsCard;
@@ -59,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         String title = "Card number "+(position+1);
         String description = "Lorem ipsum dolor sit amet";
 
-        int type = position % 5;
+        int type = position % 6;
 
         final Card card;
         Drawable icon;
@@ -156,6 +160,21 @@ public class MainActivity extends ActionBarActivity {
 
                 if(position%2 == 0)
                     ((WelcomeCard)card).setBackgroundColorFromId(mContext, R.color.background_material_dark);
+
+                return card;
+
+            case 5:
+                card = new BasicListCard();
+                card.setTitle("List Card");
+                card.setDescription("Take a list");
+                ((BasicListCard) card).addAllItems("Task 1", "Task 2", "Task 3");
+                ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        CheckedTextView checkedTextView = (CheckedTextView) view;
+                        checkedTextView.setChecked(!checkedTextView.isChecked());
+                    }
+                });
 
                 return card;
 

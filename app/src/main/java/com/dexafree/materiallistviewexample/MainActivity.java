@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
     private void fillArray(){
         for(int i=0;i<35;i++){
             Card card = getRandomCard(i);
-            mListView.getAdapter().add(card);
+            mListView.add(card);
         }
     }
 
@@ -81,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.photo);
                 card.setBitmap(icon);
-                card.setCanDismiss(false);
+                card.setDismissible(false);
                 return card;
 
             case 2:
@@ -100,8 +99,8 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-						mListView.getAdapter().getItem(0).setTitle("CHANGED ON RUNTIME");
-						mListView.getAdapter().notifyDataSetChanged();
+						mListView.getCard(0).setTitle("CHANGED ON RUNTIME");
+						mListView.notifyDataSetChanged();
                     }
                 });
 
@@ -168,8 +167,9 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        CheckedTextView checkedTextView = (CheckedTextView) view;
-                        checkedTextView.setChecked(!checkedTextView.isChecked());
+						boolean checked = ((BasicListCard) card).
+								isItemChecked(((BasicListCard) card).getItems().get(position));
+						((BasicListCard) card).setItemChecked(position, !checked);
                     }
                 });
 
@@ -193,7 +193,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onButtonPressedListener(TextView textView) {
                         Log.d("ADDING", "CARD");
 
-						mListView.getAdapter().add(generateNewCard());
+						mListView.add(generateNewCard());
                         Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
                 });

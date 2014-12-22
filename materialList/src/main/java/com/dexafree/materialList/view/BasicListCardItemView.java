@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
@@ -33,7 +34,7 @@ public class BasicListCardItemView extends GridItemView<BasicListCard> {
     public void configureView(BasicListCard newItem) {
         setTitle(newItem.getTitle());
         setDescription(newItem.getDescription());
-        setItems(newItem.getItems());
+        setItems(newItem.getItems(), newItem.getCheckedItemPositions());
         ((DynamicListView) findViewById(R.id.listView)).setOnItemClickListener(newItem.getOnItemClickListener());
     }
 
@@ -45,10 +46,10 @@ public class BasicListCardItemView extends GridItemView<BasicListCard> {
         ((TextView)findViewById(R.id.descriptionTextView)).setText(description);
     }
 
-    public void setItems(List<String> items) {
+    public void setItems(List<String> items, List<Integer> selectedItems) {
         DynamicListView listView = (DynamicListView) findViewById(R.id.listView);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_checked, items);
+		BasicListAdapter adapter = new BasicListAdapter(getContext(), items, selectedItems);
         listView.setAdapter(adapter);
 
         // Calculate the height of the ListView to display all items
@@ -57,7 +58,7 @@ public class BasicListCardItemView extends GridItemView<BasicListCard> {
         {
             View item = adapter.getView(i, null, listView);
             item.measure(View.MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+					View.MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             totalHeight += item.getMeasuredHeight();
         }
 
@@ -67,4 +68,20 @@ public class BasicListCardItemView extends GridItemView<BasicListCard> {
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
+
+	private final class BasicListAdapter extends ArrayAdapter<String> {
+		private final List<Integer> mSelected;
+
+		public BasicListAdapter(final Context context, List<String> data, List<Integer> selected) {
+			super(context, android.R.layout.simple_list_item_checked, data);
+			mSelected = selected;
+		}
+
+		@Override
+		public View getView(final int position, final View convertView, final ViewGroup parent) {
+			CheckedTextView checkedTextView = (CheckedTextView) super.getView(position, convertView, parent);
+			checkedTextView.setChecked(mSelected.contains(Integer.valueOf(position)));
+			return checkedTextView;
+		}
+	}
 }

@@ -79,7 +79,7 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
                     card.getOnButtonPressedListener().onButtonPressedListener(mButton);
                 }
 
-                BusProvider.getInstance().post(new DismissEvent(card, refView));
+                BusProvider.getInstance().post(new DismissEvent(card));
             }
         });
 

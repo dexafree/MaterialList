@@ -1,5 +1,6 @@
 package com.dexafree.materialList.controller;
 
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.view.MaterialListView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
@@ -56,10 +58,10 @@ public class SwipeDismissListener implements View.OnTouchListener {
          * positions.
          *
          * @param listView               The originating {@link MaterialListView}.
-         * @param reverseSortedPositions An array of positions to dismiss, sorted in descending
+         * @param reverseSortedCards	 An array of positions to dismiss, sorted in descending
          *                               order for convenience.
          */
-        void onDismiss(MaterialListView listView, int[] reverseSortedPositions);
+        void onDismiss(MaterialListView listView, Card[] reverseSortedCards);
     }
 
     /**
@@ -147,7 +149,17 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
                 if (mDownView != null) {
                     mDownX = motionEvent.getRawX();
-                    mDownPosition = mListView.getPositionForView(mDownView); // INDICA LA POSICION!!!
+					Card card = (Card) mDownView.getTag();
+					// 2014-12-22: Bug: This return value contains the relative position of this card
+					// in the list view-port. If the list is scrolled down, then the first displayed
+					// card will get the position 0. This is not the correct position of the card in
+					// the adapter. So use mListView.getPosition(Card).
+					mDownPosition = mListView.getPosition(card);
+                    //mDownPosition = mListView.getPositionForView(mDownView); // INDICA LA POSICION!!!
+
+					// TODO Only for click testing
+					mDownView.setBackgroundColor(Color.RED);
+					Log.d(getClass().getSimpleName(), "Position[" + mDownPosition + "]");
 
                     mVelocityTracker = VelocityTracker.obtain();
                     mVelocityTracker.addMovement(motionEvent);
@@ -157,6 +169,10 @@ public class SwipeDismissListener implements View.OnTouchListener {
             }
 
             case MotionEvent.ACTION_UP: {
+				// TODO Only for click testing
+				if(mDownView != null) {
+					mDownView.setBackgroundColor(Color.TRANSPARENT);
+				}
 
                 if (mVelocityTracker == null) {
                     break;
@@ -217,7 +233,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
                 if(mDownPosition != ListView.INVALID_POSITION) {
 
-                    if (mListView.getAdapter().getItem(mDownPosition).canDismiss()) {
+                    if (mListView.getAdapter().getItem(mDownPosition).isDismissible()) {
                         if (mVelocityTracker == null || mPaused) {
                             break;
                         }
@@ -302,16 +318,15 @@ public class SwipeDismissListener implements View.OnTouchListener {
                     // Sort by descending position
                     Collections.sort(mPendingDismisses);
 
-                    Log.d("PENDING", mPendingDismisses.size()+"");
+                    // Log.d("PENDING", mPendingDismisses.size()+"");
 
-                    int[] dismissPositions = new int[mPendingDismisses.size()];
-                    for (int i = mPendingDismisses.size() - 1; i >= 0; i--) {
-                        dismissPositions[i] = mPendingDismisses.get(i).position;
-                    }
-                    mCallback.onDismiss(mListView, dismissPositions);
-
+					// 2014-12-22: Bug: Don't save the positions. These are relative and not the correct
+					// ones which are saved in the adapter for the cards. So use the cards directly.
+					Card[] dismissCards = new Card[mPendingDismisses.size()];
+					int index = 0;
                     ViewGroup.LayoutParams lp;
                     for (PendingDismissData pendingDismiss : mPendingDismisses) {
+						dismissCards[index++] = (Card) pendingDismiss.view.getTag();
                         // Reset view presentation
                         setAlpha(pendingDismiss.view, 1f);
                         setTranslationX(pendingDismiss.view, 0);
@@ -319,6 +334,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
                         lp.height = originalHeight;
                         pendingDismiss.view.setLayoutParams(lp);
                     }
+					mCallback.onDismiss(mListView, dismissCards);
 
                     mPendingDismisses.clear();
                 }
@@ -339,7 +355,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
     private boolean isCurrentItemDismissable(){
 
-        return !isOutOfBounds() && mListView.getAdapter().getItem(mDownPosition).canDismiss();
+        return !isOutOfBounds() && mListView.getAdapter().getItem(mDownPosition).isDismissible();
 
     }
 

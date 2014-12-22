@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.0.1"
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 21
         versionCode 7
         versionName "1.2.0"
@@ -27,6 +27,7 @@ dependencies {
     compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
     compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
     compile 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'
+    compile 'com.etsy.android.grid:library:1.0.5'
 }
 
 // Script to upload plugin to Maven

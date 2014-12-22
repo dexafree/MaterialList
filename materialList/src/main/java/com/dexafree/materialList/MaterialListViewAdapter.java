@@ -14,17 +14,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 
-public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Observer {
-    private ArrayList<Class> mClassList = new ArrayList<Class>();
+public class MaterialListViewAdapter extends ArrayAdapter<Card> {
+	private ArrayList<Class> mClassList = new ArrayList<Class>();
     private ArrayList<Class> mDeletedList = new ArrayList<Class>();
 
     public MaterialListViewAdapter(Context context){
         super(context, android.R.layout.simple_list_item_1);
-    }
+	}
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup){
@@ -48,7 +46,6 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Obser
     @Override
     public void add(Card card) {
         super.add(card);
-        card.addObserver(this);
         Class cl = card.getClass();
         if(!mClassList.contains(cl)){
             mClassList.add(cl);
@@ -60,8 +57,7 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Obser
     public void addAll(Collection<? extends Card> collection) {
         super.addAll(collection);
         for (Card card : collection) {
-            card.addObserver(this);
-            Class cl = card.getClass();
+			Class cl = card.getClass();
             if(!mClassList.contains(cl)){
                 mClassList.add(cl);
             }
@@ -74,7 +70,6 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Obser
         super.addAll(items);
         List<Card> cards = Arrays.asList(items);
         for (Card card : cards) {
-            card.addObserver(this);
             Class cl = card.getClass();
             if(!mClassList.contains(cl)){
                 mClassList.add(cl);
@@ -85,7 +80,6 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Obser
     @Override
     public void insert(Card card, int index) {
         super.insert(card, index);
-        card.addObserver(this);
         Class cl = card.getClass();
         if(!mClassList.contains(cl)){
             mClassList.add(cl);
@@ -94,7 +88,6 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Obser
 
     public void remove(Card card) {
         super.remove(card);
-        card.addObserver(this);
         if(!mDeletedList.contains(card.getClass())){
             mDeletedList.add(card.getClass());
         }
@@ -102,10 +95,12 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Obser
 
     @Override
     public int getItemViewType (int position){
-        for(int i=0;i<mClassList.size();i++){
-            Class cl = mClassList.get(i);
-            if(cl.isInstance(getItem(position))) return i;
-        }
+		if(position > -1 && position < getCount()) {
+			for (int i = 0; i < mClassList.size(); i++) {
+				Class cl = mClassList.get(i);
+				if (cl.isInstance(getItem(position))) return i;
+			}
+		}
         return -1;
     }
 
@@ -113,14 +108,5 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> implements Obser
     public int getViewTypeCount (){
         // BugFix: Can't have a viewTypCount < 1 (Exception)
         return mClassList.isEmpty() ? 1 : mClassList.size();
-    }
-
-    @Override
-    public void update(Observable observable, Object data) {
-        Card card = (Card) data;
-        if(card.isDismissed()) {
-            remove(card);
-        }
-        notifyDataSetChanged();
     }
 }

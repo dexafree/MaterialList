@@ -1,8 +1,6 @@
 package com.dexafree.materialList.controller;
 
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -157,10 +155,6 @@ public class SwipeDismissListener implements View.OnTouchListener {
 					mDownPosition = mListView.getPosition(card);
                     //mDownPosition = mListView.getPositionForView(mDownView); // INDICA LA POSICION!!!
 
-					// TODO Only for click testing
-					mDownView.setBackgroundColor(Color.RED);
-					Log.d(getClass().getSimpleName(), "Position[" + mDownPosition + "]");
-
                     mVelocityTracker = VelocityTracker.obtain();
                     mVelocityTracker.addMovement(motionEvent);
                 }
@@ -169,11 +163,6 @@ public class SwipeDismissListener implements View.OnTouchListener {
             }
 
             case MotionEvent.ACTION_UP: {
-				// TODO Only for click testing
-				if(mDownView != null) {
-					mDownView.setBackgroundColor(Color.TRANSPARENT);
-				}
-
                 if (mVelocityTracker == null) {
                     break;
                 }

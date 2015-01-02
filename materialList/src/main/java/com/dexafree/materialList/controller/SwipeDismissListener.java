@@ -10,6 +10,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
@@ -32,7 +33,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
     private long mAnimationTime;
 
     // Fixed properties
-    private MaterialListView mListView;
+    private IMaterialView mListView;
     private OnDismissCallback mCallback;
     private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
 
@@ -59,7 +60,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
          * @param reverseSortedCards	 An array of positions to dismiss, sorted in descending
          *                               order for convenience.
          */
-        void onDismiss(MaterialListView listView, Card[] reverseSortedCards);
+        void onDismiss(IMaterialView listView, Card[] reverseSortedCards);
     }
 
     /**
@@ -69,7 +70,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss one or more list items.
      */
-    public SwipeDismissListener(MaterialListView listView, OnDismissCallback callback) {
+    public SwipeDismissListener(IMaterialView listView, OnDismissCallback callback) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();

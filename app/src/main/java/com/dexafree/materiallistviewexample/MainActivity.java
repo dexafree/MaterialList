@@ -20,12 +20,14 @@ import com.dexafree.materialList.model.BigImageCard;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.SmallImageCard;
 import com.dexafree.materialList.model.WelcomeCard;
+import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
+import com.dexafree.materialList.view.MaterialStaggeredGridView;
 
 
 public class MainActivity extends ActionBarActivity {
     private Context mContext;
-    private MaterialListView mListView;
+    private IMaterialView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,12 @@ public class MainActivity extends ActionBarActivity {
 
         mContext = this;
 
-        mListView = (MaterialListView) findViewById(R.id.material_listview);
+		View view = findViewById(R.id.material_listview);
+		if(view instanceof MaterialListView) {
+			mListView = (MaterialListView) view;
+		} else {
+			mListView = (MaterialStaggeredGridView) view;
+		}
 		mListView.setCardAnimation(MaterialListView.CardAnimation.SWING_BOTTOM_IN);
 
         fillArray();

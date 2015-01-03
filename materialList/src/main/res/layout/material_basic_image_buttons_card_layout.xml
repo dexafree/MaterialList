@@ -9,88 +9,100 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         style="@style/MainCardView"
         card_view:cardCornerRadius="@dimen/card_corner_radius">
-
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:id="@+id/imageView" />
 
-            <TextView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/titleTextView"
-                android:layout_alignTop="@+id/imageView"
-                android:layout_toRightOf="@+id/imageView"
-                android:paddingTop="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="8dp"
-                android:textSize="@dimen/title_size"
-                android:textColor="@color/black_button"
-                tools:text="El Pooch"/>
+                android:layout_height="fill_parent">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/description_color"
-                android:textSize="@dimen/description_size"
-                android:layout_below="@+id/titleTextView"
-                android:layout_alignLeft="@+id/titleTextView"
-                android:id="@+id/descriptionTextView"
-                android:paddingLeft="@dimen/big_padding"
-                android:paddingBottom="@dimen/big_padding"
-                android:paddingRight="@dimen/big_padding"
-                tools:text="By Alex Nelson"/>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titleTextView"
+                    android:layout_alignTop="@+id/imageView"
+                    android:layout_toRightOf="@+id/imageView"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="@dimen/title_size"
+                    android:textColor="@color/black_button"
+                    tools:text="El Pooch"/>
 
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/description_color"
+                    android:textSize="@dimen/description_size"
+                    android:layout_below="@+id/titleTextView"
+                    android:layout_alignLeft="@+id/titleTextView"
+                    android:id="@+id/descriptionTextView"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingBottom="@dimen/big_padding"
+                    android:paddingRight="@dimen/big_padding"
+                    tools:text="By Alex Nelson"/>
 
-            <View
-                android:id="@+id/cardDivider"
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@color/divider_grey"
-                android:layout_below="@id/descriptionTextView"
-                android:layout_alignLeft="@id/titleTextView"
-                android:layout_alignStart="@id/titleTextView"
-                android:visibility="invisible"/>
+                <View
+                    android:id="@+id/cardDivider"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"
+                    android:layout_below="@id/descriptionTextView"
+                    android:layout_alignLeft="@id/titleTextView"
+                    android:layout_alignStart="@id/titleTextView"
+                    android:visibility="invisible"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black_button"
-                android:textSize="@dimen/button_size"
-                android:layout_below="@+id/descriptionTextView"
-                android:layout_alignLeft="@+id/descriptionTextView"
-                android:id="@+id/left_text_button"
-                android:paddingLeft="@dimen/big_padding"
-                android:paddingRight="@dimen/small_padding"
-                android:paddingBottom="@dimen/big_padding"
-                android:paddingTop="@dimen/big_padding"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                tools:text="Free sample"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/right_text_button"
-                android:textColor="@color/orange_button"
-                android:textSize="@dimen/button_size"
-                android:layout_toRightOf="@+id/left_text_button"
-                android:layout_alignTop="@+id/left_text_button"
-                android:textAllCaps="true"
-                android:paddingLeft="@dimen/small_padding"
-                android:paddingTop="@dimen/big_padding"
-                android:paddingRight="@dimen/big_padding"
-                android:paddingBottom="@dimen/big_padding"
-                android:textStyle="bold"
-                tools:text="Review"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black_button"
+                        android:textSize="@dimen/button_size"
+                        android:layout_below="@+id/descriptionTextView"
+                        android:layout_alignLeft="@+id/descriptionTextView"
+                        android:id="@+id/left_text_button"
+                        android:paddingLeft="@dimen/big_padding"
+                        android:paddingRight="@dimen/small_padding"
+                        android:paddingBottom="@dimen/big_padding"
+                        android:paddingTop="@dimen/big_padding"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        tools:text="Free sample"/>
 
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/right_text_button"
+                        android:textColor="@color/orange_button"
+                        android:textSize="@dimen/button_size"
+                        android:layout_toRightOf="@+id/left_text_button"
+                        android:layout_alignTop="@+id/left_text_button"
+                        android:textAllCaps="true"
+                        android:paddingLeft="@dimen/small_padding"
+                        android:paddingTop="@dimen/big_padding"
+                        android:paddingRight="@dimen/big_padding"
+                        android:paddingBottom="@dimen/big_padding"
+                        android:textStyle="bold"
+                        tools:text="Review"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

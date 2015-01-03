@@ -2,32 +2,32 @@ package com.dexafree.materiallistviewexample;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnButtonPressListener;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.model.BasicButtonsCard;
-import com.dexafree.materialList.model.SmallImageCard;
 import com.dexafree.materialList.model.BasicImageButtonsCard;
+import com.dexafree.materialList.model.BasicListCard;
 import com.dexafree.materialList.model.BigImageButtonsCard;
 import com.dexafree.materialList.model.BigImageCard;
 import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.model.CardList;
+import com.dexafree.materialList.model.SmallImageCard;
 import com.dexafree.materialList.model.WelcomeCard;
+import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
+import com.dexafree.materialList.view.MaterialStaggeredGridView;
 
 
 public class MainActivity extends ActionBarActivity {
-
-    private MaterialListView mListView;
-    private CardList cardsList;
     private Context mContext;
-    private MaterialListViewAdapter adapter;
+    private IMaterialView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +36,15 @@ public class MainActivity extends ActionBarActivity {
 
         mContext = this;
 
-        mListView = (MaterialListView) findViewById(R.id.material_listview);
-
-        cardsList = new CardList();
+		View view = findViewById(R.id.material_listview);
+		if(view instanceof MaterialListView) {
+			mListView = (MaterialListView) view;
+		} else {
+			mListView = (MaterialStaggeredGridView) view;
+		}
+		mListView.setCardAnimation(MaterialListView.CardAnimation.SWING_BOTTOM_IN);
 
         fillArray();
-
-        adapter = new MaterialListViewAdapter(this, cardsList);
-
-        mListView.setMaterialListViewAdapter(adapter);
 
         mListView.setOnDismissCallback(new OnDismissCallback() {
             @Override
@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
     private void fillArray(){
         for(int i=0;i<35;i++){
             Card card = getRandomCard(i);
-            cardsList.add(card);
+            mListView.add(card);
         }
     }
 
@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
         String title = "Card number "+(position+1);
         String description = "Lorem ipsum dolor sit amet";
 
-        int type = position % 5;
+        int type = position % 6;
 
         final Card card;
         Drawable icon;
@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.photo);
                 card.setBitmap(icon);
-                card.setCanDismiss(false);
+                card.setDismissible(false);
                 return card;
 
             case 2:
@@ -106,8 +106,8 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-                        adapter.getItem(0).setTitle("CHANGED ON RUNTIME");
-                        adapter.notifyDataSetChanged();
+						mListView.getCard(0).setTitle("CHANGED ON RUNTIME");
+						mListView.notifyDataSetChanged();
                     }
                 });
 
@@ -115,6 +115,7 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(TextView textView) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                        card.dismiss();
                     }
                 });
 
@@ -165,6 +166,22 @@ public class MainActivity extends ActionBarActivity {
 
                 return card;
 
+            case 5:
+                card = new BasicListCard();
+                card.setTitle("List Card");
+                card.setDescription("Take a list");
+                ((BasicListCard) card).addAllItems("Task 1", "Task 2", "Task 3");
+                ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						boolean checked = ((BasicListCard) card).
+								isItemChecked(((BasicListCard) card).getItems().get(position));
+						((BasicListCard) card).setItemChecked(position, !checked);
+                    }
+                });
+
+                return card;
+
             default:
                 card = new BigImageButtonsCard();
                 card.setDescription(description);
@@ -183,10 +200,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onButtonPressedListener(TextView textView) {
                         Log.d("ADDING", "CARD");
 
-                        CardList newCards = new CardList();
-                        newCards.add(generateNewCard());
-
-                        mListView.addCardsToExistingAdapter(newCards);
+						mListView.add(generateNewCard());
                         Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
                 });

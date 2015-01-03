@@ -7,7 +7,6 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
@@ -16,6 +15,7 @@ import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.events.DataSetChangedEvent;
 import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.Card;
+import com.etsy.android.grid.StaggeredGridView;
 import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
@@ -27,28 +27,27 @@ import com.squareup.otto.Subscribe;
 import java.util.Collection;
 
 
-public class MaterialListView extends ListView implements IMaterialView {
+public class MaterialStaggeredGridView extends StaggeredGridView implements IMaterialView {
 	private MaterialListViewAdapter mAdapter;
     private OnDismissCallback mDismissCallback;
 	private SwipeDismissListener mDismissListener;
 
-    public MaterialListView (Context context) {
+    public MaterialStaggeredGridView(Context context) {
         super(context);
         init();
     }
 
-    public MaterialListView (Context context, AttributeSet attrs, int defStyle) {
+    public MaterialStaggeredGridView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
-    public MaterialListView (Context context, AttributeSet attrs) {
+    public MaterialStaggeredGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     private void init() {
-		setDividerHeight(0);
         mDismissListener =
                 new SwipeDismissListener(
                         this,

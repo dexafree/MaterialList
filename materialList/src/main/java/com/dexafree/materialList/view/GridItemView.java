@@ -1,10 +1,14 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.dexafree.materialList.model.Card;
 
 
 public abstract class GridItemView<T extends Card> extends LinearLayout implements View.OnClickListener{
@@ -17,6 +21,7 @@ public abstract class GridItemView<T extends Card> extends LinearLayout implemen
         super(context, attrs);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public GridItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }

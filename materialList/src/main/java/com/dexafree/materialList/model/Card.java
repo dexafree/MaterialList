@@ -3,17 +3,20 @@ package com.dexafree.materialList.model;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-public abstract class Card {
+import com.dexafree.materialList.events.BusProvider;
+import com.dexafree.materialList.events.DataSetChangedEvent;
+import com.dexafree.materialList.events.DismissEvent;
 
+public abstract class Card {
     private String title;
     private String description;
     private Bitmap bitmap;
     private boolean canDismiss = true;
+    private boolean dismissed = false;
 
     public Card(){}
 
@@ -41,6 +44,7 @@ public abstract class Card {
 
     public void setTitle(String title) {
         this.title = title;
+		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     public String getDescription() {
@@ -49,6 +53,7 @@ public abstract class Card {
 
     public void setDescription(String description) {
         this.description = description;
+		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     public Bitmap getBitmap() {
@@ -57,14 +62,17 @@ public abstract class Card {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     public void setBitmap(Context context, int resourceId){
         bitmap = resourceToBitmap(context, resourceId);
+		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     public void setBitmap(Drawable drawable){
         bitmap = drawableToBitmap(drawable);
+		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     private Bitmap resourceToBitmap (Context context, int resourceId){
@@ -86,15 +94,24 @@ public abstract class Card {
         return bitmap;
     }
 
-    public boolean canDismiss() {
+    public boolean isDismissible() {
         return canDismiss;
     }
 
-    public void setCanDismiss(boolean canDismiss) {
+    public void setDismissible(boolean canDismiss) {
         this.canDismiss = canDismiss;
     }
 
+    public void dismiss() {
+		if(canDismiss) {
+			dismissed = true;
+			BusProvider.getInstance().post(new DismissEvent(this));
+		}
+    }
+
+    public boolean isDismissed() {
+        return dismissed;
+    }
+
     public abstract int getLayout();
-
-
 }

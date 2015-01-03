@@ -6,12 +6,11 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.model.BasicImageButtonsCard;
-import com.dexafree.materialList.model.GridItemView;
 
 public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButtonsCard> {
 
@@ -98,7 +97,7 @@ public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButton
 
             // If the divider has to be from side to side, the margin will be 0
             if(card.getFullDividerLength()) {
-                ((RelativeLayout.LayoutParams) divider.getLayoutParams()).setMargins(0, 0, 0, 0);
+                ((LinearLayout.LayoutParams) divider.getLayoutParams()).setMargins(0, 0, 0, 0);
             } else {
 
                 // Convert DP to PX
@@ -109,7 +108,7 @@ public class BasicImageButtonsCardItemView extends GridItemView<BasicImageButton
                 );
 
                 // Set the margin
-                ((RelativeLayout.LayoutParams) divider.getLayoutParams()).setMargins(
+                ((LinearLayout.LayoutParams) divider.getLayoutParams()).setMargins(
                         dividerMarginPx,
                         0,
                         dividerMarginPx,

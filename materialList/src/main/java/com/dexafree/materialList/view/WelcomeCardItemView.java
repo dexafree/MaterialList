@@ -2,6 +2,7 @@ package com.dexafree.materialList.view;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.MyRoundRectDrawableWithShadow;
 import android.util.AttributeSet;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.events.DismissEvent;
-import com.dexafree.materialList.model.GridItemView;
 import com.dexafree.materialList.model.WelcomeCard;
 
 public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
@@ -63,7 +63,6 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
         mDescription.setText(description);
     }
 
-
     public void setButton(final WelcomeCard card){
         mButton = (TextView) findViewById(R.id.ok_button);
         mButton.setText(card.getButtonText());
@@ -80,27 +79,30 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
                     card.getOnButtonPressedListener().onButtonPressedListener(mButton);
                 }
 
-                BusProvider.getInstance().post(new DismissEvent(card, refView));
+                BusProvider.getInstance().post(new DismissEvent(card));
             }
         });
-
-
     }
 
     private void setColors(WelcomeCard card){
 
         CardView cardView = (CardView)findViewById(R.id.cardView);
-        MyRoundRectDrawableWithShadow backgroundDrawable = new MyRoundRectDrawableWithShadow(
-                getContext().getResources(),
-                card.getBackgroundColor(),
-                cardView.getRadius(),
-                6f,
-                6f
-        );
 
         int textSize = pxToDp(36);
 
-        cardView.setBackgroundDrawable(backgroundDrawable);
+		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+			MyRoundRectDrawableWithShadow backgroundDrawable = new MyRoundRectDrawableWithShadow(
+					getContext().getResources(),
+					card.getBackgroundColor(),
+					cardView.getRadius(),
+					6f,
+					6f
+			);
+			cardView.setBackgroundDrawable(backgroundDrawable);
+		} else {
+			cardView.setBackgroundColor(card.getBackgroundColor());
+			cardView.setCardElevation(dpToPx(6));
+		}
         checkMark = (ImageView)findViewById(R.id.check_mark);
         mDivider = findViewById(R.id.cardDivider);
         mDivider.setBackgroundColor(card.getDividerColor());
@@ -110,8 +112,5 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
         mButton.setTextColor(card.getButtonTextColor());
         mButton.setTextSize((float) textSize);
         checkMark.setColorFilter(card.getButtonTextColor(), PorterDuff.Mode.SRC_IN);
-
     }
-
-
 }

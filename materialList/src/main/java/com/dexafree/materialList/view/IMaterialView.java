@@ -15,8 +15,6 @@ import java.util.Collection;
 
 /**
  * This interface is only necessary for the SwipeDismissListener.
- *
- * Created by Fabio on 02.01.2015.
  */
 public interface IMaterialView {
 	Context getContext();

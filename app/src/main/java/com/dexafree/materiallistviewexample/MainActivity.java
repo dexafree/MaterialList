@@ -170,7 +170,8 @@ public class MainActivity extends ActionBarActivity {
                 card = new BasicListCard();
                 card.setTitle("List Card");
                 card.setDescription("Take a list");
-                ((BasicListCard) card).addAllItems("Task 1", "Task 2", "Task 3");
+                ((BasicListCard) card).addItem("Task 1");
+                ((BasicListCard) card).addAllItems("Task 2", "Task 3");
                 ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

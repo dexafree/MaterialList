@@ -14,9 +14,6 @@ import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 
 import java.util.List;
 
-/**
- * Created by Fabio on 19.12.2014.
- */
 public class BasicListCardItemView extends GridItemView<BasicListCard> {
     public BasicListCardItemView(Context context) {
         super(context);

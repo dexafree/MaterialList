@@ -26,8 +26,22 @@ These are the cards that the library offers by default:
 * **WelcomeCard**
 ![WelcomeCard](http://i.imgur.com/ZGPmfaf.jpg)
 
+* **BasicListCard**
+![BasicListCard](http://i.imgur.com/iR7xmbG.jpg)
+
+For further documentation, you can [check the Wiki page](https://github.com/dexafree/MaterialList/wiki/).
+
 ## How to use
+
+MaterialList offers two ways to organize your cards:
+* MaterialListView
+* MaterialStaggeredGridView
+
+### MaterialListView
+The first way to show your cards is by using MaterialListView. It acts just as a normal ListView, but offering options for interacting with your cards. It will only have one column of cards.
+
 First of all, you'll need to declare a MaterialListView in your layout:
+
 ```xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -51,19 +65,77 @@ After that, get it on your code by simply making a findViewById query.
 mListView = (MaterialListView) findViewById(R.id.material_listview);
 ```
 
-Then, create your CardList, fill it with Cards, create the adapter and you're ready to go:
+Then, you only need to create Card objects, add them to your MaterialListView, and you are ready to go
 
 ```java
-CardList cardsList = new CardList();
+Card card = new SmallImageCard();
+card.setDescription(description);
+card.setTitle(title);
 
-// Fill your CardsList
+Drwable icon = getResources().getDrawable(R.drawable.ic_launcher);
+card.setBitmap(icon);
 
-MaterialListViewAdapter adapter = new MaterialListViewAdapter(mContext, cardsList);
-
-mListView.setMaterialListViewAdapter(adapter);
+mListView.add(card);
 ```
 
+### MaterialStaggeredGridView
+
+![MaterialStaggeredGridView](https://cloud.githubusercontent.com/assets/5815289/5599845/0d086f38-92cf-11e4-9099-c3e6b9bb9fb7.PNG)
+
+The other way of showing your cards is by a MaterialStaggeredGridView element.
+
+For using it, you will need to declare a MaterialStaggeredGridView item in your layout:
+
+```xml
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingLeft="@dimen/activity_horizontal_margin"
+  android:paddingRight="@dimen/activity_horizontal_margin"
+  tools:context=".MainActivity">
+
+  <com.dexafree.materialList.view.MaterialStaggeredGridView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/material_listview"
+    tools:column_count_portrait="2"
+    tools:column_count_land="3"/>
+
+  </RelativeLayout>
+```
+
+As you can see, you can define how many columns will it have when showed in portrait, such as how many will it have when showed in landscape mode.
+
+The usage is the same that shown previously.
+
+### Combined usage
+
+There might be times when you want to use both of them (maybe in phone-tablet layouts), and obviously you won't have to write two versions of the same implementation.
+
+In order to make things easy for you, you can use the interface called `IMaterialView`, which will accept both a MaterialListView object and a MaterialStaggeredGridView one.
+
+Then, the code for retrieving it will be something like:
+
+```java
+View view = findViewById(R.id.material_listview);
+
+if(view instanceof MaterialListView) {
+  mListView = (MaterialListView) view;
+} else {
+  mListView = (MaterialStaggeredGridView) view;
+}
+```
+
+And you will be ready to go!
+
+You can see an example of the combined usage in the sample folder of this project.
+
+> #### NOTE
+> Notice that you could also achieve the same behaviour just by setting a MaterialStaggeredGridView with only one column
+
 There are also some Cards that may show a Divider between the content and the buttons. For further reference, [read the Wiki page](https://github.com/dexafree/MaterialList/wiki/Dividers)
+
 
 ## Dismissing the cards
 One of the features I've always loved is the SwipeToDismiss gesture.
@@ -79,6 +151,27 @@ mListView.setOnDismissCallback(new OnDismissCallback() {
 ```
 You will also be able to decide if a card should be dismissible or not, just by calling Card.setCanDismiss().
 
+Also, in case you wanted to dismiss your Card by code, you would only need to call `card.dismiss()`, and it will dismiss seamlessly.
+
+## Animations
+Since version 2.0, MaterialList provides animations, in order to enhance cards aparitions.
+
+You can implement them just by calling
+
+```java
+mListView.setCardAnimation(MaterialListView.CardAnimation);
+```
+
+You can set animations on both MaterialListView and MaterialStaggeredGridView objects.
+
+The animations provided are:
+* ALPHA_IN
+* SCALE_IN
+* SWING_BOTTOM_IN
+* SWING_LEFT_IN
+* SWING_RIGHT_IN
+
+
 ## Extensibility
 MaterialList was created with extensibility in mind, so it makes things easy for you if you want to create your own Cards.
 
@@ -93,7 +186,7 @@ In order to use MaterialList, you can either clone the project and import it as 
 ```groovy
 dependencies {
     ...
-    compile 'com.github.dexafree:materiallist:1.2.0'
+    compile 'com.github.dexafree:materiallist:2.0.0'
 }
 ```
 
@@ -104,9 +197,15 @@ You can clone the project and compile it yourself (it includes a sample), or you
 
 > Notice that it might not be the last version
 
+## Collaborations
+* [Fabio Hellmann](https://github.com/FHellmann): Great pull request that added MaterialStaggeredGridView, animations, and refactored a lot of code. Thank you very much, really!
+
 ## Credits
 * Jake Wharton: [SwipeToDismissNOA](https://github.com/JakeWharton/SwipeToDismissNOA)
 * Romain Guy: The sand picture provided as example was taken from one of his projects
+* Niek Haarman: [ListViewAnimations](https://github.com/nhaarman/ListViewAnimations)
+* Square: [Otto](https://github.com/square/otto)
+* Etsy: [AndroidStaggeredGrid](https://github.com/etsy/AndroidStaggeredGrid)
 
 ## License
 

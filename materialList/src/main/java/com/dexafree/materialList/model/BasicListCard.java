@@ -12,9 +12,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Fabio on 19.12.2014.
- */
 public class BasicListCard extends Card implements Iterable<String> {
     private final List<String> mItemList = new ArrayList<String>();
 	private final List<Integer> mSelectedItemList = new ArrayList<Integer>();

@@ -131,9 +131,6 @@ And you will be ready to go!
 
 You can see an example of the combined usage in the sample folder of this project.
 
-> #### NOTE
-> Notice that you could also achieve the same behaviour just by setting a MaterialStaggeredGridView with only one column
-
 There are also some Cards that may show a Divider between the content and the buttons. For further reference, [read the Wiki page](https://github.com/dexafree/MaterialList/wiki/Dividers)
 
 

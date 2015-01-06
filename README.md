@@ -71,9 +71,7 @@ Then, you only need to create Card objects, add them to your MaterialListView, a
 Card card = new SmallImageCard();
 card.setDescription(description);
 card.setTitle(title);
-
-Drwable icon = getResources().getDrawable(R.drawable.ic_launcher);
-card.setBitmap(icon);
+card.setDrawable(R.drawable.ic_launcher);
 
 mListView.add(card);
 ```
@@ -118,13 +116,7 @@ In order to make things easy for you, you can use the interface called `IMateria
 Then, the code for retrieving it will be something like:
 
 ```java
-View view = findViewById(R.id.material_listview);
-
-if(view instanceof MaterialListView) {
-  mListView = (MaterialListView) view;
-} else {
-  mListView = (MaterialStaggeredGridView) view;
-}
+IMaterialView materialView = (IMaterialView) findViewById(R.id.material_listview);
 ```
 
 And you will be ready to go!

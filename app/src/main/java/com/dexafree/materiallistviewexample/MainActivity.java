@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dexafree.materialList.controller.OnButtonPressListener;
@@ -74,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
         switch (type){
 
             case 0:
-                card = new SmallImageCard();
+                card = new SmallImageCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.ic_launcher);
@@ -82,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
                 return card;
 
             case 1:
-                card = new BigImageCard();
+                card = new BigImageCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.photo);
@@ -91,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
                 return card;
 
             case 2:
-                card = new BasicImageButtonsCard();
+                card = new BasicImageButtonsCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.dog);
@@ -100,11 +98,11 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicImageButtonsCard)card).setRightButtonText("RIGHT");
 
                 if (position % 2 == 0)
-                    ((BasicImageButtonsCard)card).setShowDivider(true);
+                    ((BasicImageButtonsCard)card).setDividerVisible(true);
 
                 ((BasicImageButtonsCard)card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
                     @Override
-                    public void onButtonPressedListener(TextView textView) {
+                    public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
 						mListView.getCard(0).setTitle("CHANGED ON RUNTIME");
 						mListView.notifyDataSetChanged();
@@ -112,8 +110,8 @@ public class MainActivity extends ActionBarActivity {
                 });
 
                 ((BasicImageButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(TextView textView) {
+					@Override
+					public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                         card.dismiss();
                     }
@@ -122,25 +120,25 @@ public class MainActivity extends ActionBarActivity {
                 return card;
 
             case 3:
-                card = new BasicButtonsCard();
+                card = new BasicButtonsCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
                 ((BasicButtonsCard)card).setLeftButtonText("LEFT");
                 ((BasicButtonsCard)card).setRightButtonText("RIGHT");
 
                 if (position % 2 == 0)
-                    ((BasicButtonsCard)card).setShowDivider(true);
+                    ((BasicButtonsCard)card).setDividerVisible(true);
 
                 ((BasicButtonsCard)card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(TextView textView) {
+					@Override
+					public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 ((BasicButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(TextView textView) {
+					@Override
+					public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -149,42 +147,45 @@ public class MainActivity extends ActionBarActivity {
                 return card;
 
             case 4:
-                card = new WelcomeCard();
+                card = new WelcomeCard(this);
                 card.setTitle("Welcome Card");
                 card.setDescription("I am the description");
                 ((WelcomeCard)card).setSubtitle("My subtitle!");
                 ((WelcomeCard)card).setButtonText("Okay!");
                 ((WelcomeCard)card).setOnButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(TextView textView) {
+					@Override
+					public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "A welcome card has been dismissed", Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 if(position%2 == 0)
-                    ((WelcomeCard)card).setBackgroundColorFromId(mContext, R.color.background_material_dark);
+                    ((WelcomeCard)card).setBackgroundColorRes(R.color.background_material_dark);
 
                 return card;
 
             case 5:
-                card = new BasicListCard();
+                card = new BasicListCard(this);
                 card.setTitle("List Card");
                 card.setDescription("Take a list");
-                ((BasicListCard) card).addItem("Task 1");
-                ((BasicListCard) card).addAllItems("Task 2", "Task 3");
+				BasicListAdapter adapter = new BasicListAdapter(this);
+				adapter.add("Text1");
+				adapter.add("Text2");
+				adapter.add("Text3");
+                ((BasicListCard) card).setAdapter(adapter);
+				/*
                 ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-						boolean checked = ((BasicListCard) card).
-								isItemChecked(((BasicListCard) card).getItems().get(position));
-						((BasicListCard) card).setItemChecked(position, !checked);
+                    	// Do what ever you want...
                     }
                 });
+                */
 
                 return card;
 
             default:
-                card = new BigImageButtonsCard();
+                card = new BigImageButtonsCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
                 icon = getResources().getDrawable(R.drawable.photo);
@@ -193,12 +194,12 @@ public class MainActivity extends ActionBarActivity {
                 ((BigImageButtonsCard)card).setRightButtonText("RIGHT BUTTON");
 
                 if (position % 2 == 0) {
-                    ((BigImageButtonsCard) card).setShowDivider(true);
+                    ((BigImageButtonsCard) card).setDividerVisible(true);
                 }
 
                 ((BigImageButtonsCard)card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(TextView textView) {
+					@Override
+					public void onButtonPressedListener(View view, Card card) {
                         Log.d("ADDING", "CARD");
 
 						mListView.add(generateNewCard());
@@ -207,8 +208,8 @@ public class MainActivity extends ActionBarActivity {
                 });
 
                 ((BigImageButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(TextView textView) {
+					@Override
+					public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -221,7 +222,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private Card generateNewCard(){
-        Card card = new BasicImageButtonsCard();
+        Card card = new BasicImageButtonsCard(this);
         card.setBitmap(mContext, R.drawable.dog);
         card.setTitle("I'm new");
         card.setDescription("I've been generated on runtime!");

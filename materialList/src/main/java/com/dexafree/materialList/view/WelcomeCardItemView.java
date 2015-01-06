@@ -6,15 +6,12 @@ import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.MyRoundRectDrawableWithShadow;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.events.BusProvider;
-import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.WelcomeCard;
 
 public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
@@ -73,13 +70,14 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
         mButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("CLICK", "Text clicked");
+                //Log.d("CLICK", "Text clicked");
 
                 if(card.getOnButtonPressedListener() != null) {
-                    card.getOnButtonPressedListener().onButtonPressedListener(mButton);
+                    card.getOnButtonPressedListener().onButtonPressedListener(mButton, getCard());
                 }
 
-                BusProvider.getInstance().post(new DismissEvent(card));
+				// The developer should decide for his own to dismiss or not
+                //BusProvider.getInstance().post(new DismissEvent(card));
             }
         });
     }

@@ -7,7 +7,6 @@ import com.dexafree.materialList.R;
 import com.dexafree.materialList.controller.OnButtonPressListener;
 
 public class WelcomeCard extends Card {
-
     private String subtitle;
     private String buttonText;
     private OnButtonPressListener mListener;
@@ -18,9 +17,17 @@ public class WelcomeCard extends Card {
     private int dividerColor = Color.parseColor("#608DFA");
     private int buttonTextColor = Color.WHITE;
 
-    public String getSubtitle() {
+	public WelcomeCard(final Context context) {
+		super(context);
+	}
+
+	public String getSubtitle() {
         return subtitle;
     }
+
+	public void setSubtitle(int subtitleId) {
+		setSubtitle(getString(subtitleId));
+	}
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
@@ -62,80 +69,84 @@ public class WelcomeCard extends Card {
         return buttonTextColor;
     }
 
+	public void setButtonText(int buttonTextId) {
+		setButtonText(getString(buttonTextId));
+	}
+
     public void setButtonText(String buttonText) {
         this.buttonText = buttonText;
     }
+
+	public void setBackgroundColorRes(int colorId) {
+		setBackgroundColor(getResources().getColor(colorId));
+	}
+
+	public void setBackgroundColor(String color){
+		setBackgroundColor(Color.parseColor(color));
+	}
 
     public void setBackgroundColor(int color){
         this.backgroundColor = color;
     }
 
-    public void setBackgroundColor(String color){
-        backgroundColor = Color.parseColor(color);
-    }
+	public void setTitleColorRes(int colorId) {
+		setTitleColor(getResources().getColor(colorId));
+	}
 
-    public void setBackgroundColorFromId(Context context, int colorId){
-        backgroundColor = context.getResources().getColor(colorId);
-    }
+	public void setTitleColor(String color){
+		setTitleColor(Color.parseColor(color));
+	}
 
     public void setTitleColor(int color){
         this.titleColor = color;
     }
 
-    public void setTitleColor(String color){
-        titleColor = Color.parseColor(color);
-    }
-
-    public void setTitleColorFromId(Context context, int colorId){
-        titleColor = context.getResources().getColor(colorId);
-    }
+	public void setSubtitleColorRes(int colorId) {
+		setSubtitleColor(getResources().getColor(colorId));
+	}
 
     public void setSubtitleColor(int color){
         this.subtitleColor = color;
     }
 
     public void setSubtitleColor(String color){
-        subtitleColor = Color.parseColor(color);
+        setSubtitleColor(Color.parseColor(color));
     }
 
-    public void setSubtitleColorFromId(Context context, int colorId){
-        subtitleColor = context.getResources().getColor(colorId);
-    }
+	public void setDescriptionColorRes(int colorId) {
+		setDescriptionColor(getResources().getColor(colorId));
+	}
 
     public void setDescriptionColor(int color){
         this.descriptionColor = color;
     }
 
     public void setDescriptionColor(String color){
-        descriptionColor = Color.parseColor(color);
+        setDescriptionColor(Color.parseColor(color));
     }
 
-    public void setDescriptionColorFromId(Context context, int colorId){
-        descriptionColor = context.getResources().getColor(colorId);
-    }
+	public void setDividerColorRes(int colorId) {
+		setDividerColor(getResources().getColor(colorId));
+	}
 
     public void setDividerColor(int color){
         this.dividerColor = color;
     }
 
     public void setDividerColor(String color){
-        dividerColor = Color.parseColor(color);
+        setDividerColor(Color.parseColor(color));
     }
 
-    public void setDividerColorFromId(Context context, int colorId){
-        dividerColor = context.getResources().getColor(colorId);
-    }
+	public void setButtonTextColorRes(int colorId) {
+		setButtonTextColor(getResources().getColor(colorId));
+	}
 
     public void setButtonTextColor(int color){
         this.buttonTextColor = color;
     }
 
     public void setButtonTextColor(String color){
-        buttonTextColor = Color.parseColor(color);
-    }
-
-    public void setButtonTextColorFromId(Context context, int colorId){
-        buttonTextColor = context.getResources().getColor(colorId);
+        setButtonTextColor(Color.parseColor(color));
     }
 
     @Override

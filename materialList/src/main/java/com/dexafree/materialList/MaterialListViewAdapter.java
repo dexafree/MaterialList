@@ -38,7 +38,7 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> {
             }
         }
 
-        ((GridItemView)convertView).configureView(card);
+        ((GridItemView)convertView).build(card);
 
     	return convertView;
     }

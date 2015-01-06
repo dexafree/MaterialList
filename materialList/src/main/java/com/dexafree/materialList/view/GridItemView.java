@@ -5,13 +5,13 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.dexafree.materialList.model.Card;
 
 
-public abstract class GridItemView<T extends Card> extends LinearLayout implements View.OnClickListener{
+public abstract class GridItemView<T extends Card> extends LinearLayout {
+	private T mCard;
 
     public GridItemView(Context context) {
         super(context);
@@ -26,12 +26,16 @@ public abstract class GridItemView<T extends Card> extends LinearLayout implemen
         super(context, attrs, defStyle);
     }
 
-    public abstract void configureView(T newItem);
+	public void build(T card) {
+		mCard = card;
+		configureView(card);
+	}
 
-    @Override
-    public void onClick(View view) {
+	protected abstract void configureView(T card);
 
-    }
+	protected T getCard() {
+		return mCard;
+	}
 
     protected int dpToPx(int dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();

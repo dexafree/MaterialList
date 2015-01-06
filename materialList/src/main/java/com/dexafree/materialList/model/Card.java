@@ -12,35 +12,48 @@ import com.dexafree.materialList.events.DataSetChangedEvent;
 import com.dexafree.materialList.events.DismissEvent;
 
 public abstract class Card {
-    private String title;
+	private final Context mContext;
+	private String title;
     private String description;
     private Bitmap bitmap;
     private boolean canDismiss = true;
     private boolean dismissed = false;
 
-    public Card(){}
+    public Card(Context context) {
+		mContext = context;
+	}
 
-    public Card(String title, String description, Bitmap bitmap) {
+	// Do we really need these Constructors? The Developer can access every field through a Setter.
+	/*
+    public Card(Context context, String title, String description, Bitmap bitmap) {
+		mContext = context;
         this.title = title;
         this.description = description;
         this.bitmap = bitmap;
     }
 
-    public Card(String title, String description, Context context, int resourceId) {
+    public Card(Context context, String title, String description, int resourceId) {
+		mContext = context;
         this.title = title;
         this.description = description;
         this.bitmap = resourceToBitmap(context, resourceId);
     }
 
-    public Card(String title, String description, Drawable drawable) {
+    public Card(Context context, String title, String description, Drawable drawable) {
+		mContext = context;
         this.title = title;
         this.description = description;
         this.bitmap = drawableToBitmap(drawable);
     }
+    */
 
     public String getTitle() {
         return title;
     }
+
+	public void setTitle(int titleId) {
+		setTitle(mContext.getString(titleId));
+	}
 
     public void setTitle(String title) {
         this.title = title;
@@ -51,6 +64,10 @@ public abstract class Card {
         return description;
     }
 
+	public void setDescription(int descriptionId) {
+		setDescription(mContext.getString(descriptionId));
+	}
+
     public void setDescription(String description) {
         this.description = description;
 		BusProvider.getInstance().post(new DataSetChangedEvent());
@@ -59,6 +76,10 @@ public abstract class Card {
     public Bitmap getBitmap() {
         return bitmap;
     }
+
+	public void setDrawable(int drawableId) {
+		setBitmap(mContext.getResources().getDrawable(drawableId));
+	}
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
@@ -114,4 +135,12 @@ public abstract class Card {
     }
 
     public abstract int getLayout();
+
+	protected String getString(int id) {
+		return mContext.getString(id);
+	}
+
+	protected Resources getResources() {
+		return mContext.getResources();
+	}
 }

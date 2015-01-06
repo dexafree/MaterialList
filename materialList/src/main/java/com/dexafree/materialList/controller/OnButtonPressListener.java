@@ -1,7 +1,9 @@
 package com.dexafree.materialList.controller;
 
-import android.widget.TextView;
+import android.view.View;
+
+import com.dexafree.materialList.model.Card;
 
 public interface OnButtonPressListener {
-    void onButtonPressedListener(TextView textView);
+    void onButtonPressedListener(View view, Card card);
 }

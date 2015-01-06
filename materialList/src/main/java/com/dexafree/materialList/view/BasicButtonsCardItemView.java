@@ -60,7 +60,7 @@ public class BasicButtonsCardItemView extends GridItemView<BasicButtonsCard> {
         mLeftText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnLeftButtonPressedListener().onButtonPressedListener(mLeftText);
+                card.getOnLeftButtonPressedListener().onButtonPressedListener(mLeftText, getCard());
             }
         });
     }
@@ -71,20 +71,20 @@ public class BasicButtonsCardItemView extends GridItemView<BasicButtonsCard> {
         mRightText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnRightButtonPressedListener().onButtonPressedListener(mRightText);
+                card.getOnRightButtonPressedListener().onButtonPressedListener(mRightText, getCard());
             }
         });
     }
 
     public void setDivider(final BasicButtonsCard card){
-        int visibility = card.getShowDivider()? VISIBLE : INVISIBLE;
+        int visibility = card.isDividerVisible()? VISIBLE : INVISIBLE;
 
         View divider = findViewById(R.id.cardDivider);
 
         divider.setVisibility(visibility);
 
         // After setting the visibility, we prepare the divider params according to the preferences
-        if(card.getShowDivider()){
+        if(card.isDividerVisible()){
 
             // If the divider has to be from side to side, the margin will be 0
             if(card.getFullDividerLength()) {

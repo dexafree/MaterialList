@@ -1,10 +1,15 @@
 package com.dexafree.materialList.model;
 
+import android.content.Context;
+
 import com.dexafree.materialList.R;
 
 public class SmallImageCard extends Card {
+	public SmallImageCard(final Context context) {
+		super(context);
+	}
 
-    @Override
+	@Override
     public int getLayout() {
         return R.layout.material_small_image_card;
     }

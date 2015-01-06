@@ -1,20 +1,29 @@
 package com.dexafree.materialList.model;
 
+import android.content.Context;
+
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.controller.OnButtonPressListener;
 
 public class BigImageButtonsCard extends Card {
-
     private String leftButtonText;
     private String rightButtonText;
     private OnButtonPressListener onLeftButtonPressedListener;
     private OnButtonPressListener onRightButtonPressedListener;
-    private boolean showDivider = false;
+    private boolean dividerVisible = false;
     private boolean fullDividerLength = false;
 
-    public String getLeftButtonText() {
+	public BigImageButtonsCard(final Context context) {
+		super(context);
+	}
+
+	public String getLeftButtonText() {
         return leftButtonText;
     }
+
+	public void setLeftButtonText(int leftButtonTextId) {
+		setLeftButtonText(getString(leftButtonTextId));
+	}
 
     public void setLeftButtonText(String leftButtonText) {
         this.leftButtonText = leftButtonText;
@@ -24,16 +33,20 @@ public class BigImageButtonsCard extends Card {
         return rightButtonText;
     }
 
+	public void setRightButtonText(int rightButtonTextId) {
+		setRightButtonText(getString(rightButtonTextId));
+	}
+
     public void setRightButtonText(String rightButtonText) {
         this.rightButtonText = rightButtonText;
     }
 
-    public boolean getShowDivider() {
-        return showDivider;
+    public boolean isDividerVisible() {
+        return dividerVisible;
     }
 
-    public void setShowDivider(boolean showDivider) {
-        this.showDivider = showDivider;
+    public void setDividerVisible(boolean visible) {
+        this.dividerVisible = visible;
     }
 
     public boolean getFullDividerLength() {

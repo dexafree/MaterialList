@@ -38,8 +38,6 @@ public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCar
         super(context, attrs, defStyle);
     }
 
-
-    @Override
     public void configureView(BigImageButtonsCard card) {
         setTitle(card.getTitle());
         setDescription(card.getDescription());
@@ -70,7 +68,7 @@ public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCar
         mLeftText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnLeftButtonPressedListener().onButtonPressedListener(mLeftText);
+                card.getOnLeftButtonPressedListener().onButtonPressedListener(mLeftText, getCard());
             }
         });
     }
@@ -81,20 +79,20 @@ public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCar
         mRightText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnRightButtonPressedListener().onButtonPressedListener(mRightText);
+                card.getOnRightButtonPressedListener().onButtonPressedListener(mRightText, getCard());
             }
         });
     }
 
     public void setDivider(final BigImageButtonsCard card){
-        int visibility = card.getShowDivider()? VISIBLE : INVISIBLE;
+        int visibility = card.isDividerVisible()? VISIBLE : INVISIBLE;
 
         View divider = findViewById(R.id.cardDivider);
 
         divider.setVisibility(visibility);
 
         // After setting the visibility, we prepare the divider params according to the preferences
-        if(card.getShowDivider()){
+        if(card.isDividerVisible()){
 
             // If the divider has to be from side to side, the margin will be 0
             if(card.getFullDividerLength()) {

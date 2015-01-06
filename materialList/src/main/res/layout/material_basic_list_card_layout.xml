@@ -49,9 +49,9 @@
                 android:layout_below="@+id/descriptionTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="8dp" />
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp" />
 
 
         </RelativeLayout>

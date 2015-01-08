@@ -115,6 +115,10 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+		if(mListView.getAdapter().isEmpty()) {
+			return false;
+		}
+
         if (mViewWidth < 2) {
             mViewWidth = mListView.getWidth();
         }

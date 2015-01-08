@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 
         int type = position % 6;
 
-        final Card card;
+        Card card;
         Drawable icon;
 
         switch (type){
@@ -104,15 +104,14 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-						mListView.getCard(0).setTitle("CHANGED ON RUNTIME");
-						mListView.notifyDataSetChanged();
+						card.setTitle("CHANGED ON RUNTIME");
                     }
                 });
 
                 ((BasicImageButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
 					@Override
 					public void onButtonPressedListener(View view, Card card) {
-                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the right button on card " + card.getTitle(), Toast.LENGTH_SHORT).show();
                         card.dismiss();
                     }
                 });

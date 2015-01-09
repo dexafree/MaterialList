@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.dexafree.materialList.view.WelcomeCardItemView
+<com.dexafree.materialList.cards.view.WelcomeCardItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MainLayout">
@@ -11,12 +11,13 @@
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         style="@style/MainCardView">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/titleTextView"
                 android:padding="@dimen/big_padding"
@@ -25,10 +26,9 @@
                 tools:text="This is the title"/>
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/subtitleTextView"
-                android:layout_below="@+id/titleTextView"
                 android:textColor="@color/description_color"
                 android:paddingTop="@dimen/small_padding"
                 android:paddingLeft="@dimen/big_padding"
@@ -38,10 +38,9 @@
                 tools:text="I am the subtitle"/>
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/descriptionTextView"
-                android:layout_below="@+id/subtitleTextView"
                 android:textColor="@color/description_color"
                 android:paddingBottom="@dimen/big_padding"
                 android:paddingRight="@dimen/big_padding"
@@ -52,56 +51,27 @@
 
             <View
                 android:id="@+id/cardDivider"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/divider_white"
-                android:layout_below="@id/descriptionTextView"
-                android:layout_alignLeft="@id/titleTextView"
-                android:layout_alignStart="@id/titleTextView"
                 android:layout_marginLeft="@dimen/big_padding"
                 android:layout_marginRight="@dimen/big_padding"
                 android:visibility="visible"/>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/descriptionTextView"
-                android:layout_marginTop="@dimen/small_padding"
-                android:layout_marginBottom="@dimen/small_padding"
-                android:paddingLeft="@dimen/big_padding"
-                android:paddingTop="@dimen/big_padding"
-
-                android:paddingBottom="@dimen/big_padding"
-                android:paddingRight="@dimen/small_padding">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/check_mark"
-
-                    android:scaleType="fitCenter"
-                    android:layout_alignTop="@+id/ok_button"
-                    android:layout_alignBottom="@+id/ok_button"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/ic_check"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ok_button"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/check_mark"
-                    style="@style/LeftButtonBaseStyle"
-                    tools:text="CLICK ME"/>
-
-
-            </RelativeLayout>
-
-
-        </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:id="@+id/ok_button"
+                android:clickable="true"
+                android:focusable="false"
+                android:textStyle="bold"
+                android:padding="@dimen/big_padding"
+                android:drawableLeft="@drawable/ic_check"
+                android:drawablePadding="@dimen/big_padding"
+                style="@style/LeftButtonBaseStyle"
+                tools:text="CLICK ME"/>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
-</com.dexafree.materialList.view.WelcomeCardItemView>
+</com.dexafree.materialList.cards.view.WelcomeCardItemView>

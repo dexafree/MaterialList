@@ -1,4 +1,4 @@
-package com.dexafree.materialList;
+package com.dexafree.materialList.controller;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.view.GridItemView;
+import com.dexafree.materialList.cards.model.Card;
+import com.dexafree.materialList.cards.view.BaseCardItemView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,9 +38,11 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> {
             }
         }
 
-        ((GridItemView)convertView).configureView(card);
+        if (((BaseCardItemView)convertView) != null) {
+            ((BaseCardItemView)convertView).build(card);
+        }
 
-    	return convertView;
+        return convertView;
     }
 
     @Override

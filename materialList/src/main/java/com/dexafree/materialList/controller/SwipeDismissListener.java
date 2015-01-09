@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.model.Card;
 import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.nineoldandroids.animation.Animator;
@@ -43,7 +43,8 @@ public class SwipeDismissListener implements View.OnTouchListener {
     private float mDownX;
     private boolean mSwiping;
     private VelocityTracker mVelocityTracker;
-    private int mDownPosition;
+    private Card mSelectedCard;
+    //private int mDownPosition;
     private View mDownView;
     private boolean mPaused;
 
@@ -115,6 +116,10 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+		if(mListView.getAdapter().isEmpty()) {
+			return false;
+		}
+
         if (mViewWidth < 2) {
             mViewWidth = mListView.getWidth();
         }
@@ -148,14 +153,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
                 if (mDownView != null) {
                     mDownX = motionEvent.getRawX();
-					Card card = (Card) mDownView.getTag();
-					// 2014-12-22: Bug: This return value contains the relative position of this card
-					// in the list view-port. If the list is scrolled down, then the first displayed
-					// card will get the position 0. This is not the correct position of the card in
-					// the adapter. So use mListView.getPosition(Card).
-					mDownPosition = mListView.getPosition(card);
-                    //mDownPosition = mListView.getPositionForView(mDownView); // INDICA LA POSICION!!!
-
+                    mSelectedCard = (Card) mDownView.getTag();
                     mVelocityTracker = VelocityTracker.obtain();
                     mVelocityTracker.addMovement(motionEvent);
                 }
@@ -186,10 +184,9 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
 
                 // AQUI SE DECIDE SI SE HACE DISMISS O NO
-                if (dismiss && isCurrentItemDismissable()) {
+                if (dismiss && mSelectedCard != null && mSelectedCard.isDismissible()) {
                     // dismiss
                     final View downView = mDownView; // mDownView gets null'd before animation ends
-                    final int downPosition = mDownPosition;
 
                     ++mDismissAnimationRefCount;
                     animate(mDownView)
@@ -199,7 +196,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
                             .setListener(new AnimatorListenerAdapter() {
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
-                                    performDismiss(downView, downPosition);
+                                    performDismiss(downView, mSelectedCard);
                                 }
                             });
                 } else {
@@ -214,42 +211,38 @@ public class SwipeDismissListener implements View.OnTouchListener {
                 mVelocityTracker = null;
                 mDownX = 0;
                 mDownView = null;
-                mDownPosition = ListView.INVALID_POSITION;
+                mSelectedCard = null;
                 mSwiping = false;
                 break;
             }
 
             case MotionEvent.ACTION_MOVE: {
-
-                if(mDownPosition != ListView.INVALID_POSITION) {
-
-                    if (mListView.getAdapter().getItem(mDownPosition).isDismissible()) {
-                        if (mVelocityTracker == null || mPaused) {
-                            break;
-                        }
-
-                        mVelocityTracker.addMovement(motionEvent);
-                        float deltaX = motionEvent.getRawX() - mDownX;
-                        if (Math.abs(deltaX) > mSlop) {
-                            mSwiping = true;
-                            mListView.requestDisallowInterceptTouchEvent(true);
-
-                            // Cancel ListView's touch (un-highlighting the item)
-                            MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
-                            cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
-                                    (motionEvent.getActionIndex()
-                                            << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
-                            mListView.onTouchEvent(cancelEvent);
-                        }
-
-                        if (mSwiping) { // AQUIIIIIII
-                            setTranslationX(mDownView, deltaX);
-                            setAlpha(mDownView, Math.max(0f, Math.min(1f,
-                                    1f - 2f * Math.abs(deltaX) / mViewWidth)));
-                            return true;
-                        }
+                if (mSelectedCard != null && mSelectedCard.isDismissible()) {
+                    if (mVelocityTracker == null || mPaused) {
                         break;
                     }
+
+                    mVelocityTracker.addMovement(motionEvent);
+                    float deltaX = motionEvent.getRawX() - mDownX;
+                    if (Math.abs(deltaX) > mSlop) {
+                        mSwiping = true;
+                        mListView.requestDisallowInterceptTouchEvent(true);
+
+                        // Cancel ListView's touch (un-highlighting the item)
+                        MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
+                        cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
+                                (motionEvent.getActionIndex()
+                                        << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
+                        mListView.onTouchEvent(cancelEvent);
+                    }
+
+                    if (mSwiping) { // AQUIIIIIII
+                        setTranslationX(mDownView, deltaX);
+                        setAlpha(mDownView, Math.max(0f, Math.min(1f,
+                                1f - 2f * Math.abs(deltaX) / mViewWidth)));
+                        return true;
+                    }
+                    break;
                 }
             }
         }
@@ -272,7 +265,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
         }
     }
 
-    public void dismissCard(final View downView, final int downPosition){
+    public void dismissCard(final View downView, final Card card){
 
         float viewWidth = downView.getMeasuredWidth();
 
@@ -284,12 +277,12 @@ public class SwipeDismissListener implements View.OnTouchListener {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        performDismiss(downView, downPosition);
+                        performDismiss(downView, card);
                     }
                 });
     }
 
-    private void performDismiss(final View dismissView, final int dismissPosition) {
+    private void performDismiss(final View dismissView, Card card) {
         // Animate the dismissed list item to zero-height and fire the dismiss callback when
         // all dismissed list item animations have completed. This triggers layout on each animation
         // frame; in the future we may want to do something smarter and more performant.
@@ -339,17 +332,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
             }
         });
 
-        mPendingDismisses.add(new PendingDismissData(dismissPosition, dismissView));
+        mPendingDismisses.add(new PendingDismissData(mListView.getAdapter().getPosition(card), dismissView));
         animator.start();
-    }
-
-    private boolean isCurrentItemDismissable(){
-
-        return !isOutOfBounds() && mListView.getAdapter().getItem(mDownPosition).isDismissible();
-
-    }
-
-    private boolean isOutOfBounds(){
-        return mDownPosition >= mListView.getAdapter().getCount();
     }
 }

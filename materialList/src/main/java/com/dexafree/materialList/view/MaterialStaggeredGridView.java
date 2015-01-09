@@ -8,13 +8,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.BaseAdapter;
 
-import com.dexafree.materialList.MaterialListViewAdapter;
+import com.dexafree.materialList.controller.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.events.DataSetChangedEvent;
 import com.dexafree.materialList.events.DismissEvent;
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.model.Card;
 import com.etsy.android.grid.StaggeredGridView;
 import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
@@ -56,7 +56,7 @@ public class MaterialStaggeredGridView extends StaggeredGridView implements IMat
 							public void onDismiss(IMaterialView listView, final Card[] reverseSortedCards) {
 								for (Card dismissedCard : reverseSortedCards) {
 									int position = getAdapter().getPosition(dismissedCard);
-									//Log.d(getClass().getSimpleName(), dismissedCard.getTitle() +
+									//Log.d(getClass().getSimpleName(), dismissedCard.getmTitle() +
 									// " [Position="+position+"]");
 
 									if (mDismissCallback != null) {
@@ -150,35 +150,35 @@ public class MaterialStaggeredGridView extends StaggeredGridView implements IMat
     }
 
 	@Subscribe
+	public void onNotifyDataSetChanged(DataSetChangedEvent event) {
+		mAdapter.notifyDataSetChanged();
+	}
+
+	@Subscribe
 	public void onCardDismiss(DismissEvent event){
 		Card dismissedCard = event.getDismissedCard();
 		View dismissedCardView = null;
-		int cardPosition = mAdapter.getPosition(dismissedCard);
 		for (int index = 0; index < getCount(); index++) {
 			View view = getChildAt(index);
-			if(view.getTag().equals(dismissedCard)) {
+			if(view.getTag() != null && view.getTag().equals(dismissedCard)) {
 				dismissedCardView = view;
 				break;
 			}
 		}
-		//View dismissedCardView = getChildAt(cardPosition);
-		mDismissListener.dismissCard(dismissedCardView, cardPosition);
-	}
-
-	@Subscribe
-	public void onNotifyDataSetChanged(DataSetChangedEvent event) {
-		mAdapter.notifyDataSetChanged();
+        if(dismissedCardView != null) {
+            mDismissListener.dismissCard(dismissedCardView, dismissedCard);
+        }
 	}
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        BusProvider.getInstance().register(this);
+        BusProvider.register(this);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        BusProvider.getInstance().unregister(this);
+        BusProvider.unregister(this);
     }
 }

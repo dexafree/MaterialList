@@ -15,13 +15,17 @@
     <style name="LeftButtonBaseStyle">
         <item name="android:textColor">@color/black_button</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
+        <!--<item name="android:textAllCaps">true</item>-->
         <item name="android:textSize">@dimen/button_size</item>
         <item name="android:maxLines">1</item>
     </style>
 
     <style name="RightButtonBaseStyle" parent="@style/LeftButtonBaseStyle">
         <item name="android:textColor">@color/orange_button</item>
+        <item name="android:textStyle">bold</item>
+        <!--<item name="android:textAllCaps">true</item>-->
+        <item name="android:textSize">@dimen/button_size</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="CardPhoto">
@@ -42,7 +46,7 @@
 
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">@dimen/bigger_title_size</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <!--<item name="android:fontFamily">sans-serif-light</item>-->
 
         <item name="android:gravity">bottom|left</item>
         <item name="android:paddingLeft">@dimen/big_padding</item>

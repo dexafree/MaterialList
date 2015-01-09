@@ -7,9 +7,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListAdapter;
 
-import com.dexafree.materialList.MaterialListViewAdapter;
+import com.dexafree.materialList.controller.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.model.Card;
 
 import java.util.Collection;
 

@@ -1,6 +1,6 @@
 package com.dexafree.materialList.events;
 
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.model.Card;
 
 public class DismissEvent {
 

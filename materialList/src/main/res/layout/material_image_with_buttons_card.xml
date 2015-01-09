@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.dexafree.materialList.view.BigImageButtonsCardItemView
+<com.dexafree.materialList.cards.view.BigImageButtonsCardItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MainLayout">
@@ -77,4 +77,4 @@
 
 
 
-</com.dexafree.materialList.view.BigImageButtonsCardItemView>
+</com.dexafree.materialList.cards.view.BigImageButtonsCardItemView>

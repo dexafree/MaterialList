@@ -154,20 +154,15 @@ public class MaterialListView extends ListView implements IMaterialView {
 	public void onCardDismiss(DismissEvent event){
 		Card dismissedCard = event.getDismissedCard();
 		View dismissedCardView = null;
-		int cardPosition = mAdapter.getPosition(dismissedCard);
 		for (int index = 0; index < getCount(); index++) {
 			View view = getChildAt(index);
-			// #22 BugFix: view.getTag() sometimes returns null. Check if it's null.
 			if(view.getTag() != null && view.getTag().equals(dismissedCard)) {
 				dismissedCardView = view;
 				break;
 			}
 		}
-		//View dismissedCardView = getChildAt(cardPosition);
-
-		// #22 BugFix: view.getTag() sometimes returns null. If the for-loop doesn't found a view.
 		if(dismissedCardView != null) {
-			mDismissListener.dismissCard(dismissedCardView, cardPosition);
+			mDismissListener.dismissCard(dismissedCardView, dismissedCard);
 		}
 	}
 

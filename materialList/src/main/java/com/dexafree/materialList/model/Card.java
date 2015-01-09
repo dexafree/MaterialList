@@ -78,16 +78,15 @@ public abstract class Card {
     }
 
 	public void setDrawable(int drawableId) {
-		setBitmap(mContext.getResources().getDrawable(drawableId));
+		setBitmap(resourceToBitmap(drawableId));
 	}
+
+    public void setBitmap(int drawableId) {
+        setBitmap(resourceToBitmap(drawableId));
+    }
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
-		BusProvider.getInstance().post(new DataSetChangedEvent());
-    }
-
-    public void setBitmap(Context context, int resourceId){
-        bitmap = resourceToBitmap(context, resourceId);
 		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
@@ -96,8 +95,8 @@ public abstract class Card {
 		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
-    private Bitmap resourceToBitmap (Context context, int resourceId){
-        Resources res = context.getResources();
+    private Bitmap resourceToBitmap (int resourceId){
+        Resources res = mContext.getResources();
         Drawable d = res.getDrawable(resourceId);
         return drawableToBitmap(d);
     }

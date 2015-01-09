@@ -222,7 +222,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Card generateNewCard(){
         Card card = new BasicImageButtonsCard(this);
-        card.setBitmap(mContext, R.drawable.dog);
+        card.setBitmap(R.drawable.dog);
         card.setTitle("I'm new");
         card.setDescription("I've been generated on runtime!");
 

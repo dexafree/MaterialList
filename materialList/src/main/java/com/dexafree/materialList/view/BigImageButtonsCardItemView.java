@@ -95,7 +95,7 @@ public class BigImageButtonsCardItemView extends GridItemView<BigImageButtonsCar
         if(card.isDividerVisible()){
 
             // If the divider has to be from side to side, the margin will be 0
-            if(card.getFullDividerLength()) {
+            if(card.isFullWidthDivider()) {
                 ((RelativeLayout.LayoutParams) divider.getLayoutParams()).setMargins(0, 0, 0, 0);
             } else {
 

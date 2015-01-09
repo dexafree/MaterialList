@@ -4,18 +4,22 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.dexafree.materialList.R;
 import com.dexafree.materialList.events.BusProvider;
-import com.dexafree.materialList.events.DataSetChangedEvent;
 import com.dexafree.materialList.events.DismissEvent;
 
 public abstract class Card {
 	private final Context mContext;
 	private String mTitle;
+    private int mTitleColor = -1;
     private String mDescription;
+    private int mDescriptionColor = -1;
     private Drawable mDrawable;
+    private int mBackgroundColor = Color.WHITE;
     private boolean mDismissible = true;
     private boolean mDismissed = false;
 
@@ -33,7 +37,6 @@ public abstract class Card {
 
     public void setTitle(String title) {
         this.mTitle = title;
-		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     public String getDescription() {
@@ -46,7 +49,6 @@ public abstract class Card {
 
     public void setDescription(String description) {
         this.mDescription = description;
-		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     public Drawable getDrawable() {
@@ -59,7 +61,42 @@ public abstract class Card {
 
     public void setDrawable(Drawable drawable) {
         this.mDrawable = drawable;
-		BusProvider.getInstance().post(new DataSetChangedEvent());
+    }
+
+    public void setBackgroundColor(int color) {
+        mBackgroundColor = color;
+    }
+
+    public void setBackgroundColorRes(int colorId) {
+        setBackgroundColor(getResources().getColor(colorId));
+    }
+
+    public int getBackgroundColor() {
+        return mBackgroundColor;
+    }
+
+    public int getTitleColor() {
+        return mTitleColor;
+    }
+
+    public void setTitleColor(int color) {
+        this.mTitleColor = color;
+    }
+
+    public void setTitleColorRes(int colorId) {
+        setTitleColor(getResources().getColor(colorId));
+    }
+
+    public int getDescriptionColor() {
+        return mDescriptionColor;
+    }
+
+    public void setDescriptionColor(int color) {
+        this.mDescriptionColor = color;
+    }
+
+    public void setDescriptionColorRes(int colorId) {
+        setDescriptionColor(getResources().getColor(colorId));
     }
 
     public boolean isDismissible() {
@@ -71,7 +108,7 @@ public abstract class Card {
     }
 
     public void dismiss() {
-		if(mDismissible) {
+		if(isDismissible() && !isDismissed()) {
 			mDismissed = true;
 			BusProvider.getInstance().post(new DismissEvent(this));
 		}

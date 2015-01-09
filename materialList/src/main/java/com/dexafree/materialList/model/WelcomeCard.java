@@ -10,10 +10,7 @@ public class WelcomeCard extends Card {
     private String subtitle;
     private String buttonText;
     private OnButtonPressListener mListener;
-    private int backgroundColor = Color.parseColor("#2F64F6");
-    private int titleColor = Color.WHITE;
     private int subtitleColor = Color.WHITE;
-    private int descriptionColor = Color.WHITE;
     private int dividerColor = Color.parseColor("#608DFA");
     private int buttonTextColor = Color.WHITE;
 
@@ -45,20 +42,8 @@ public class WelcomeCard extends Card {
         return buttonText;
     }
 
-    public int getBackgroundColor(){
-        return backgroundColor;
-    }
-
-    public int getTitleColor() {
-        return titleColor;
-    }
-
     public int getSubtitleColor() {
         return subtitleColor;
-    }
-
-    public int getDescriptionColor() {
-        return descriptionColor;
     }
 
     public int getDividerColor() {
@@ -77,30 +62,6 @@ public class WelcomeCard extends Card {
         this.buttonText = buttonText;
     }
 
-	public void setBackgroundColorRes(int colorId) {
-		setBackgroundColor(getResources().getColor(colorId));
-	}
-
-	public void setBackgroundColor(String color){
-		setBackgroundColor(Color.parseColor(color));
-	}
-
-    public void setBackgroundColor(int color){
-        this.backgroundColor = color;
-    }
-
-	public void setTitleColorRes(int colorId) {
-		setTitleColor(getResources().getColor(colorId));
-	}
-
-	public void setTitleColor(String color){
-		setTitleColor(Color.parseColor(color));
-	}
-
-    public void setTitleColor(int color){
-        this.titleColor = color;
-    }
-
 	public void setSubtitleColorRes(int colorId) {
 		setSubtitleColor(getResources().getColor(colorId));
 	}
@@ -111,18 +72,6 @@ public class WelcomeCard extends Card {
 
     public void setSubtitleColor(String color){
         setSubtitleColor(Color.parseColor(color));
-    }
-
-	public void setDescriptionColorRes(int colorId) {
-		setDescriptionColor(getResources().getColor(colorId));
-	}
-
-    public void setDescriptionColor(int color){
-        this.descriptionColor = color;
-    }
-
-    public void setDescriptionColor(String color){
-        setDescriptionColor(Color.parseColor(color));
     }
 
 	public void setDividerColorRes(int colorId) {
@@ -153,5 +102,4 @@ public class WelcomeCard extends Card {
     public int getLayout() {
         return R.layout.material_welcome_card_layout;
     }
-
 }

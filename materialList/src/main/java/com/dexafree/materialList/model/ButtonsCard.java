@@ -7,6 +7,7 @@ import com.dexafree.materialList.controller.OnButtonPressListener;
 public abstract class ButtonsCard extends Card {
     private String leftButtonText;
     private String rightButtonText;
+    private int mRightButtonTextColor = -1;
     private OnButtonPressListener onLeftButtonPressedListener;
     private OnButtonPressListener onRightButtonPressedListener;
     private boolean dividerVisible = false;
@@ -38,6 +39,18 @@ public abstract class ButtonsCard extends Card {
 
     public void setRightButtonText(String rightButtonText) {
         this.rightButtonText = rightButtonText;
+    }
+
+    public int getRightButtonTextColor() {
+        return mRightButtonTextColor;
+    }
+
+    public void setRightButtonTextColor(int color) {
+        this.mRightButtonTextColor = color;
+    }
+
+    public void setRightButtonTextColorRes(int colorId) {
+        setRightButtonTextColor(getResources().getColor(colorId));
     }
 
     public boolean isDividerVisible() {

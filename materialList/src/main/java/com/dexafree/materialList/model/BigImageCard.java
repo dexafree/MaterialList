@@ -1,6 +1,7 @@
 package com.dexafree.materialList.model;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import com.dexafree.materialList.R;
 

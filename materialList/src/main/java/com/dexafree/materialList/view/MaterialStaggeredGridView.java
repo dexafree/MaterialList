@@ -12,7 +12,6 @@ import com.dexafree.materialList.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.events.BusProvider;
-import com.dexafree.materialList.events.DataSetChangedEvent;
 import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.Card;
 import com.etsy.android.grid.StaggeredGridView;
@@ -163,11 +162,6 @@ public class MaterialStaggeredGridView extends StaggeredGridView implements IMat
         if(dismissedCardView != null) {
             mDismissListener.dismissCard(dismissedCardView, dismissedCard);
         }
-	}
-
-	@Subscribe
-	public void onNotifyDataSetChanged(DataSetChangedEvent event) {
-		mAdapter.notifyDataSetChanged();
 	}
 
     @Override

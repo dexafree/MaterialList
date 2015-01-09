@@ -10,13 +10,6 @@ import com.dexafree.materialList.R;
 import com.dexafree.materialList.model.BigImageCard;
 
 public class BigImageCardItemView extends CardItemView<BigImageCard> {
-
-    TextView mTitle;
-
-    ImageView mImage;
-
-    TextView mDescription;
-
     public BigImageCardItemView(Context context) {
         super(context);
     }
@@ -28,39 +21,4 @@ public class BigImageCardItemView extends CardItemView<BigImageCard> {
     public BigImageCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-
-    /*@Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(mImage != null) {
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mImage.getLayoutParams();
-            params.height = getMeasuredWidth();
-            mImage.setLayoutParams(params);
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        }
-    }*/
-
-
-    @Override
-    public void configureView(BigImageCard card) {
-        setTitle(card.getmTitle());
-        setDescription(card.getmDescription());
-        setImage(card.getmDrawable());
-    }
-
-    public void setTitle(String title){
-        mTitle = (TextView)findViewById(R.id.titleTextView);
-        mTitle.setText(title);
-    }
-
-    public void setDescription(String description){
-        mDescription = (TextView)findViewById(R.id.descriptionTextView);
-        mDescription.setText(description);
-    }
-
-    public void setImage(Bitmap bm){
-        mImage = (ImageView)findViewById(R.id.imageView);
-        mImage.setImageBitmap(bm);
-    }
-
 }

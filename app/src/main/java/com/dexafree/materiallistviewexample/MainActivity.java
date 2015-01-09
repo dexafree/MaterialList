@@ -146,7 +146,7 @@ public class MainActivity extends ActionBarActivity {
                 ((WelcomeCard)card).setOnButtonPressedListener(new OnButtonPressListener() {
 					@Override
 					public void onButtonPressedListener(View view, Card card) {
-                        Toast.makeText(mContext, "A welcome card has been dismissed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Welcome!", Toast.LENGTH_SHORT).show();
                     }
                 });
 

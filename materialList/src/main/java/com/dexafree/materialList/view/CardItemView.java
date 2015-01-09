@@ -2,9 +2,13 @@ package com.dexafree.materialList.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.MyRoundRectDrawableWithShadow;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,8 +18,6 @@ import com.dexafree.materialList.model.Card;
 
 
 public abstract class CardItemView<T extends Card> extends LinearLayout {
-	private T mCard;
-
     public CardItemView(Context context) {
         super(context);
     }
@@ -30,31 +32,58 @@ public abstract class CardItemView<T extends Card> extends LinearLayout {
     }
 
 	public void build(T card) {
-		mCard = card;
-
         // Title
-        ((TextView) findViewById(R.id.titleTextView)).setText(card.getTitle());
+        TextView title = (TextView) findViewById(R.id.titleTextView);
+        title.setText(card.getTitle());
+        if(card.getTitleColor() > -1) {
+            title.setTextColor(card.getTitleColor());
+        }
 
         // Description
-        ((TextView) findViewById(R.id.descriptionTextView)).setText(card.getDescription());
+        TextView description = (TextView) findViewById(R.id.descriptionTextView);
+        description.setText(card.getDescription());
+        if(card.getDescriptionColor() > -1) {
+            description.setTextColor(card.getDescriptionColor());
+        }
 
         // Image
-        ((ImageView) findViewById(R.id.imageView)).setImageDrawable(card.getDrawable());
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        if(imageView != null) {
+            imageView.setImageDrawable(card.getDrawable());
+        }
+
+        // Background Color
+        CardView cardView = (CardView) findViewById(R.id.cardView);
+
+        if(cardView != null) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                MyRoundRectDrawableWithShadow backgroundDrawable = new MyRoundRectDrawableWithShadow(
+                        getContext().getResources(),
+                        card.getBackgroundColor(),
+                        cardView.getRadius(),
+                        6f,
+                        6f
+                );
+                cardView.setBackgroundDrawable(backgroundDrawable);
+            } else {
+                cardView.setBackgroundColor(card.getBackgroundColor());
+                cardView.setCardElevation(dpToPx(6));
+            }
+        }
 	}
 
-	protected T getCard() {
-		return mCard;
-	}
-
-    protected int dpToPx(int dp) {
+    public float dpToPx(int dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    protected int pxToDp(int px) {
+    //public float pxToDp(int px) {
+    //    DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+    //    return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    //}
+
+    public float spToPx(int sp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return dp;
+        return Math.round(sp * (displayMetrics.scaledDensity / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

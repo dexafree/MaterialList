@@ -38,9 +38,11 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> {
             }
         }
 
-        ((CardItemView)convertView).build(card);
+        if (((CardItemView)convertView) != null) {
+            ((CardItemView)convertView).build(card);
+        }
 
-    	return convertView;
+        return convertView;
     }
 
     @Override

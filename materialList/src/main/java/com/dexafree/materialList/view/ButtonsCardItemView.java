@@ -2,21 +2,19 @@ package com.dexafree.materialList.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.model.BasicImageButtonsCard;
 import com.dexafree.materialList.model.ButtonsCard;
-import com.dexafree.materialList.model.Card;
 
 public abstract class ButtonsCardItemView<T extends ButtonsCard> extends CardItemView<T> {
     private final static int DIVIDER_MARGIN_DP = 16;
+    private final static int BUTTON_TEXT_SIZE_SP = 14;
 
     public ButtonsCardItemView(Context context) {
         super(context);
@@ -37,21 +35,26 @@ public abstract class ButtonsCardItemView<T extends ButtonsCard> extends CardIte
 
         // Left Button - Text
         final TextView leftText = (TextView) findViewById(R.id.left_text_button);
-        leftText.setText(card.getLeftButtonText());
+        leftText.setText(card.getLeftButtonText().toUpperCase());
+        //leftText.setTextSize(spToPx(BUTTON_TEXT_SIZE_SP));
         leftText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnLeftButtonPressedListener().onButtonPressedListener(leftText, getCard());
+                card.getOnLeftButtonPressedListener().onButtonPressedListener(leftText, card);
             }
         });
 
         // Right Button - Text
         final TextView rightText = (TextView) findViewById(R.id.right_text_button);
-        rightText.setText(card.getRightButtonText());
+        rightText.setText(card.getRightButtonText().toUpperCase());
+        //rightText.setTextSize(spToPx(BUTTON_TEXT_SIZE_SP));
+        if(card.getRightButtonTextColor() > -1) {
+            rightText.setTextColor(card.getRightButtonTextColor());
+        }
         rightText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnRightButtonPressedListener().onButtonPressedListener(rightText, getCard());
+                card.getOnRightButtonPressedListener().onButtonPressedListener(rightText, card);
             }
         });
 
@@ -69,14 +72,7 @@ public abstract class ButtonsCardItemView<T extends ButtonsCard> extends CardIte
             if(card.isFullWidthDivider()) {
                 ((LinearLayout.LayoutParams) divider.getLayoutParams()).setMargins(0, 0, 0, 0);
             } else {
-
-                // Convert DP to PX
-                int dividerMarginPx = (int) TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        DIVIDER_MARGIN_DP,
-                        getContext().getResources().getDisplayMetrics()
-                );
-
+                int dividerMarginPx = (int) dpToPx(DIVIDER_MARGIN_DP);
                 // Set the margin
                 ((LinearLayout.LayoutParams) divider.getLayoutParams()).setMargins(
                         dividerMarginPx,
@@ -85,7 +81,6 @@ public abstract class ButtonsCardItemView<T extends ButtonsCard> extends CardIte
                         0
                 );
             }
-
         }
     }
 }

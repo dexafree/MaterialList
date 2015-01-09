@@ -1,10 +1,14 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.cards.model;
 
 import android.content.Context;
 
 import com.dexafree.materialList.controller.OnButtonPressListener;
+import com.dexafree.materialList.events.BusProvider;
 
-public abstract class ButtonsCard extends Card {
+/**
+ * The ExtendedCard set two Buttons (right and left).
+ */
+public abstract class ExtendedCard extends SimpleCard {
     private String leftButtonText;
     private String rightButtonText;
     private int mRightButtonTextColor = -1;
@@ -13,7 +17,7 @@ public abstract class ButtonsCard extends Card {
     private boolean dividerVisible = false;
     private boolean fullWidthDivider = false;
 
-    public ButtonsCard(final Context context) {
+    public ExtendedCard(final Context context) {
         super(context);
     }
 
@@ -27,6 +31,7 @@ public abstract class ButtonsCard extends Card {
 
     public void setLeftButtonText(String leftButtonText) {
         this.leftButtonText = leftButtonText;
+		BusProvider.dataSetChanged();
     }
 
     public String getRightButtonText() {
@@ -39,6 +44,7 @@ public abstract class ButtonsCard extends Card {
 
     public void setRightButtonText(String rightButtonText) {
         this.rightButtonText = rightButtonText;
+		BusProvider.dataSetChanged();
     }
 
     public int getRightButtonTextColor() {
@@ -47,6 +53,7 @@ public abstract class ButtonsCard extends Card {
 
     public void setRightButtonTextColor(int color) {
         this.mRightButtonTextColor = color;
+		BusProvider.dataSetChanged();
     }
 
     public void setRightButtonTextColorRes(int colorId) {
@@ -63,10 +70,12 @@ public abstract class ButtonsCard extends Card {
 
     public void setFullWidthDivider(boolean fullWidthDivider) {
         this.fullWidthDivider = fullWidthDivider;
+		BusProvider.dataSetChanged();
     }
 
     public void setDividerVisible(boolean visible) {
         this.dividerVisible = visible;
+		BusProvider.dataSetChanged();
     }
 
     public OnButtonPressListener getOnLeftButtonPressedListener() {

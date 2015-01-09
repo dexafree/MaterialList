@@ -1,15 +1,11 @@
-package com.dexafree.materialList.view;
+package com.dexafree.materialList.cards.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.dexafree.materialList.R;
-import com.dexafree.materialList.model.SmallImageCard;
+import com.dexafree.materialList.cards.model.SmallImageCard;
 
-public class SmallImageCardItemView extends CardItemView<SmallImageCard> {
+public class SmallImageCardItemView extends BaseTextCardItemView<SmallImageCard> {
     public SmallImageCardItemView(Context context) {
         super(context);
     }

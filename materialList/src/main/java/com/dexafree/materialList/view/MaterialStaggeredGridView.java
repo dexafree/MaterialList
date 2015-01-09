@@ -8,12 +8,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.BaseAdapter;
 
-import com.dexafree.materialList.MaterialListViewAdapter;
+import com.dexafree.materialList.controller.MaterialListViewAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.events.BusProvider;
+import com.dexafree.materialList.events.DataSetChangedEvent;
 import com.dexafree.materialList.events.DismissEvent;
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.model.Card;
 import com.etsy.android.grid.StaggeredGridView;
 import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
@@ -149,6 +150,11 @@ public class MaterialStaggeredGridView extends StaggeredGridView implements IMat
     }
 
 	@Subscribe
+	public void onNotifyDataSetChanged(DataSetChangedEvent event) {
+		mAdapter.notifyDataSetChanged();
+	}
+
+	@Subscribe
 	public void onCardDismiss(DismissEvent event){
 		Card dismissedCard = event.getDismissedCard();
 		View dismissedCardView = null;
@@ -167,12 +173,12 @@ public class MaterialStaggeredGridView extends StaggeredGridView implements IMat
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        BusProvider.getInstance().register(this);
+        BusProvider.register(this);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        BusProvider.getInstance().unregister(this);
+        BusProvider.unregister(this);
     }
 }

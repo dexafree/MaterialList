@@ -1,12 +1,10 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.cards.model;
 
 import android.content.Context;
-import android.graphics.Color;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.controller.OnButtonPressListener;
 
-public class BigImageButtonsCard extends ButtonsCard {
+public class BigImageButtonsCard extends ExtendedCard {
 	public BigImageButtonsCard(final Context context) {
 		super(context);
 	}

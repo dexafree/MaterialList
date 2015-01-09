@@ -1,11 +1,10 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.cards.model;
 
 import android.content.Context;
-import android.graphics.Color;
 
 import com.dexafree.materialList.R;
 
-public class BigImageCard extends Card {
+public class BigImageCard extends SimpleCard {
 	public BigImageCard(final Context context) {
 		super(context);
 	}

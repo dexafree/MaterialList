@@ -1,4 +1,4 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.cards.model;
 
 import android.content.Context;
 import android.widget.AdapterView;
@@ -6,7 +6,7 @@ import android.widget.ListAdapter;
 
 import com.dexafree.materialList.R;
 
-public class BasicListCard extends Card {
+public class BasicListCard extends SimpleCard {
     private AdapterView.OnItemClickListener mOnItemSelectedListener;
 	private ListAdapter mAdapter;
 	private boolean dividerVisible;

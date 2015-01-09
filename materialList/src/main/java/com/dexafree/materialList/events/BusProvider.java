@@ -1,5 +1,6 @@
 package com.dexafree.materialList.events;
 
+import com.dexafree.materialList.cards.model.Card;
 import com.squareup.otto.Bus;
 
 /**
@@ -9,11 +10,23 @@ import com.squareup.otto.Bus;
 public final class BusProvider {
     private static final MainThreadBus BUS = new MainThreadBus(new Bus());
 
-    public static MainThreadBus getInstance() {
-        return BUS;
-    }
-
     private BusProvider() {
         // No instances.
     }
+
+	public static void dataSetChanged() {
+		BUS.post(new DataSetChangedEvent());
+	}
+
+	public static void dismiss(Card card) {
+		BUS.post(new DismissEvent(card));
+	}
+
+	public static void register(Object object) {
+		BUS.register(object);
+	}
+
+	public static void unregister(Object object) {
+		BUS.unregister(object);
+	}
 }

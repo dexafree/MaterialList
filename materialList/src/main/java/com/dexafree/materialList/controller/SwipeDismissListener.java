@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.model.Card;
 import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.nineoldandroids.animation.Animator;

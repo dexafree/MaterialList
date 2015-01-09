@@ -1,58 +1,34 @@
-package com.dexafree.materialList.view;
+package com.dexafree.materialList.cards.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.MyRoundRectDrawableWithShadow;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.model.Card;
 
 
-public abstract class CardItemView<T extends Card> extends LinearLayout {
-    public CardItemView(Context context) {
+public abstract class BaseCardItemView<T extends Card> extends LinearLayout {
+    public BaseCardItemView(Context context) {
         super(context);
     }
 
-    public CardItemView(Context context, AttributeSet attrs) {
+    public BaseCardItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public CardItemView(Context context, AttributeSet attrs, int defStyle) {
+    public BaseCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
 	public void build(T card) {
-        // Title
-        TextView title = (TextView) findViewById(R.id.titleTextView);
-        title.setText(card.getTitle());
-        if(card.getTitleColor() > -1) {
-            title.setTextColor(card.getTitleColor());
-        }
-
-        // Description
-        TextView description = (TextView) findViewById(R.id.descriptionTextView);
-        description.setText(card.getDescription());
-        if(card.getDescriptionColor() > -1) {
-            description.setTextColor(card.getDescriptionColor());
-        }
-
-        // Image
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        if(imageView != null) {
-            imageView.setImageDrawable(card.getDrawable());
-        }
-
-        // Background Color
+	    // Background Color
         CardView cardView = (CardView) findViewById(R.id.cardView);
 
         if(cardView != null) {

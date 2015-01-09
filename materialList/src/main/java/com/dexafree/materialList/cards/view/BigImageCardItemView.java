@@ -1,15 +1,11 @@
-package com.dexafree.materialList.view;
+package com.dexafree.materialList.cards.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.dexafree.materialList.R;
-import com.dexafree.materialList.model.BigImageCard;
+import com.dexafree.materialList.cards.model.BigImageCard;
 
-public class BigImageCardItemView extends CardItemView<BigImageCard> {
+public class BigImageCardItemView extends BaseTextCardItemView<BigImageCard> {
     public BigImageCardItemView(Context context) {
         super(context);
     }

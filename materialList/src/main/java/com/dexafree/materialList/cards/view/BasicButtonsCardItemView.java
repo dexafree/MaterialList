@@ -1,16 +1,11 @@
-package com.dexafree.materialList.view;
+package com.dexafree.materialList.cards.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.dexafree.materialList.R;
-import com.dexafree.materialList.model.BasicButtonsCard;
+import com.dexafree.materialList.cards.model.BasicButtonsCard;
 
-public class BasicButtonsCardItemView extends ButtonsCardItemView<BasicButtonsCard> {
+public class BasicButtonsCardItemView extends BaseButtonsCardItemView<BasicButtonsCard> {
     public BasicButtonsCardItemView(Context context) {
         super(context);
     }

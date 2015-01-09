@@ -1,8 +1,7 @@
-package com.dexafree.materialList.view;
+package com.dexafree.materialList.cards.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -10,22 +9,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.model.ButtonsCard;
+import com.dexafree.materialList.cards.model.ExtendedCard;
 
-public abstract class ButtonsCardItemView<T extends ButtonsCard> extends CardItemView<T> {
+public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends BaseTextCardItemView<T> {
     private final static int DIVIDER_MARGIN_DP = 16;
-    private final static int BUTTON_TEXT_SIZE_SP = 14;
 
-    public ButtonsCardItemView(Context context) {
+    public BaseButtonsCardItemView(Context context) {
         super(context);
     }
 
-    public ButtonsCardItemView(Context context, AttributeSet attrs) {
+    public BaseButtonsCardItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public ButtonsCardItemView(Context context, AttributeSet attrs, int defStyle) {
+    public BaseButtonsCardItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -36,7 +34,6 @@ public abstract class ButtonsCardItemView<T extends ButtonsCard> extends CardIte
         // Left Button - Text
         final TextView leftText = (TextView) findViewById(R.id.left_text_button);
         leftText.setText(card.getLeftButtonText().toUpperCase());
-        //leftText.setTextSize(spToPx(BUTTON_TEXT_SIZE_SP));
         leftText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +44,6 @@ public abstract class ButtonsCardItemView<T extends ButtonsCard> extends CardIte
         // Right Button - Text
         final TextView rightText = (TextView) findViewById(R.id.right_text_button);
         rightText.setText(card.getRightButtonText().toUpperCase());
-        //rightText.setTextSize(spToPx(BUTTON_TEXT_SIZE_SP));
         if(card.getRightButtonTextColor() > -1) {
             rightText.setTextColor(card.getRightButtonTextColor());
         }

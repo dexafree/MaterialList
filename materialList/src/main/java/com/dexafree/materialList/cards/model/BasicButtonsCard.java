@@ -1,12 +1,11 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.cards.model;
 
 
 import android.content.Context;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.controller.OnButtonPressListener;
 
-public class BasicButtonsCard extends ButtonsCard {
+public class BasicButtonsCard extends ExtendedCard {
 	public BasicButtonsCard(final Context context) {
 		super(context);
 	}

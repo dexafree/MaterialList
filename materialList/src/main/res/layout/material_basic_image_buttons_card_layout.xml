@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.dexafree.materialList.view.BasicImageButtonsCardItemView
+<com.dexafree.materialList.cards.view.BasicImageButtonsCardItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MainLayout">
@@ -16,8 +16,9 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:minWidth="100dp"
                 android:contentDescription="@null"
                 android:scaleType="fitStart"
                 android:id="@+id/imageView" />
@@ -94,4 +95,4 @@
 
     </android.support.v7.widget.CardView>
 
-</com.dexafree.materialList.view.BasicImageButtonsCardItemView>
+</com.dexafree.materialList.cards.view.BasicImageButtonsCardItemView>

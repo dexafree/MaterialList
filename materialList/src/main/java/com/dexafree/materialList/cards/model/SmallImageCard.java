@@ -1,10 +1,10 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.cards.model;
 
 import android.content.Context;
 
 import com.dexafree.materialList.R;
 
-public class SmallImageCard extends Card {
+public class SmallImageCard extends SimpleCard {
 	public SmallImageCard(final Context context) {
 		super(context);
 	}

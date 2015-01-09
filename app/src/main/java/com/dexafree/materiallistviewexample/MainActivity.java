@@ -10,17 +10,17 @@ import android.widget.Toast;
 
 import com.dexafree.materialList.controller.OnButtonPressListener;
 import com.dexafree.materialList.controller.OnDismissCallback;
-import com.dexafree.materialList.model.BasicButtonsCard;
-import com.dexafree.materialList.model.BasicImageButtonsCard;
-import com.dexafree.materialList.model.BasicListCard;
-import com.dexafree.materialList.model.BigImageButtonsCard;
-import com.dexafree.materialList.model.BigImageCard;
-import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.model.SmallImageCard;
-import com.dexafree.materialList.model.WelcomeCard;
+import com.dexafree.materialList.cards.model.Card;
+import com.dexafree.materialList.cards.model.SimpleCard;
+import com.dexafree.materialList.cards.model.BasicButtonsCard;
+import com.dexafree.materialList.cards.model.BasicImageButtonsCard;
+import com.dexafree.materialList.cards.model.BasicListCard;
+import com.dexafree.materialList.cards.model.BigImageButtonsCard;
+import com.dexafree.materialList.cards.model.BigImageCard;
+import com.dexafree.materialList.cards.model.SmallImageCard;
+import com.dexafree.materialList.cards.model.WelcomeCard;
 import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
-import com.dexafree.materialList.view.MaterialStaggeredGridView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
 
         int type = position % 6;
 
-        Card card;
+        SimpleCard card;
         Drawable icon;
 
         switch (type){
@@ -96,14 +96,14 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-						card.setTitle("CHANGED ON RUNTIME");
+						((SimpleCard) card).setTitle("CHANGED ON RUNTIME");
                     }
                 });
 
                 ((BasicImageButtonsCard)card).setOnRightButtonPressedListener(new OnButtonPressListener() {
 					@Override
 					public void onButtonPressedListener(View view, Card card) {
-                        Toast.makeText(mContext, "You have pressed the right button on card " + card.getTitle(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the right button on card " + ((SimpleCard) card).getTitle(), Toast.LENGTH_SHORT).show();
                         card.dismiss();
                     }
                 });
@@ -212,7 +212,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private Card generateNewCard(){
-        Card card = new BasicImageButtonsCard(this);
+        SimpleCard card = new BasicImageButtonsCard(this);
         card.setDrawable(R.drawable.dog);
         card.setTitle("I'm new");
         card.setDescription("I've been generated on runtime!");

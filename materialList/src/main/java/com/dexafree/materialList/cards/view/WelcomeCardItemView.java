@@ -1,4 +1,4 @@
-package com.dexafree.materialList.view;
+package com.dexafree.materialList.cards.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,13 +7,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.model.WelcomeCard;
+import com.dexafree.materialList.cards.model.WelcomeCard;
 
-public class WelcomeCardItemView extends CardItemView<WelcomeCard> {
+public class WelcomeCardItemView extends BaseTextCardItemView<WelcomeCard> {
     public WelcomeCardItemView(Context context) {
         super(context);
     }

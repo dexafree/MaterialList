@@ -1,4 +1,4 @@
-package com.dexafree.materialList.model;
+package com.dexafree.materialList.cards.model;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -6,7 +6,7 @@ import android.graphics.Color;
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.controller.OnButtonPressListener;
 
-public class WelcomeCard extends Card {
+public class WelcomeCard extends SimpleCard {
     private String subtitle;
     private String buttonText;
     private OnButtonPressListener mListener;

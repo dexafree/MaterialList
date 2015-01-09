@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.model.BigImageCard;
 
-public class BigImageCardItemView extends GridItemView<BigImageCard> {
+public class BigImageCardItemView extends CardItemView<BigImageCard> {
 
     TextView mTitle;
 
@@ -43,9 +43,9 @@ public class BigImageCardItemView extends GridItemView<BigImageCard> {
 
     @Override
     public void configureView(BigImageCard card) {
-        setTitle(card.getTitle());
-        setDescription(card.getDescription());
-        setImage(card.getBitmap());
+        setTitle(card.getmTitle());
+        setDescription(card.getmDescription());
+        setImage(card.getmDrawable());
     }
 
     public void setTitle(String title){

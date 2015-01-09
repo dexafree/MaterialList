@@ -14,16 +14,7 @@ import android.widget.TextView;
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.model.WelcomeCard;
 
-public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
-
-    private TextView mTitle;
-    private TextView mSubtitle;
-    private TextView mDescription;
-    private TextView mButton;
-    private View mDivider;
-    private RelativeLayout backgroundView;
-    private ImageView checkMark;
-
+public class WelcomeCardItemView extends CardItemView<WelcomeCard> {
     public WelcomeCardItemView(Context context) {
         super(context);
     }
@@ -37,78 +28,68 @@ public class WelcomeCardItemView extends GridItemView<WelcomeCard> {
     }
 
     @Override
-    public void configureView(WelcomeCard card) {
-        setTitle(card.getTitle());
-        setSubtitle(card.getSubtitle());
-        setDescription(card.getDescription());
-        setButton(card);
-        setColors(card);
-    }
+    public void build(final WelcomeCard card) {
+        super.build(card);
 
-    public void setTitle(String title){
-        mTitle = (TextView)findViewById(R.id.titleTextView);
-        mTitle.setText(title);
-    }
+        int textSize = pxToDp(36);
 
-    public void setSubtitle(String subtitle){
-        mSubtitle = (TextView)findViewById(R.id.subtitleTextView);
-        mSubtitle.setText(subtitle);
-    }
+        // Title
+        TextView title = (TextView)findViewById(R.id.titleTextView);
+        title.setTextColor(card.getTitleColor());
 
-    public void setDescription(String description){
-        mDescription = (TextView)findViewById(R.id.descriptionTextView);
-        mDescription.setText(description);
-    }
+        // Subtitle
+        TextView subtitle = (TextView)findViewById(R.id.subtitleTextView);
+        subtitle.setText(card.getSubtitle());
+        subtitle.setTextColor(card.getSubtitleColor());
 
-    public void setButton(final WelcomeCard card){
-        mButton = (TextView) findViewById(R.id.ok_button);
-        mButton.setText(card.getButtonText());
-        mButton.setTextColor(card.getBackgroundColor());
+        // Description
+        ((TextView)findViewById(R.id.descriptionTextView)).setTextColor(card.getDescriptionColor());
 
-        final GridItemView<WelcomeCard> refView = this;
+        // Divider
+        View divider = findViewById(R.id.cardDivider);
+        divider.setBackgroundColor(card.getDividerColor());
 
-        mButton.setOnClickListener(new OnClickListener() {
+        // Check mark
+        ImageView checkMark = (ImageView) findViewById(R.id.check_mark);
+        checkMark.setColorFilter(card.getButtonTextColor(), PorterDuff.Mode.SRC_IN);
+
+        // Button
+        final TextView button = (TextView) findViewById(R.id.ok_button);
+        button.setText(card.getButtonText());
+        button.setTextColor(card.getButtonTextColor());
+        button.setTextSize((float) textSize);
+
+        final CardItemView<WelcomeCard> refView = this;
+
+        button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Log.d("CLICK", "Text clicked");
 
-                if(card.getOnButtonPressedListener() != null) {
-                    card.getOnButtonPressedListener().onButtonPressedListener(mButton, getCard());
+                if (card.getOnButtonPressedListener() != null) {
+                    card.getOnButtonPressedListener().onButtonPressedListener(button, getCard());
                 }
 
-				// The developer should decide for his own to dismiss or not
+                // The developer should decide for his own to dismiss or not
                 //BusProvider.getInstance().post(new DismissEvent(card));
             }
         });
-    }
 
-    private void setColors(WelcomeCard card){
-
+        // Background Color
         CardView cardView = (CardView)findViewById(R.id.cardView);
 
-        int textSize = pxToDp(36);
-
-		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-			MyRoundRectDrawableWithShadow backgroundDrawable = new MyRoundRectDrawableWithShadow(
-					getContext().getResources(),
-					card.getBackgroundColor(),
-					cardView.getRadius(),
-					6f,
-					6f
-			);
-			cardView.setBackgroundDrawable(backgroundDrawable);
-		} else {
-			cardView.setBackgroundColor(card.getBackgroundColor());
-			cardView.setCardElevation(dpToPx(6));
-		}
-        checkMark = (ImageView)findViewById(R.id.check_mark);
-        mDivider = findViewById(R.id.cardDivider);
-        mDivider.setBackgroundColor(card.getDividerColor());
-        mTitle.setTextColor(card.getTitleColor());
-        mSubtitle.setTextColor(card.getSubtitleColor());
-        mDescription.setTextColor(card.getDescriptionColor());
-        mButton.setTextColor(card.getButtonTextColor());
-        mButton.setTextSize((float) textSize);
-        checkMark.setColorFilter(card.getButtonTextColor(), PorterDuff.Mode.SRC_IN);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            MyRoundRectDrawableWithShadow backgroundDrawable = new MyRoundRectDrawableWithShadow(
+                    getContext().getResources(),
+                    card.getBackgroundColor(),
+                    cardView.getRadius(),
+                    6f,
+                    6f
+            );
+            cardView.setBackgroundDrawable(backgroundDrawable);
+        } else {
+            cardView.setBackgroundColor(card.getBackgroundColor());
+            cardView.setCardElevation(dpToPx(6));
+        }
     }
 }

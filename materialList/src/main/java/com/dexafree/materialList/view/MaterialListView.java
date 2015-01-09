@@ -57,7 +57,7 @@ public class MaterialListView extends ListView implements IMaterialView {
 							public void onDismiss(IMaterialView listView, final Card[] reverseSortedCards) {
 								for (Card dismissedCard : reverseSortedCards) {
 									int position = getAdapter().getPosition(dismissedCard);
-									//Log.d(getClass().getSimpleName(), dismissedCard.getTitle() +
+									//Log.d(getClass().getSimpleName(), dismissedCard.getmTitle() +
 									// " [Position="+position+"]");
 
 									if (mDismissCallback != null) {

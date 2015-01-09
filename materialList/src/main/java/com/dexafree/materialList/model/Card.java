@@ -13,42 +13,18 @@ import com.dexafree.materialList.events.DismissEvent;
 
 public abstract class Card {
 	private final Context mContext;
-	private String title;
-    private String description;
-    private Bitmap bitmap;
-    private boolean canDismiss = true;
-    private boolean dismissed = false;
+	private String mTitle;
+    private String mDescription;
+    private Drawable mDrawable;
+    private boolean mDismissible = true;
+    private boolean mDismissed = false;
 
     public Card(Context context) {
 		mContext = context;
 	}
 
-	// Do we really need these Constructors? The Developer can access every field through a Setter.
-	/*
-    public Card(Context context, String title, String description, Bitmap bitmap) {
-		mContext = context;
-        this.title = title;
-        this.description = description;
-        this.bitmap = bitmap;
-    }
-
-    public Card(Context context, String title, String description, int resourceId) {
-		mContext = context;
-        this.title = title;
-        this.description = description;
-        this.bitmap = resourceToBitmap(context, resourceId);
-    }
-
-    public Card(Context context, String title, String description, Drawable drawable) {
-		mContext = context;
-        this.title = title;
-        this.description = description;
-        this.bitmap = drawableToBitmap(drawable);
-    }
-    */
-
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
 	public void setTitle(int titleId) {
@@ -56,12 +32,12 @@ public abstract class Card {
 	}
 
     public void setTitle(String title) {
-        this.title = title;
+        this.mTitle = title;
 		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
 	public void setDescription(int descriptionId) {
@@ -69,68 +45,40 @@ public abstract class Card {
 	}
 
     public void setDescription(String description) {
-        this.description = description;
+        this.mDescription = description;
 		BusProvider.getInstance().post(new DataSetChangedEvent());
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public Drawable getDrawable() {
+        return mDrawable;
     }
 
 	public void setDrawable(int drawableId) {
-		setBitmap(resourceToBitmap(drawableId));
+        setDrawable(getResources().getDrawable(drawableId));
 	}
 
-    public void setBitmap(int drawableId) {
-        setBitmap(resourceToBitmap(drawableId));
-    }
-
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public void setDrawable(Drawable drawable) {
+        this.mDrawable = drawable;
 		BusProvider.getInstance().post(new DataSetChangedEvent());
-    }
-
-    public void setBitmap(Drawable drawable){
-        bitmap = drawableToBitmap(drawable);
-		BusProvider.getInstance().post(new DataSetChangedEvent());
-    }
-
-    private Bitmap resourceToBitmap (int resourceId){
-        Resources res = mContext.getResources();
-        Drawable d = res.getDrawable(resourceId);
-        return drawableToBitmap(d);
-    }
-
-    private Bitmap drawableToBitmap (Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable)drawable).getBitmap();
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
     }
 
     public boolean isDismissible() {
-        return canDismiss;
+        return mDismissible;
     }
 
     public void setDismissible(boolean canDismiss) {
-        this.canDismiss = canDismiss;
+        this.mDismissible = canDismiss;
     }
 
     public void dismiss() {
-		if(canDismiss) {
-			dismissed = true;
+		if(mDismissible) {
+			mDismissed = true;
 			BusProvider.getInstance().post(new DismissEvent(this));
 		}
     }
 
     public boolean isDismissed() {
-        return dismissed;
+        return mDismissed;
     }
 
     public abstract int getLayout();

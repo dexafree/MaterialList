@@ -15,7 +15,7 @@ import com.dexafree.materialList.R;
 import com.dexafree.materialList.model.BasicListCard;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 
-public class BasicListCardItemView extends GridItemView<BasicListCard> {
+public class BasicListCardItemView extends CardItemView<BasicListCard> {
     public BasicListCardItemView(Context context) {
         super(context);
     }
@@ -29,9 +29,8 @@ public class BasicListCardItemView extends GridItemView<BasicListCard> {
     }
 
     @Override
-    public void configureView(final BasicListCard newItem) {
-        setTitle(newItem.getTitle());
-        setDescription(newItem.getDescription());
+    public void build(final BasicListCard newItem) {
+        super.build(newItem);
 		if(newItem.getAdapter() != null) {
 			final DynamicListView listView = (DynamicListView) findViewById(R.id.listView);
 			if(!newItem.isDividerVisible()) {
@@ -70,12 +69,4 @@ public class BasicListCardItemView extends GridItemView<BasicListCard> {
 		listView.setLayoutParams(params);
 		listView.requestLayout();
 	}
-
-    public void setTitle(String title){
-        ((TextView)findViewById(R.id.titleTextView)).setText(title);
-    }
-
-    public void setDescription(String description){
-        ((TextView)findViewById(R.id.descriptionTextView)).setText(description);
-    }
 }

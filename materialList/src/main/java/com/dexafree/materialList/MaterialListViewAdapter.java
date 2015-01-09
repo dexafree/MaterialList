@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.view.GridItemView;
+import com.dexafree.materialList.view.CardItemView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class MaterialListViewAdapter extends ArrayAdapter<Card> {
             }
         }
 
-        ((GridItemView)convertView).build(card);
+        ((CardItemView)convertView).build(card);
 
     	return convertView;
     }

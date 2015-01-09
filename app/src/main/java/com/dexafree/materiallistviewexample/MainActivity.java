@@ -34,12 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
         mContext = this;
 
-		View view = findViewById(R.id.material_listview);
-		if(view instanceof MaterialListView) {
-			mListView = (MaterialListView) view;
-		} else {
-			mListView = (MaterialStaggeredGridView) view;
-		}
+		mListView = (IMaterialView) findViewById(R.id.material_listview);
 		mListView.setCardAnimation(MaterialListView.CardAnimation.SWING_BOTTOM_IN);
 
         fillArray();
@@ -75,16 +70,14 @@ public class MainActivity extends ActionBarActivity {
                 card = new SmallImageCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
-                icon = getResources().getDrawable(R.drawable.ic_launcher);
-                card.setBitmap(icon);
+                card.setDrawable(R.drawable.ic_launcher);
                 return card;
 
             case 1:
                 card = new BigImageCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
-                icon = getResources().getDrawable(R.drawable.photo);
-                card.setBitmap(icon);
+                card.setDrawable(R.drawable.photo);
                 card.setDismissible(false);
                 return card;
 
@@ -92,8 +85,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new BasicImageButtonsCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
-                icon = getResources().getDrawable(R.drawable.dog);
-                card.setBitmap(icon);
+                card.setDrawable(R.drawable.dog);
                 ((BasicImageButtonsCard)card).setLeftButtonText("LEFT");
                 ((BasicImageButtonsCard)card).setRightButtonText("RIGHT");
 
@@ -187,8 +179,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new BigImageButtonsCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
-                icon = getResources().getDrawable(R.drawable.photo);
-                card.setBitmap(icon);
+                card.setDrawable(R.drawable.photo);
                 ((BigImageButtonsCard)card).setLeftButtonText("ADD CARD");
                 ((BigImageButtonsCard)card).setRightButtonText("RIGHT BUTTON");
 
@@ -222,7 +213,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Card generateNewCard(){
         Card card = new BasicImageButtonsCard(this);
-        card.setBitmap(R.drawable.dog);
+        card.setDrawable(R.drawable.dog);
         card.setTitle("I'm new");
         card.setDescription("I've been generated on runtime!");
 

@@ -9,13 +9,13 @@ import com.dexafree.materialList.events.BusProvider;
  * The ExtendedCard set two Buttons (right and left).
  */
 public abstract class ExtendedCard extends SimpleCard {
-    private String leftButtonText;
-    private String rightButtonText;
-    private int mRightButtonTextColor = -1;
-    private OnButtonPressListener onLeftButtonPressedListener;
-    private OnButtonPressListener onRightButtonPressedListener;
-    private boolean dividerVisible = false;
-    private boolean fullWidthDivider = false;
+    protected String leftButtonText;
+    protected String rightButtonText;
+    protected int mRightButtonTextColor = -1;
+    protected OnButtonPressListener onLeftButtonPressedListener;
+    protected OnButtonPressListener onRightButtonPressedListener;
+    protected boolean dividerVisible = false;
+    protected boolean fullWidthDivider = false;
 
     public ExtendedCard(final Context context) {
         super(context);

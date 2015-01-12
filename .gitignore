@@ -2,7 +2,6 @@
 /local.properties
 .DS_Store
 /build
-.idea/
-*.apk
+.idea
 *.iml
-/gradle
+*.apk

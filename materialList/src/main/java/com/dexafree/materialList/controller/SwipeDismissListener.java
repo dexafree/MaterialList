@@ -1,15 +1,10 @@
 package com.dexafree.materialList.controller;
 
 import android.graphics.Rect;
-import android.view.MotionEvent;
-import android.view.VelocityTracker;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.AbsListView;
 import android.widget.ListView;
-
-import com.dexafree.materialList.cards.model.Card;
+import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.nineoldandroids.animation.Animator;
@@ -57,9 +52,9 @@ public class SwipeDismissListener implements View.OnTouchListener {
          * Called when the user has indicated they she would like to dismiss one or more list item
          * positions.
          *
-         * @param listView               The originating {@link MaterialListView}.
-         * @param reverseSortedCards	 An array of positions to dismiss, sorted in descending
-         *                               order for convenience.
+         * @param listView           The originating {@link MaterialListView}.
+         * @param reverseSortedCards An array of positions to dismiss, sorted in descending
+         *                           order for convenience.
          */
         void onDismiss(IMaterialView listView, Card[] reverseSortedCards);
     }
@@ -116,9 +111,9 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-		if(mListView.getAdapter().isEmpty()) {
-			return false;
-		}
+        if (mListView.getAdapter().isEmpty()) {
+            return false;
+        }
 
         if (mViewWidth < 2) {
             mViewWidth = mListView.getWidth();
@@ -265,7 +260,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
         }
     }
 
-    public void dismissCard(final View downView, final Card card){
+    public void dismissCard(final View downView, final Card card) {
 
         float viewWidth = downView.getMeasuredWidth();
 
@@ -303,13 +298,13 @@ public class SwipeDismissListener implements View.OnTouchListener {
 
                     // Log.d("PENDING", mPendingDismisses.size()+"");
 
-					// 2014-12-22: Bug: Don't save the positions. These are relative and not the correct
-					// ones which are saved in the adapter for the cards. So use the cards directly.
-					Card[] dismissCards = new Card[mPendingDismisses.size()];
-					int index = 0;
+                    // 2014-12-22: Bug: Don't save the positions. These are relative and not the correct
+                    // ones which are saved in the adapter for the cards. So use the cards directly.
+                    Card[] dismissCards = new Card[mPendingDismisses.size()];
+                    int index = 0;
                     ViewGroup.LayoutParams lp;
                     for (PendingDismissData pendingDismiss : mPendingDismisses) {
-						dismissCards[index++] = (Card) pendingDismiss.view.getTag();
+                        dismissCards[index++] = (Card) pendingDismiss.view.getTag();
                         // Reset view presentation
                         setAlpha(pendingDismiss.view, 1f);
                         setTranslationX(pendingDismiss.view, 0);
@@ -317,7 +312,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
                         lp.height = originalHeight;
                         pendingDismiss.view.setLayoutParams(lp);
                     }
-					mCallback.onDismiss(mListView, dismissCards);
+                    mCallback.onDismiss(mListView, dismissCards);
 
                     mPendingDismisses.clear();
                 }

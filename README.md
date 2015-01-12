@@ -179,6 +179,15 @@ dependencies {
 }
 ```
 
+If you want to use those pretty cards shows on this page, just import "sampleCards" as a module, like this: 
+
+```groovy
+dependencies {
+    ...
+    compile project(':sampleCards')
+}
+```
+
 ## Sample
 You can clone the project and compile it yourself (it includes a sample), or you can check it out already compiled at Google Play
 

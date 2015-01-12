@@ -1,1 +1,1 @@
-include ':app', ':materialList'
+include ':app', ':materialList', ':sampleCards'

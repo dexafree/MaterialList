@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.dexafree.materialList.cards.ExtendedCard;
@@ -65,11 +66,11 @@ public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends Ba
 
             // If the divider has to be from side to side, the margin will be 0
             if (card.isFullWidthDivider()) {
-                ((LinearLayout.LayoutParams) divider.getLayoutParams()).setMargins(0, 0, 0, 0);
+                ((ViewGroup.MarginLayoutParams) divider.getLayoutParams()).setMargins(0, 0, 0, 0);
             } else {
                 int dividerMarginPx = (int) dpToPx(DIVIDER_MARGIN_DP);
                 // Set the margin
-                ((LinearLayout.LayoutParams) divider.getLayoutParams()).setMargins(
+                ((ViewGroup.MarginLayoutParams) divider.getLayoutParams()).setMargins(
                         dividerMarginPx,
                         0,
                         dividerMarginPx,

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.dexafree.materialList.cards.internal.BasicListCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainLayout">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView"
+        style="@style/MainCardView"
+        card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleTextView"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toRightOf="@+id/imageView"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                android:textSize="@dimen/title_size"
+                android:textColor="@color/black_button"
+                tools:text="El Pooch"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/description_color"
+                android:textSize="@dimen/description_size"
+                android:layout_below="@+id/titleTextView"
+                android:layout_alignLeft="@+id/titleTextView"
+                android:id="@+id/descriptionTextView"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                tools:text="By Alex Nelson"/>
+
+            <view
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="com.nhaarman.listviewanimations.itemmanipulation.DynamicListView"
+                android:id="@+id/listView"
+                android:layout_below="@+id/descriptionTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</com.dexafree.materialList.cards.internal.BasicListCardItemView>

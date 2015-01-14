@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.dexafree.materialList.cards.internal.WelcomeCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainLayout">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        style="@style/MainCardView">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleTextView"
+                android:padding="@dimen/big_padding"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/bigger_title_size"
+                tools:text="This is the title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subtitleTextView"
+                android:textColor="@color/description_color"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:textSize="@dimen/subtitle_size"
+                android:textStyle="bold"
+                tools:text="I am the subtitle"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionTextView"
+                android:textColor="@color/description_color"
+                android:paddingBottom="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingTop="@dimen/small_padding"
+                android:textSize="@dimen/description_size"
+                tools:text="And this is the description"/>
+
+            <View
+                android:id="@+id/cardDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider_white"
+                android:layout_marginLeft="@dimen/big_padding"
+                android:layout_marginRight="@dimen/big_padding"
+                android:visibility="visible"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:id="@+id/ok_button"
+                android:clickable="true"
+                android:focusable="false"
+                android:textStyle="bold"
+                android:padding="@dimen/big_padding"
+                android:drawableLeft="@drawable/ic_check"
+                android:drawablePadding="@dimen/big_padding"
+                style="@style/LeftButtonBaseStyle"
+                tools:text="CLICK ME"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</com.dexafree.materialList.cards.internal.WelcomeCardItemView>

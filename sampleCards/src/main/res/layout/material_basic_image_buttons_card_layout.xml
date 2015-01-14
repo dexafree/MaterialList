@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.dexafree.materialList.cards.internal.BasicImageButtonsCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainLayout">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView"
+        style="@style/MainCardView"
+        card_view:cardCornerRadius="@dimen/card_corner_radius">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="100dp"
+                android:contentDescription="@null"
+                android:scaleType="fitStart"
+                android:id="@+id/imageView" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titleTextView"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="@dimen/title_size"
+                    android:textColor="@color/black_button"
+                    tools:text="El Pooch"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/description_color"
+                    android:textSize="@dimen/description_size"
+                    android:id="@+id/descriptionTextView"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingBottom="@dimen/big_padding"
+                    android:paddingRight="@dimen/big_padding"
+                    tools:text="By Alex Nelson"/>
+
+                <View
+                    android:id="@+id/cardDivider"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"
+                    android:visibility="invisible"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black_button"
+                        android:textSize="@dimen/button_size"
+                        android:id="@+id/left_text_button"
+                        android:paddingLeft="@dimen/big_padding"
+                        android:paddingRight="@dimen/small_padding"
+                        android:paddingBottom="@dimen/big_padding"
+                        android:paddingTop="@dimen/big_padding"
+                        android:textStyle="bold"
+                        tools:text="Free sample"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/right_text_button"
+                        android:textColor="@color/orange_button"
+                        android:textSize="@dimen/button_size"
+                        android:paddingLeft="@dimen/small_padding"
+                        android:paddingTop="@dimen/big_padding"
+                        android:paddingRight="@dimen/big_padding"
+                        android:paddingBottom="@dimen/big_padding"
+                        android:textStyle="bold"
+                        tools:text="Review"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</com.dexafree.materialList.cards.internal.BasicImageButtonsCardItemView>

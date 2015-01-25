@@ -33,7 +33,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@id/imageView"
+                    android:id="@+id/imageView"
                     android:padding="@dimen/big_padding"
                     android:contentDescription="@null"
                     android:scaleType="fitCenter"
@@ -42,7 +42,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:id="@id/descriptionTextView"
+                    android:id="@+id/descriptionTextView"
                     android:padding="@dimen/big_padding"
                     android:textSize="@dimen/description_size"
                     android:textColor="@color/description_color"

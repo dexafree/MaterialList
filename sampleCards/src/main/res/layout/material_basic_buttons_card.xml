@@ -39,9 +39,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
                 android:background="@color/divider_grey"
-                android:layout_below="@id/descriptionTextView"
-                android:layout_alignLeft="@id/titleTextView"
-                android:layout_alignStart="@id/titleTextView"
+                android:layout_below="@+id/descriptionTextView"
+                android:layout_alignLeft="@+id/titleTextView"
+                android:layout_alignStart="@+id/titleTextView"
                 android:visibility="invisible"/>
 
 

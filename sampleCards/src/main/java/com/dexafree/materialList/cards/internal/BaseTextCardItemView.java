@@ -29,14 +29,14 @@ public abstract class BaseTextCardItemView<T extends SimpleCard> extends BaseCar
         // Title
         TextView title = (TextView) findViewById(R.id.titleTextView);
         title.setText(card.getTitle());
-        if (card.getTitleColor() > -1) {
+        if (card.getTitleColor() != -1) {
             title.setTextColor(card.getTitleColor());
         }
 
         // Description
         TextView description = (TextView) findViewById(R.id.descriptionTextView);
         description.setText(card.getDescription());
-        if (card.getDescriptionColor() > -1) {
+        if (card.getDescriptionColor() != -1) {
             description.setTextColor(card.getDescriptionColor());
         }
 

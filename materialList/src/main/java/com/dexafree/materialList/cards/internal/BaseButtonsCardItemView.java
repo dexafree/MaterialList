@@ -6,10 +6,9 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.dexafree.materialList.cards.ExtendedCard;
-import com.dexafree.materialList.sampleCards.R;
+import com.dexafree.materialList.R;
 
 public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends BaseTextCardItemView<T> {
     private final static int DIVIDER_MARGIN_DP = 16;

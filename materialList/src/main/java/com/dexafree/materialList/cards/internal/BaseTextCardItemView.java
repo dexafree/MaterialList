@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.dexafree.materialList.cards.SimpleCard;
-import com.dexafree.materialList.sampleCards.R;
+import com.dexafree.materialList.R;
 
 public abstract class BaseTextCardItemView<T extends SimpleCard> extends BaseCardItemView<T> {
     public BaseTextCardItemView(Context context) {

@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import com.dexafree.materialList.cards.BasicCard;
 import com.dexafree.materialList.model.CardItemView;
-import com.dexafree.materialList.sampleCards.R;
+import com.dexafree.materialList.R;
 
 public abstract class BaseCardItemView<T extends BasicCard> extends CardItemView<T> {
 

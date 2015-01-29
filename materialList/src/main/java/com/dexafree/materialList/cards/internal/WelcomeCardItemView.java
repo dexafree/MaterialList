@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 import com.dexafree.materialList.cards.WelcomeCard;
-import com.dexafree.materialList.sampleCards.R;
+import com.dexafree.materialList.R;
 
 public class WelcomeCardItemView extends BaseTextCardItemView<WelcomeCard> {
     public WelcomeCardItemView(Context context) {

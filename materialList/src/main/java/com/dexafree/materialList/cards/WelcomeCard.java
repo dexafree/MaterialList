@@ -2,7 +2,7 @@ package com.dexafree.materialList.cards;
 
 import android.content.Context;
 import android.graphics.Color;
-import com.dexafree.materialList.sampleCards.R;
+import com.dexafree.materialList.R;
 
 public class WelcomeCard extends SimpleCard {
     private String subtitle;

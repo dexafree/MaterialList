@@ -2,7 +2,7 @@ package com.dexafree.materialList.cards;
 
 
 import android.content.Context;
-import com.dexafree.materialList.sampleCards.R;
+import com.dexafree.materialList.R;
 
 public class BasicButtonsCard extends ExtendedCard {
     public BasicButtonsCard(final Context context) {

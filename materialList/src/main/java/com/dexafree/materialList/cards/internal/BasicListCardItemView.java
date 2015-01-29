@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import com.dexafree.materialList.cards.BasicListCard;
-import com.dexafree.materialList.sampleCards.R;
+import com.dexafree.materialList.R;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 
 public class BasicListCardItemView extends BaseTextCardItemView<BasicListCard> {

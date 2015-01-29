@@ -175,16 +175,7 @@ In order to use MaterialList, you can either clone the project and import it as 
 ```groovy
 dependencies {
     ...
-    compile 'com.github.dexafree:materiallist:2.1.0'
-}
-```
-
-If you want to use those pretty cards shows on this page, just import "sampleCards" as a module, like this: 
-
-```groovy
-dependencies {
-    ...
-    compile project(':sampleCards')
+    compile 'com.github.dexafree:materiallist:2.1.1'
 }
 ```
 

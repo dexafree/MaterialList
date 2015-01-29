@@ -51,7 +51,7 @@ First of all, you'll need to declare a MaterialListView in your layout:
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
-    <com.dexafree.materiallistviewexample.view.MaterialListView
+    <com.dexafree.materialList.view.MaterialListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/material_listview"/>

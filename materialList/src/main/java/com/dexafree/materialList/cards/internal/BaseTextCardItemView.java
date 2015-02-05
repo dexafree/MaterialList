@@ -2,7 +2,6 @@ package com.dexafree.materialList.cards.internal;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.media.Image;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageView;

@@ -2,8 +2,6 @@ package com.dexafree.materialList.cards;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.widget.ImageView;
 
 import com.dexafree.materialList.events.BusProvider;
 

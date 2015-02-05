@@ -2,6 +2,9 @@ package com.dexafree.materialList.cards;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.widget.ImageView;
+
 import com.dexafree.materialList.events.BusProvider;
 
 /**
@@ -13,6 +16,7 @@ public abstract class SimpleCard extends BasicCard {
     private String mDescription;
     private int mDescriptionColor = -1;
     private Drawable mDrawable;
+    private String urlImage;
 
     public SimpleCard(Context context) {
         super(context);
@@ -57,6 +61,14 @@ public abstract class SimpleCard extends BasicCard {
         BusProvider.dataSetChanged();
     }
 
+    public void setDrawable(String urlImage){
+        this.urlImage = urlImage;
+    }
+
+    public String getUrlImage(){
+        return urlImage;
+    }
+
     public int getTitleColor() {
         return mTitleColor;
     }
@@ -82,4 +94,5 @@ public abstract class SimpleCard extends BasicCard {
     public void setDescriptionColorRes(int colorId) {
         setDescriptionColor(getResources().getColor(colorId));
     }
+
 }

@@ -175,7 +175,7 @@ In order to use MaterialList, you can either clone the project and import it as 
 ```groovy
 dependencies {
     ...
-    compile 'com.github.dexafree:materiallist:2.1.1'
+    compile 'com.github.dexafree:materiallist:2.2.0'
 }
 ```
 
@@ -188,6 +188,7 @@ You can clone the project and compile it yourself (it includes a sample), or you
 
 ## Collaborations
 * [Fabio Hellmann](https://github.com/FHellmann): Great pull request that added MaterialStaggeredGridView, animations, and refactored a lot of code. Thank you very much, really!
+* [Ricardo Romero](https://github.com/RicardoRB): Integrating Picasso to the library
 
 ## Credits
 * Jake Wharton: [SwipeToDismissNOA](https://github.com/JakeWharton/SwipeToDismissNOA)

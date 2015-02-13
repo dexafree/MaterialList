@@ -78,7 +78,8 @@ public class MainActivity extends ActionBarActivity {
                 card = new BigImageCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
-                card.setDrawable(R.drawable.photo);
+                //card.setDrawable(R.drawable.photo);
+                card.setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png");
                 return card;
 
             case 2:

@@ -2,18 +2,17 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.dexafree.materialList"
-        minSdkVersion 9
-        targetSdkVersion 19
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 10
+        targetSdkVersion 21
+        versionCode 211
+        versionName "2.1.1"
     }
     buildTypes {
         release {
-            runProguard false
+            //minifyEnabled
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,7 +20,14 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:19.+'
-    compile 'com.android.support:cardview-v7:+'
-    compile 'com.nineoldandroids:library:2.4.+'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.squareup:otto:1.3.5'
+    compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0'
+    compile 'com.etsy.android.grid:library:1.0.5'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:cardview-v7:21.0.0'
+	compile 'com.squareup.picasso:picasso:2.4.0'
 }
+
+// Script to upload plugin to Maven
+apply from: '../maven_push.gradle'

@@ -6,9 +6,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context=".MainActivity">
 
-    <com.dexafree.materialList.view.MaterialListView
+    <com.dexafree.materialList.view.MaterialGridView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/material_listview"/>
+        android:id="@+id/material_listview"
+        android:numColumns="2"/>
 
 </RelativeLayout>

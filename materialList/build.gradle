@@ -26,6 +26,7 @@ dependencies {
     compile 'com.etsy.android.grid:library:1.0.5'
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:cardview-v7:21.0.0'
+	compile 'com.squareup.picasso:picasso:2.4.0'
 }
 
 // Script to upload plugin to Maven

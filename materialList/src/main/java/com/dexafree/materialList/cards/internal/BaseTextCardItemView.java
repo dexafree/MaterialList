@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.dexafree.materialList.cards.SimpleCard;
 import com.dexafree.materialList.R;
+import com.squareup.picasso.Picasso;
 
 public abstract class BaseTextCardItemView<T extends SimpleCard> extends BaseCardItemView<T> {
     public BaseTextCardItemView(Context context) {
@@ -43,7 +44,13 @@ public abstract class BaseTextCardItemView<T extends SimpleCard> extends BaseCar
         // Image
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         if (imageView != null) {
-            imageView.setImageDrawable(card.getDrawable());
+            if(card.getUrlImage() == null || card.getUrlImage().isEmpty()) {
+                imageView.setImageDrawable(card.getDrawable());
+            } else {
+                Picasso.with(getContext()).load(card.getUrlImage()).into(imageView);
+            }
         }
+
     }
+
 }

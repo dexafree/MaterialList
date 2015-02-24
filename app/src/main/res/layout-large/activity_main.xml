@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.dexafree.materialList.view.MaterialStaggeredGridView
+    <com.dexafree.materialList.view.MaterialListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/material_listview"
-        tools:column_count_portrait="1"
-        tools:column_count_land="2"/>
+        tools:column_count="2"/>
 
 </RelativeLayout>

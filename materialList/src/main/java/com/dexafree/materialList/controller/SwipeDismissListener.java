@@ -1,11 +1,16 @@
 package com.dexafree.materialList.controller;
 
 import android.graphics.Rect;
-import android.view.*;
+import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+
 import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.view.IMaterialView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
@@ -28,7 +33,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
     private long mAnimationTime;
 
     // Fixed properties
-    private IMaterialView mListView;
+    private MaterialListView mListView;
     private OnDismissCallback mCallback;
     private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
 
@@ -56,7 +61,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
          * @param reverseSortedCards An array of positions to dismiss, sorted in descending
          *                           order for convenience.
          */
-        void onDismiss(IMaterialView listView, Card[] reverseSortedCards);
+        void onDismiss(MaterialListView listView, Card[] reverseSortedCards);
     }
 
     /**
@@ -66,7 +71,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss one or more list items.
      */
-    public SwipeDismissListener(IMaterialView listView, OnDismissCallback callback) {
+    public SwipeDismissListener(MaterialListView listView, OnDismissCallback callback) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
@@ -96,22 +101,18 @@ public class SwipeDismissListener implements View.OnTouchListener {
      *
      * @see {@link SwipeDismissListener}
      */
-    public AbsListView.OnScrollListener makeScrollListener() {
-        return new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-                setEnabled(scrollState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-            }
-        };
+    public RecyclerView.OnScrollListener makeScrollListener() {
+		return new RecyclerView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
+				setEnabled(newState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
+			}
+		};
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (mListView.getAdapter().isEmpty()) {
+        if (((IMaterialListAdapter) mListView.getAdapter()).isEmpty()) {
             return false;
         }
 
@@ -327,7 +328,7 @@ public class SwipeDismissListener implements View.OnTouchListener {
             }
         });
 
-        mPendingDismisses.add(new PendingDismissData(mListView.getAdapter().getPosition(card), dismissView));
+        mPendingDismisses.add(new PendingDismissData(((IMaterialListAdapter) mListView.getAdapter()).getPosition(card), dismissView));
         animator.start();
     }
 }

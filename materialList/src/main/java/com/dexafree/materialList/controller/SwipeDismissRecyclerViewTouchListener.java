@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.nineoldandroids.view.ViewHelper.setTranslationX;
 import static com.nineoldandroids.view.ViewHelper.setAlpha;
+import static com.nineoldandroids.view.ViewHelper.setTranslationX;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 /**

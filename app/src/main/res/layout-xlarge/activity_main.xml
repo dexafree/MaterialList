@@ -8,6 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/material_listview"
-        tools:column_count="3"/>
+        tools:column_count_portrait="2"
+        tools:column_count_landscape="3"/>
 
 </RelativeLayout>

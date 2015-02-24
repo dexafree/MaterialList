@@ -1,19 +1,18 @@
 package com.dexafree.materialList.view;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.controller.IMaterialListAdapter;
 import com.dexafree.materialList.controller.MaterialListAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
-import com.dexafree.materialList.controller.SwipeDismissListener;
 import com.dexafree.materialList.controller.SwipeDismissRecyclerViewTouchListener;
 import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.events.DataSetChangedEvent;
@@ -25,8 +24,15 @@ import java.util.Collection;
 
 
 public class MaterialListView extends RecyclerView {
-    private OnDismissCallback mDismissCallback;
-    private SwipeDismissListener mDismissListener;
+	private static final int DEFAULT_COLUMNS_PORTRAIT = 1;
+	private static final int DEFAULT_COLUMNS_LANDSCAPE = 2;
+
+	private OnDismissCallback mDismissCallback;
+    private SwipeDismissRecyclerViewTouchListener mDismissListener;
+
+	private int mColumnCount;
+	private int mColumnCountLandscape = DEFAULT_COLUMNS_LANDSCAPE;
+	private int mColumnCountPortrait = DEFAULT_COLUMNS_PORTRAIT;
 
     public MaterialListView(Context context) {
         this(context, null);
@@ -38,7 +44,6 @@ public class MaterialListView extends RecyclerView {
 
     public MaterialListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
 		/*
 		mDismissListener =
 				new SwipeDismissListener(
@@ -65,7 +70,7 @@ public class MaterialListView extends RecyclerView {
 		setOnScrollListener(mDismissListener.makeScrollListener());
 		*/
 
-		SwipeDismissRecyclerViewTouchListener touchListener = new SwipeDismissRecyclerViewTouchListener(this, new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
+		mDismissListener = new SwipeDismissRecyclerViewTouchListener(this, new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
 			@Override
 			public boolean canDismiss(final int position) {
 				return ((IMaterialListAdapter) getAdapter()).getCard(position).isDismissible();
@@ -80,8 +85,8 @@ public class MaterialListView extends RecyclerView {
 				}
 			}
 		});
-		setOnTouchListener(touchListener);
-		setOnScrollListener(touchListener.makeScrollListener());
+		setOnTouchListener(mDismissListener);
+		setOnScrollListener(mDismissListener.makeScrollListener());
 
 		setAdapter(new MaterialListAdapter());
 
@@ -91,18 +96,29 @@ public class MaterialListView extends RecyclerView {
 			// get the number of columns
 			TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialListView, defStyle, 0);
 
-			if(typedArray.hasValue(R.styleable.MaterialListView_column_count)) {
+			if(typedArray.hasValue(R.styleable.MaterialListView_column_count_landscape) ||
+					typedArray.hasValue(R.styleable.MaterialListView_column_count_portrait) ||
+					typedArray.hasValue(R.styleable.MaterialListView_column_count)) {
 				Log.d(getClass().getSimpleName(), "Has ColumnCount set");
 			}
 
-			int columnCount = typedArray.getInteger(R.styleable.MaterialListView_column_count, 1);
-			if(columnCount > 1) {
-				setLayoutManager(new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL));
-			} else {
-				setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+			mColumnCount = typedArray.getInteger(R.styleable.MaterialListView_column_count, 0);
+			if (mColumnCount > 0) {
+				mColumnCountPortrait = mColumnCount;
+				mColumnCountLandscape = mColumnCount;
+			}
+			else {
+				mColumnCountPortrait = typedArray.getInteger(
+						R.styleable.MaterialListView_column_count_portrait,
+						DEFAULT_COLUMNS_PORTRAIT);
+				mColumnCountLandscape = typedArray.getInteger(
+						R.styleable.MaterialListView_column_count_landscape,
+						DEFAULT_COLUMNS_LANDSCAPE);
 			}
 
-			Log.d(getClass().getSimpleName(), "ColumnCount="+columnCount);
+			boolean isLandscape = isLandscape();
+			mColumnCount = isLandscape ? mColumnCountLandscape : mColumnCountPortrait;
+			setColumnLayout(mColumnCount);
 
 			typedArray.recycle();
 		}
@@ -187,6 +203,8 @@ public class MaterialListView extends RecyclerView {
 
     @Subscribe
     public void onCardDismiss(DismissEvent event) {
+		// TODO This method is not possible with a RecyclerView
+		/*
         Card dismissedCard = event.getDismissedCard();
         View dismissedCardView = null;
         for (int index = 0; index < getAdapter().getItemCount(); index++) {
@@ -197,8 +215,9 @@ public class MaterialListView extends RecyclerView {
             }
         }
         if (dismissedCardView != null) {
-            mDismissListener.dismissCard(dismissedCardView, dismissedCard);
+            mDismissListener.dismissCard(dismissedCard);
         }
+        */
     }
 
     @Override
@@ -212,4 +231,30 @@ public class MaterialListView extends RecyclerView {
         super.onDetachedFromWindow();
         BusProvider.unregister(this);
     }
+
+	@Override
+	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+
+		boolean isLandscape = isLandscape();
+		int newColumnCount = isLandscape ? mColumnCountLandscape : mColumnCountPortrait;
+		if (mColumnCount != newColumnCount) {
+			mColumnCount = newColumnCount;
+			setColumnLayout(mColumnCount);
+		}
+	}
+
+	private void setColumnLayout(int columnCount) {
+		if(columnCount > 1) {
+			setLayoutManager(new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL));
+		} else {
+			setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+		}
+
+		Log.d(getClass().getSimpleName(), "ColumnCount="+columnCount);
+	}
+
+	private boolean isLandscape() {
+		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
 }

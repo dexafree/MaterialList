@@ -33,12 +33,7 @@ For further documentation, you can [check the Wiki page](https://github.com/dexa
 
 ## How to use
 
-MaterialList offers two ways to organize your cards:
-* MaterialListView
-* MaterialStaggeredGridView
-
-### MaterialListView
-The first way to show your cards is by using MaterialListView. It acts just as a normal ListView, but offering options for interacting with your cards. It will only have one column of cards.
+The MaterialListView is based on a RecyclerView. It acts just as a normal ListView, but offering options for interacting with your cards. It can display the cards in a single or multiple columns.
 
 First of all, you'll need to declare a MaterialListView in your layout:
 
@@ -76,53 +71,6 @@ card.setDrawable(R.drawable.ic_launcher);
 mListView.add(card);
 ```
 
-### MaterialStaggeredGridView
-
-![MaterialStaggeredGridView](https://cloud.githubusercontent.com/assets/5815289/5599845/0d086f38-92cf-11e4-9099-c3e6b9bb9fb7.PNG)
-
-The other way of showing your cards is by a MaterialStaggeredGridView element.
-
-For using it, you will need to declare a MaterialStaggeredGridView item in your layout:
-
-```xml
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:paddingLeft="@dimen/activity_horizontal_margin"
-  android:paddingRight="@dimen/activity_horizontal_margin"
-  tools:context=".MainActivity">
-
-  <com.dexafree.materialList.view.MaterialStaggeredGridView
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/material_listview"
-    tools:column_count_portrait="2"
-    tools:column_count_land="3"/>
-
-  </RelativeLayout>
-```
-
-As you can see, you can define how many columns will it have when showed in portrait, such as how many will it have when showed in landscape mode.
-
-The usage is the same that shown previously.
-
-### Combined usage
-
-There might be times when you want to use both of them (maybe in phone-tablet layouts), and obviously you won't have to write two versions of the same implementation.
-
-In order to make things easy for you, you can use the interface called `IMaterialView`, which will accept both a MaterialListView object and a MaterialStaggeredGridView one.
-
-Then, the code for retrieving it will be something like:
-
-```java
-IMaterialView materialView = (IMaterialView) findViewById(R.id.material_listview);
-```
-
-And you will be ready to go!
-
-You can see an example of the combined usage in the sample folder of this project.
-
 There are also some Cards that may show a Divider between the content and the buttons. For further reference, [read the Wiki page](https://github.com/dexafree/MaterialList/wiki/Dividers)
 
 
@@ -143,23 +91,9 @@ You will also be able to decide if a card should be dismissible or not, just by 
 Also, in case you wanted to dismiss your Card by code, you would only need to call `card.dismiss()`, and it will dismiss seamlessly.
 
 ## Animations
-Since version 2.0, MaterialList provides animations, in order to enhance cards aparitions.
+Since version 2.0, MaterialList provides animations, in order to enhance cards apparitions.
 
-You can implement them just by calling
-
-```java
-mListView.setCardAnimation(MaterialListView.CardAnimation);
-```
-
-You can set animations on both MaterialListView and MaterialStaggeredGridView objects.
-
-The animations provided are:
-* ALPHA_IN
-* SCALE_IN
-* SWING_BOTTOM_IN
-* SWING_LEFT_IN
-* SWING_RIGHT_IN
-
+You can implement them just by calling the [setItemAnimator(RecyclerView.ItemAnimator animator)](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html#setItemAnimator(android.support.v7.widget.RecyclerView.ItemAnimator) "Android Developer Documentation") method.
 
 ## Extensibility
 MaterialList was created with extensibility in mind, so it makes things easy for you if you want to create your own Cards.

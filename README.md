@@ -35,7 +35,7 @@ For further documentation, you can [check the Wiki page](https://github.com/dexa
 
 The MaterialListView is based on a RecyclerView. It acts just as a normal ListView, but offering options for interacting with your cards. It can display the cards in a single or multiple columns.
 
-First of all, you'll need to declare a MaterialListView in your layout:
+### 1. Step: Declare a MaterialListView in your layout
 
 ```xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -54,13 +54,32 @@ First of all, you'll need to declare a MaterialListView in your layout:
 </RelativeLayout>
 ```
 
-After that, get it on your code by simply making a findViewById query.
+There are also some additional attributes to define the column count of the MaterialListView. Therefor you need
+
+```xml
+xmlns:android="http://schemas.android.com/tools"
+```
+
+You can use the **column_count** attribute for using a fixed column count in portrait and landscape mode.
+
+```xml
+    tools:column_count="1"
+```
+
+Or you can use the **column_count_portrait** and **column_count_landscape** attributes.
+
+```xml
+    tools:column_count_portrait="1"
+    tools:column_count_landscape="2"
+```
+
+### 2. Step: Find your MaterialListView in code
 
 ```java
 mListView = (MaterialListView) findViewById(R.id.material_listview);
 ```
 
-Then, you only need to create Card objects, add them to your MaterialListView, and you are ready to go
+### 3. Step: Add Cards to the MaterialListView
 
 ```java
 Card card = new SmallImageCard();
@@ -129,7 +148,6 @@ You can clone the project and compile it yourself (it includes a sample), or you
 * Romain Guy: The sand picture provided as example was taken from one of his projects
 * Niek Haarman: [ListViewAnimations](https://github.com/nhaarman/ListViewAnimations)
 * Square: [Otto](https://github.com/square/otto)
-* Etsy: [AndroidStaggeredGrid](https://github.com/etsy/AndroidStaggeredGrid)
 
 ## License
 

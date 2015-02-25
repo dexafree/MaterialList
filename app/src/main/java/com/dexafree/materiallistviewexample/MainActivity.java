@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
         mContext = this;
 
         mListView = (MaterialListView) findViewById(R.id.material_listview);
-        //mListView.setCardAnimation(MaterialListView.CardAnimation.SWING_BOTTOM_IN);
 
         fillArray();
 

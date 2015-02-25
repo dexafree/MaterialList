@@ -18,7 +18,6 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 	private final List<Card> mCardList = new ArrayList<>();
 
 	public static class ViewHolder<T extends Card> extends RecyclerView.ViewHolder {
-		// each data item is just a string in this case
 		private final CardItemView<T> view;
 
 		public ViewHolder(View v) {

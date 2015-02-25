@@ -44,31 +44,6 @@ public class MaterialListView extends RecyclerView {
 
     public MaterialListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-		/*
-		mDismissListener =
-				new SwipeDismissListener(
-						this,
-						new SwipeDismissListener.OnDismissCallback() {
-							@Override
-							public void onDismiss(MaterialListView listView, final Card[] reverseSortedCards) {
-								for (Card dismissedCard : reverseSortedCards) {
-									int position = ((IMaterialListAdapter) getAdapter()).getPosition(dismissedCard);
-									//Log.d(getClass().getSimpleName(), dismissedCard.getmTitle() +
-									// " [Position="+position+"]");
-
-									if (mDismissCallback != null) {
-										mDismissCallback.onDismiss(dismissedCard, position);
-									}
-
-									((IMaterialListAdapter) getAdapter()).remove(dismissedCard, false);
-								}
-								getAdapter().notifyDataSetChanged();
-							}
-						});
-
-		setOnTouchListener(mDismissListener);
-		setOnScrollListener(mDismissListener.makeScrollListener());
-		*/
 
 		mDismissListener = new SwipeDismissRecyclerViewTouchListener(this, new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
 			@Override
@@ -142,47 +117,6 @@ public class MaterialListView extends RecyclerView {
 		((IMaterialListAdapter) getAdapter()).addAll(cards);
     }
 
-	/*
-    public void setCardAnimation(CardAnimation type) {
-        BaseAdapter baseAdapter = mAdapter;
-
-        switch (type) {
-            case ALPHA_IN: {
-                AnimationAdapter animationAdapter = new AlphaInAnimationAdapter(baseAdapter);
-                animationAdapter.setAbsListView(this);
-                baseAdapter = animationAdapter;
-            }
-            break;
-            case SCALE_IN: {
-                AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(baseAdapter);
-                animationAdapter.setAbsListView(this);
-                baseAdapter = animationAdapter;
-            }
-            break;
-            case SWING_BOTTOM_IN: {
-                AnimationAdapter animationAdapter = new SwingBottomInAnimationAdapter(baseAdapter);
-                animationAdapter.setAbsListView(this);
-                baseAdapter = animationAdapter;
-            }
-            break;
-            case SWING_LEFT_IN: {
-                AnimationAdapter animationAdapter = new SwingLeftInAnimationAdapter(baseAdapter);
-                animationAdapter.setAbsListView(this);
-                baseAdapter = animationAdapter;
-            }
-            break;
-            case SWING_RIGHT_IN: {
-                AnimationAdapter animationAdapter = new SwingRightInAnimationAdapter(baseAdapter);
-                animationAdapter.setAbsListView(this);
-                baseAdapter = animationAdapter;
-            }
-            break;
-        }
-
-        setAdapter(baseAdapter);
-    }
-    */
-
 	@Override
 	public void setAdapter(final Adapter adapter) {
 		if(adapter instanceof IMaterialListAdapter) {
@@ -203,21 +137,9 @@ public class MaterialListView extends RecyclerView {
 
     @Subscribe
     public void onCardDismiss(DismissEvent event) {
-		// TODO This method is not possible with a RecyclerView
-		/*
-        Card dismissedCard = event.getDismissedCard();
-        View dismissedCardView = null;
-        for (int index = 0; index < getAdapter().getItemCount(); index++) {
-            View view = getChildAt(index);
-            if (view.getTag() != null && view.getTag().equals(dismissedCard)) {
-                dismissedCardView = view;
-                break;
-            }
-        }
-        if (dismissedCardView != null) {
-            mDismissListener.dismissCard(dismissedCard);
-        }
-        */
+		int position = ((IMaterialListAdapter) getAdapter()).getPosition(event.getDismissedCard());
+		ViewHolder holder = findViewHolderForPosition(position);
+		mDismissListener.dismissCard(holder.itemView, position);
     }
 
     @Override

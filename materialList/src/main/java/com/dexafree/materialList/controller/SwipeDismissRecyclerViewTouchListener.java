@@ -347,6 +347,22 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
 		}
 	}
 
+	public void dismissCard(final View downView, final int position) {
+		float viewWidth = downView.getMeasuredWidth();
+
+		++mDismissAnimationRefCount;
+		animate(downView)
+				.translationX(viewWidth)
+				.alpha(0)
+				.setDuration(mAnimationTime)
+				.setListener(new AnimatorListenerAdapter() {
+					@Override
+					public void onAnimationEnd(Animator animation) {
+						performDismiss(downView, position);
+					}
+				});
+	}
+
 	private void performDismiss(final View dismissView, final int dismissPosition) {
 		// Animate the dismissed list item to zero-height and fire the dismiss callback when
 		// all dismissed list item animations have completed. This triggers layout on each animation

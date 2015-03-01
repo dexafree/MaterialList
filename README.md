@@ -2,7 +2,7 @@
 
 MaterialList is an Android library created to help all Android developers get the beautiful CardViews that Google shows at its [official design specifications](http://www.google.com/design/spec/components/cards.html#cards-usage).
 
-Provided as a ListView extension, it can receive a list of Cards (stored in a CardList, provided by the library) and show them accordingly to the android style and design patterns.
+Provided as a RecyclerView extension, it can receive a list of Cards (stored in a CardList, provided by the library) and show them accordingly to the android style and design patterns.
 
 It also has been developed while keeping extensibility in mind, which means that you are able to create your own card layouts and add them to the CardList without any pain (see examples below).
 
@@ -54,23 +54,23 @@ The MaterialListView is based on a RecyclerView. It acts just as a normal ListVi
 </RelativeLayout>
 ```
 
-There are also some additional attributes to define the column count of the MaterialListView. Therefor you need
+There are also some additional attributes to define the column count of the MaterialListView. Therefore you need
 
 ```xml
-xmlns:android="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
 ```
 
 You can use the **column_count** attribute for using a fixed column count in portrait and landscape mode.
 
 ```xml
-    tools:column_count="1"
+    app:column_count="1"
 ```
 
 Or you can use the **column_count_portrait** and **column_count_landscape** attributes.
 
 ```xml
-    tools:column_count_portrait="1"
-    tools:column_count_landscape="2"
+    app:column_count_portrait="1"
+    app:column_count_landscape="2"
 ```
 
 ### 2. Step: Find your MaterialListView in code
@@ -128,7 +128,7 @@ In order to use MaterialList, you can either clone the project and import it as 
 ```groovy
 dependencies {
     ...
-    compile 'com.github.dexafree:materiallist:2.2.0'
+    compile 'com.github.dexafree:materiallist:2.3.0'
 }
 ```
 
@@ -140,7 +140,7 @@ You can clone the project and compile it yourself (it includes a sample), or you
 > Notice that it might not be the last version
 
 ## Collaborations
-* [Fabio Hellmann](https://github.com/FHellmann): Great pull request that added MaterialStaggeredGridView, animations, and refactored a lot of code. Thank you very much, really!
+* [Fabio Hellmann](https://github.com/FHellmann): Great pull request that added MaterialStaggeredGridView, animations, and refactored a lot of code. Thank you very much, really! Also ported MaterialListView from ListView to RecyclerView.
 * [Ricardo Romero](https://github.com/RicardoRB): Integrating Picasso to the library
 
 ## Credits

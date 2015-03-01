@@ -8,24 +8,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.dexafree.materialList.cards.OnButtonPressListener;
-import com.dexafree.materialList.controller.OnDismissCallback;
-import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.cards.SimpleCard;
 import com.dexafree.materialList.cards.BasicButtonsCard;
 import com.dexafree.materialList.cards.BasicImageButtonsCard;
 import com.dexafree.materialList.cards.BasicListCard;
 import com.dexafree.materialList.cards.BigImageButtonsCard;
 import com.dexafree.materialList.cards.BigImageCard;
+import com.dexafree.materialList.cards.OnButtonPressListener;
+import com.dexafree.materialList.cards.SimpleCard;
 import com.dexafree.materialList.cards.SmallImageCard;
 import com.dexafree.materialList.cards.WelcomeCard;
-import com.dexafree.materialList.view.IMaterialView;
+import com.dexafree.materialList.controller.OnDismissCallback;
+import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.view.MaterialListView;
 
 
 public class MainActivity extends ActionBarActivity {
     private Context mContext;
-    private IMaterialView mListView;
+    private MaterialListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +33,7 @@ public class MainActivity extends ActionBarActivity {
 
         mContext = this;
 
-        mListView = (IMaterialView) findViewById(R.id.material_listview);
-        mListView.setCardAnimation(MaterialListView.CardAnimation.SWING_BOTTOM_IN);
+        mListView = (MaterialListView) findViewById(R.id.material_listview);
 
         fillArray();
 

@@ -1,5 +1,8 @@
 # MaterialListView Changelog
 
+## 2.3.1
+* Added `MaterialListView.clear()` method, which clears the adapter
+
 ## 2.3.0
 * Ported to RecyclerView (Thanks [Fabio Hellmann](https://github.com/FHellmann))
 * Added the ability to define columns as an XML Attribute

@@ -77,6 +77,11 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 		}
 	}
 
+    public void clear(){
+        mCardList.clear();
+        notifyDataSetChanged();
+    }
+
 	public boolean isEmpty() {
 		return mCardList.isEmpty();
 	}

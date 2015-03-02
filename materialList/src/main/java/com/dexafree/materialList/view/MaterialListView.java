@@ -117,6 +117,10 @@ public class MaterialListView extends RecyclerView {
 		((IMaterialListAdapter) getAdapter()).addAll(cards);
     }
 
+    public void clear(){
+        ((MaterialListAdapter)getAdapter()).clear();
+    }
+
 	@Override
 	public void setAdapter(final Adapter adapter) {
 		if(adapter instanceof IMaterialListAdapter) {

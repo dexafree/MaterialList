@@ -29,6 +29,7 @@ public class MaterialListView extends RecyclerView {
 
 	private OnDismissCallback mDismissCallback;
     private SwipeDismissRecyclerViewTouchListener mDismissListener;
+  @Nullable View emptyView;
 
 	private int mColumnCount;
 	private int mColumnCountLandscape = DEFAULT_COLUMNS_LANDSCAPE;
@@ -178,5 +179,34 @@ public class MaterialListView extends RecyclerView {
 
 	private boolean isLandscape() {
 		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+ 
+	void checkIfEmpty() {
+		if (emptyView != null) {
+			emptyView.setVisibility(getAdapter().getItemCount() > 0 ? GONE : VISIBLE);
+		}
+	}
+	
+	final @NotNull AdapterDataObserver observer = new AdapterDataObserver() {
+		@Override public void onChanged() {
+			super.onChanged();
+			checkIfEmpty();
+		}
+	};
+	
+	@Override public void setAdapter(@Nullable Adapter adapter) {
+		final Adapter oldAdapter = getAdapter();
+		if (oldAdapter != null) {
+			oldAdapter.unregisterAdapterDataObserver(observer);
+		}
+		super.setAdapter(adapter);
+		if (adapter != null) {
+			adapter.registerAdapterDataObserver(observer);
+		}
+	}
+	
+	public void setEmptyView(@Nullable View emptyView) {
+		this.emptyView = emptyView;
+		checkIfEmpty();
 	}
 }

@@ -9,13 +9,13 @@ It also has been developed while keeping extensibility in mind, which means that
 ## Cards provided
 These are the cards that the library offers by default:
 
-[<img src="http://i.imgur.com/f5LLorA.png" alt="SmallImageCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/SmallImageCard)
-[<img src="http://i.imgur.com/ENxUGAw.png" alt="BasicImageButtonsCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BasicImageButtonsCard)
-[<img src="http://i.imgur.com/yW7uBNy.png" alt="BigImageCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BigImageCard)
-[<img src="http://i.imgur.com/vr4vP6o.png" alt="BigImageButtonsCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BigImageButtonsCard)
-[<img src="http://i.imgur.com/19xt1FX.png" alt="BasicButtonsCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BasicButtonsCard)
-[<img src="http://i.imgur.com/ZGPmfaf.jpg" alt="WelcomeCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/WelcomeCard)
-[<img src="http://i.imgur.com/iR7xmbG.jpg" alt="BasicListCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BasicListCard)
+[<img src="http://i.imgur.com/f5LLorA.png" alt="SmallImageCard" width="300px">](https://github.com/dexafree/MaterialList/wiki/SmallImageCard)
+[<img src="http://i.imgur.com/ENxUGAw.png" alt="BasicImageButtonsCard" width="300px">](https://github.com/dexafree/MaterialList/wiki/BasicImageButtonsCard)
+[<img src="http://i.imgur.com/yW7uBNy.png" alt="BigImageCard" width="300px">](https://github.com/dexafree/MaterialList/wiki/BigImageCard)
+[<img src="http://i.imgur.com/vr4vP6o.png" alt="BigImageButtonsCard" width="300px">](https://github.com/dexafree/MaterialList/wiki/BigImageButtonsCard)
+[<img src="http://i.imgur.com/19xt1FX.png" alt="BasicButtonsCard" width="300px">](https://github.com/dexafree/MaterialList/wiki/BasicButtonsCard)
+[<img src="http://i.imgur.com/ZGPmfaf.jpg" alt="WelcomeCard" width="300px">](https://github.com/dexafree/MaterialList/wiki/WelcomeCard)
+[<img src="http://i.imgur.com/iR7xmbG.jpg" alt="BasicListCard" width="300px">](https://github.com/dexafree/MaterialList/wiki/BasicListCard)
 
 For further documentation, you can [check the Wiki page](https://github.com/dexafree/MaterialList/wiki/).
 

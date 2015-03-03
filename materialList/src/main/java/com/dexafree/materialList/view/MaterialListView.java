@@ -35,6 +35,13 @@ public class MaterialListView extends RecyclerView {
 	private int mColumnCount;
 	private int mColumnCountLandscape = DEFAULT_COLUMNS_LANDSCAPE;
 	private int mColumnCountPortrait = DEFAULT_COLUMNS_PORTRAIT;
+	
+	final AdapterDataObserver observer = new AdapterDataObserver() {
+		@Override public void onChanged() {
+			super.onChanged();
+			checkIfEmpty();
+		}
+	};
 
 	public MaterialListView(Context context) {
 		this(context, null);
@@ -121,8 +128,15 @@ public class MaterialListView extends RecyclerView {
 
 	@Override
 	public void setAdapter(final Adapter adapter) {
+		final Adapter oldAdapter = getAdapter();
+		if (oldAdapter != null) {
+			oldAdapter.unregisterAdapterDataObserver(observer);
+		}
 		if(adapter instanceof IMaterialListAdapter) {
 			super.setAdapter(adapter);
+			if (adapter != null) {
+				adapter.registerAdapterDataObserver(observer);
+			}
 		} else {
 			throw new IllegalArgumentException("The Adapter must implement IMaterialListAdapter");
 		}
@@ -185,24 +199,6 @@ public class MaterialListView extends RecyclerView {
 	void checkIfEmpty() {
 		if (emptyView != null) {
 			emptyView.setVisibility(getAdapter().getItemCount() > 0 ? GONE : VISIBLE);
-		}
-	}
-	
-	final AdapterDataObserver observer = new AdapterDataObserver() {
-		@Override public void onChanged() {
-			super.onChanged();
-			checkIfEmpty();
-		}
-	};
-	
-	@Override public void setAdapter(Adapter adapter) {
-		final Adapter oldAdapter = getAdapter();
-		if (oldAdapter != null) {
-			oldAdapter.unregisterAdapterDataObserver(observer);
-		}
-		super.setAdapter(adapter);
-		if (adapter != null) {
-			adapter.registerAdapterDataObserver(observer);
 		}
 	}
 	

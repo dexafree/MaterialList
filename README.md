@@ -8,26 +8,14 @@ It also has been developed while keeping extensibility in mind, which means that
 
 ## Cards provided
 These are the cards that the library offers by default:
-* **SmallImageCard**
-![SmallImageCard](http://i.imgur.com/f5LLorA.png)
 
-* **BigImageCard**
-![BigImageCard](http://i.imgur.com/yW7uBNy.png)
-
-* **BasicImageButtonsCard**
-![BasicImageButtonsCard](http://i.imgur.com/ENxUGAw.png)
-
-* **BasicButtonsCard**
-![BasicButtonsCard](http://i.imgur.com/19xt1FX.png)
-
-* **BigImageButtonsCard**
-![BigImageButtonsCard](http://i.imgur.com/vr4vP6o.png)
-
-* **WelcomeCard**
-![WelcomeCard](http://i.imgur.com/ZGPmfaf.jpg)
-
-* **BasicListCard**
-![BasicListCard](http://i.imgur.com/iR7xmbG.jpg)
+[<img src="http://i.imgur.com/f5LLorA.png" alt="SmallImageCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/SmallImageCard)
+[<img src="http://i.imgur.com/ENxUGAw.png" alt="BasicImageButtonsCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BasicImageButtonsCard)
+[<img src="http://i.imgur.com/yW7uBNy.png" alt="BigImageCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BigImageCard)
+[<img src="http://i.imgur.com/vr4vP6o.png" alt="BigImageButtonsCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BigImageButtonsCard)
+[<img src="http://i.imgur.com/19xt1FX.png" alt="BasicButtonsCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BasicButtonsCard)
+[<img src="http://i.imgur.com/ZGPmfaf.jpg" alt="WelcomeCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/WelcomeCard)
+[<img src="http://i.imgur.com/iR7xmbG.jpg" alt="BasicListCard" width="400px">](https://github.com/dexafree/MaterialList/wiki/BasicListCard)
 
 For further documentation, you can [check the Wiki page](https://github.com/dexafree/MaterialList/wiki/).
 
@@ -76,13 +64,13 @@ Or you can use the **column_count_portrait** and **column_count_landscape** attr
 ### 2. Step: Find your MaterialListView in code
 
 ```java
-mListView = (MaterialListView) findViewById(R.id.material_listview);
+MaterialListView mListView = (MaterialListView) findViewById(R.id.material_listview);
 ```
 
 ### 3. Step: Add Cards to the MaterialListView
 
 ```java
-Card card = new SmallImageCard();
+SmallImageCard card = new SmallImageCard();
 card.setDescription(description);
 card.setTitle(title);
 card.setDrawable(R.drawable.ic_launcher);
@@ -113,6 +101,8 @@ Also, in case you wanted to dismiss your Card by code, you would only need to ca
 Since version 2.0, MaterialList provides animations, in order to enhance cards apparitions.
 
 You can implement them just by calling the [setItemAnimator(RecyclerView.ItemAnimator animator)](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html#setItemAnimator(android.support.v7.widget.RecyclerView.ItemAnimator) "Android Developer Documentation") method.
+
+There also exists an extensive [animation library for the RecyclerView from wasabeef](https://github.com/wasabeef/recyclerview-animators).
 
 ## Extensibility
 MaterialList was created with extensibility in mind, so it makes things easy for you if you want to create your own Cards.

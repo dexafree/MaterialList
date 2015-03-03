@@ -132,13 +132,13 @@ public class MaterialListView extends RecyclerView {
 		if (oldAdapter != null) {
 			oldAdapter.unregisterAdapterDataObserver(observer);
 		}
-		if(adapter instanceof IMaterialListAdapter) {
-			super.setAdapter(adapter);
-			if (adapter != null) {
+		if(adapter != null) {
+			if(adapter instanceof IMaterialListAdapter) {
+				super.setAdapter(adapter);
 				adapter.registerAdapterDataObserver(observer);
+			} else {
+				throw new IllegalArgumentException("The Adapter must implement IMaterialListAdapter");
 			}
-		} else {
-			throw new IllegalArgumentException("The Adapter must implement IMaterialListAdapter");
 		}
 	}
 

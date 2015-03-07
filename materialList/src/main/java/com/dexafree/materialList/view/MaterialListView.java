@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -26,25 +27,33 @@ import java.util.Collection;
 public class MaterialListView extends RecyclerView {
 	private static final int DEFAULT_COLUMNS_PORTRAIT = 1;
 	private static final int DEFAULT_COLUMNS_LANDSCAPE = 2;
-
+	
 	private OnDismissCallback mDismissCallback;
-    private SwipeDismissRecyclerViewTouchListener mDismissListener;
-
+	private SwipeDismissRecyclerViewTouchListener mDismissListener;
+	private View emptyView;
+	
 	private int mColumnCount;
 	private int mColumnCountLandscape = DEFAULT_COLUMNS_LANDSCAPE;
 	private int mColumnCountPortrait = DEFAULT_COLUMNS_PORTRAIT;
+	
+	final AdapterDataObserver observer = new AdapterDataObserver() {
+		@Override public void onChanged() {
+			super.onChanged();
+			checkIfEmpty();
+		}
+	};
 
-    public MaterialListView(Context context) {
-        this(context, null);
-    }
+	public MaterialListView(Context context) {
+		this(context, null);
+	}
 
 	public MaterialListView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-    public MaterialListView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-
+	public MaterialListView(Context context, AttributeSet attrs, int defStyle) {
+	        super(context, attrs, defStyle);
+	
 		mDismissListener = new SwipeDismissRecyclerViewTouchListener(this, new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
 			@Override
 			public boolean canDismiss(final int position) {
@@ -97,13 +106,13 @@ public class MaterialListView extends RecyclerView {
 
 			typedArray.recycle();
 		}
-    }
+    	}
 
-    public void remove(Card card) {
-        if (card.isDismissible()) {
-            BusProvider.dismiss(card);
-        }
-    }
+	public void remove(Card card) {
+	        if (card.isDismissible()) {
+			BusProvider.dismiss(card);
+	        }
+	}
 
     public void add(Card card) {
 		((IMaterialListAdapter) getAdapter()).add(card);
@@ -123,10 +132,17 @@ public class MaterialListView extends RecyclerView {
 
 	@Override
 	public void setAdapter(final Adapter adapter) {
-		if(adapter instanceof IMaterialListAdapter) {
-			super.setAdapter(adapter);
-		} else {
-			throw new IllegalArgumentException("The Adapter must implement IMaterialListAdapter");
+		final Adapter oldAdapter = getAdapter();
+		if (oldAdapter != null) {
+			oldAdapter.unregisterAdapterDataObserver(observer);
+		}
+		if(adapter != null) {
+			if(adapter instanceof IMaterialListAdapter) {
+				super.setAdapter(adapter);
+				adapter.registerAdapterDataObserver(observer);
+			} else {
+				throw new IllegalArgumentException("The Adapter must implement IMaterialListAdapter");
+			}
 		}
 	}
 
@@ -182,5 +198,16 @@ public class MaterialListView extends RecyclerView {
 
 	private boolean isLandscape() {
 		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+ 
+	void checkIfEmpty() {
+		if (emptyView != null) {
+			emptyView.setVisibility(getAdapter().getItemCount() > 0 ? GONE : VISIBLE);
+		}
+	}
+	
+	public void setEmptyView(View emptyView) {
+		this.emptyView = emptyView;
+		checkIfEmpty();
 	}
 }

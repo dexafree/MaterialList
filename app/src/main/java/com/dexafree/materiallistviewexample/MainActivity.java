@@ -53,6 +53,11 @@ public class MainActivity extends ActionBarActivity {
             public void onItemClick(CardItemView view, int position) {
                 Log.d("CARD_TYPE", view.getTag().toString());
             }
+
+            @Override
+            public void onItemLongClick(CardItemView view, int position) {
+                Log.d("LONG_CLICK", view.getTag().toString());
+            }
         }));
 
     }

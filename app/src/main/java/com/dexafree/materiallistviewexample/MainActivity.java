@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        mListView.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
+        mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(CardItemView view, int position) {
                 Log.d("CARD_TYPE", view.getTag().toString());
@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
             public void onItemLongClick(CardItemView view, int position) {
                 Log.d("LONG_CLICK", view.getTag().toString());
             }
-        }));
+        });
 
     }
 

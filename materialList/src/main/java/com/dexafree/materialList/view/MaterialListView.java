@@ -213,9 +213,12 @@ public class MaterialListView extends RecyclerView {
 		checkIfEmpty();
 	}
 
-    public void addOnItemTouchListener(RecyclerItemClickListener listener){
-        listener.setRecyclerView(this);
-        super.addOnItemTouchListener(listener);
+    public void addOnItemTouchListener(RecyclerItemClickListener.OnItemClickListener listener){
+
+        RecyclerItemClickListener itemClickListener = new RecyclerItemClickListener(getContext(), listener);
+
+        itemClickListener.setRecyclerView(this);
+        super.addOnItemTouchListener(itemClickListener);
     }
 
 }

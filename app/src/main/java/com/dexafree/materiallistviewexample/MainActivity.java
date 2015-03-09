@@ -20,7 +20,9 @@ import com.dexafree.materialList.cards.SimpleCard;
 import com.dexafree.materialList.cards.SmallImageCard;
 import com.dexafree.materialList.cards.WelcomeCard;
 import com.dexafree.materialList.controller.OnDismissCallback;
+import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
 
 
@@ -45,6 +47,13 @@ public class MainActivity extends ActionBarActivity {
                 //Toast.makeText(mContext, "CARD NUMBER "+position+" dismissed", //Toast.LENGTH_SHORT).show();
             }
         });
+
+        mListView.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(CardItemView view, int position) {
+                Log.d("CARD_TYPE", view.getTag().toString());
+            }
+        }));
 
     }
 
@@ -72,6 +81,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 card.setDrawable(R.drawable.ic_launcher);
                 card.setDismissible(true);
+                card.setTag("SMALL_IMAGE_CARD");
                 return card;
 
             case 1:
@@ -80,6 +90,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setTitle(title);
                 //card.setDrawable(R.drawable.photo);
                 card.setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png");
+                card.setTag("BIG_IMAGE_CARD");
                 return card;
 
             case 2:
@@ -87,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setDescription(description);
                 card.setTitle(title);
                 card.setDrawable(R.drawable.dog);
+                card.setTag("BASIC_IMAGE_BUTTON_CARD");
                 ((BasicImageButtonsCard) card).setLeftButtonText("LEFT");
                 ((BasicImageButtonsCard) card).setRightButtonText("RIGHT");
 
@@ -116,6 +128,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new BasicButtonsCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
+                card.setTag("BASIC_BUTTONS_CARD");
                 ((BasicButtonsCard) card).setLeftButtonText("LEFT");
                 ((BasicButtonsCard) card).setRightButtonText("RIGHT");
 
@@ -144,6 +157,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome Card");
                 card.setDescription("I am the description");
+                card.setTag("WELCOME_CARD");
                 ((WelcomeCard) card).setSubtitle("My subtitle!");
                 ((WelcomeCard) card).setButtonText("Okay!");
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
@@ -167,6 +181,7 @@ public class MainActivity extends ActionBarActivity {
                 adapter.add("Text1");
                 adapter.add("Text2");
                 adapter.add("Text3");
+                card.setTag("LIST_CARD");
                 ((BasicListCard) card).setAdapter(adapter);
                 /*
                 ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -185,6 +200,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setDescription(description);
                 card.setTitle(title);
                 card.setDrawable(R.drawable.photo);
+                card.setTag("BIG_IMAGE_BUTTONS_CARD");
                 ((BigImageButtonsCard) card).setLeftButtonText("ADD CARD");
                 ((BigImageButtonsCard) card).setRightButtonText("RIGHT BUTTON");
 
@@ -222,6 +238,7 @@ public class MainActivity extends ActionBarActivity {
         card.setDrawable(R.drawable.dog);
         card.setTitle("I'm new");
         card.setDescription("I've been generated on runtime!");
+        card.setTag("BASIC_IMAGE_BUTTONS_CARD");
 
         return card;
     }

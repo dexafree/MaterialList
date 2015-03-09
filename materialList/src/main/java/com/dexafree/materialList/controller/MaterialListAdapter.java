@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardItemView;
+import com.dexafree.materialList.view.MaterialListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,8 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 		public void build(T card) {
 			view.build(card);
 		}
-	}
+
+    }
 
 	@Override
 	public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {

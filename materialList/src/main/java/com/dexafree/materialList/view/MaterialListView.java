@@ -25,6 +25,7 @@ import java.util.Collection;
 
 
 public class MaterialListView extends RecyclerView {
+
 	private static final int DEFAULT_COLUMNS_PORTRAIT = 1;
 	private static final int DEFAULT_COLUMNS_LANDSCAPE = 2;
 	
@@ -106,7 +107,7 @@ public class MaterialListView extends RecyclerView {
 
 			typedArray.recycle();
 		}
-    	}
+    }
 
 	public void remove(Card card) {
 	        if (card.isDismissible()) {
@@ -210,4 +211,5 @@ public class MaterialListView extends RecyclerView {
 		this.emptyView = emptyView;
 		checkIfEmpty();
 	}
+
 }

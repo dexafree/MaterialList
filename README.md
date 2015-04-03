@@ -70,7 +70,7 @@ MaterialListView mListView = (MaterialListView) findViewById(R.id.material_listv
 ### 3. Step: Add Cards to the MaterialListView
 
 ```java
-SmallImageCard card = new SmallImageCard();
+SmallImageCard card = new SmallImageCard(context);
 card.setDescription(description);
 card.setTitle(title);
 card.setDrawable(R.drawable.ic_launcher);
@@ -82,12 +82,12 @@ There are also some Cards that may show a Divider between the content and the bu
 
 ## Clicking the cards
 As the project was migrated from `ListView` to `RecyclerView`, it did not offer the native `OnItemClickListener` / `OnItemLongClickListener` methods that can be accessed from ListView.
- 
+
 Since version 2.4.0, you can add your listeners
 
 ```java
 mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
-    
+
     @Override
     public void onItemClick(CardItemView view, int position) {
         Log.d("CARD_TYPE", view.getTag().toString());

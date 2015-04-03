@@ -27,6 +27,7 @@ public abstract class BaseCardItemView<T extends BasicCard> extends CardItemView
     }
 
     public void build(T card) {
+        super.build(card);
         // Background Color
         CardView cardView = (CardView) findViewById(R.id.cardView);
 

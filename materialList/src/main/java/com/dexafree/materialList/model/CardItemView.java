@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 
 public abstract class CardItemView<T extends Card> extends LinearLayout {
 
+    private T card;
+
     public CardItemView(Context context) {
         super(context);
     }
@@ -22,5 +24,12 @@ public abstract class CardItemView<T extends Card> extends LinearLayout {
         super(context, attrs, defStyle);
     }
 
-    public abstract void build(T card);
+    public void build(T card){
+        this.card = card;
+    }
+
+    public Object getTag(){
+        return card.getTag();
+    }
+
 }

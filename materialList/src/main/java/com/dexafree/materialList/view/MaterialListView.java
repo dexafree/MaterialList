@@ -14,6 +14,7 @@ import com.dexafree.materialList.R;
 import com.dexafree.materialList.controller.IMaterialListAdapter;
 import com.dexafree.materialList.controller.MaterialListAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
+import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.controller.SwipeDismissRecyclerViewTouchListener;
 import com.dexafree.materialList.events.BusProvider;
 import com.dexafree.materialList.events.DataSetChangedEvent;
@@ -25,6 +26,7 @@ import java.util.Collection;
 
 
 public class MaterialListView extends RecyclerView {
+
 	private static final int DEFAULT_COLUMNS_PORTRAIT = 1;
 	private static final int DEFAULT_COLUMNS_LANDSCAPE = 2;
 	
@@ -65,6 +67,7 @@ public class MaterialListView extends RecyclerView {
 				for (int reverseSortedPosition : reverseSortedPositions) {
 					final Card card = ((IMaterialListAdapter) getAdapter()).getCard(reverseSortedPosition);
 					((IMaterialListAdapter) getAdapter()).remove(card, false);
+					mDismissCallback.onDismiss(card, reverseSortedPosition);
 					Log.d("DissmissListener", "delete: " + card.getClass());
 				}
 			}
@@ -106,7 +109,7 @@ public class MaterialListView extends RecyclerView {
 
 			typedArray.recycle();
 		}
-    	}
+    }
 
 	public void remove(Card card) {
 	        if (card.isDismissible()) {
@@ -210,4 +213,13 @@ public class MaterialListView extends RecyclerView {
 		this.emptyView = emptyView;
 		checkIfEmpty();
 	}
+
+    public void addOnItemTouchListener(RecyclerItemClickListener.OnItemClickListener listener){
+
+        RecyclerItemClickListener itemClickListener = new RecyclerItemClickListener(getContext(), listener);
+
+        itemClickListener.setRecyclerView(this);
+        super.addOnItemTouchListener(itemClickListener);
+    }
+
 }

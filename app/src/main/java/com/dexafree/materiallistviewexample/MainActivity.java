@@ -35,19 +35,29 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Save a reference to the context
         mContext = this;
 
+        // Bind the MaterialListView to a variable
         mListView = (MaterialListView) findViewById(R.id.material_listview);
 
+        // Fill the array with mock content
         fillArray();
 
+        // Set the dismiss listener
         mListView.setOnDismissCallback(new OnDismissCallback() {
             @Override
             public void onDismiss(Card card, int position) {
-                //Toast.makeText(mContext, "CARD NUMBER "+position+" dismissed", //Toast.LENGTH_SHORT).show();
+
+                // Recover the tag linked to the Card
+                String tag = card.getTag().toString();
+
+                // Show a toast
+                Toast.makeText(mContext, "You have dismissed a "+tag, Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Add the ItemTouchListener
         mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(CardItemView view, int position) {

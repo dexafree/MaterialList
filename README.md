@@ -80,6 +80,27 @@ mListView.add(card);
 
 There are also some Cards that may show a Divider between the content and the buttons. For further reference, [read the Wiki page](https://github.com/dexafree/MaterialList/wiki/Dividers)
 
+## Clicking the cards
+As the project was migrated from `ListView` to `RecyclerView`, it did not offer the native `OnItemClickListener` / `OnItemLongClickListener` methods that can be accessed from ListView.
+ 
+Since version 2.4.0, you can add your listeners
+
+```java
+mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
+    
+    @Override
+    public void onItemClick(CardItemView view, int position) {
+        Log.d("CARD_TYPE", view.getTag().toString());
+    }
+
+    @Override
+    public void onItemLongClick(CardItemView view, int position) {
+        Log.d("LONG_CLICK", view.getTag().toString());
+    }
+});
+```
+
+Check also the **Recovering data from the cards** section in order to be able to recover the Card's content
 
 ## Dismissing the cards
 One of the features I've always loved is the SwipeToDismiss gesture.
@@ -96,6 +117,13 @@ mListView.setOnDismissCallback(new OnDismissCallback() {
 You will also be able to decide if a card should be dismissible or not, just by calling Card.setCanDismiss().
 
 Also, in case you wanted to dismiss your Card by code, you would only need to call `card.dismiss()`, and it will dismiss seamlessly.
+
+Check also the **Recovering data from the cards** section in order to be able to recover the Card's content
+
+
+## Recovering data from the cards
+You can check [the Wiki page in order to get more information about the tag system](https://github.com/dexafree/MaterialList/wiki/Recovering-data-from-the-Cards).
+
 
 ## Animations
 Since version 2.0, MaterialList provides animations, in order to enhance cards apparitions.
@@ -118,7 +146,7 @@ In order to use MaterialList, you can either clone the project and import it as 
 ```groovy
 dependencies {
     ...
-    compile 'com.github.dexafree:materiallist:2.3.2'
+    compile 'com.github.dexafree:materiallist:2.4.0'
 }
 ```
 

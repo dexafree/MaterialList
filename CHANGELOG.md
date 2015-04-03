@@ -1,5 +1,13 @@
 # MaterialListView Changelog
 
+## 2.4.0
+* Added OnItemClickListener
+* Fixed the OnDismiss callback not working
+* Updated wiki documentation
+
+## 2.3.2
+* Bugfixes
+
 ## 2.3.1
 * Added `MaterialListView.clear()` method, which clears the adapter
 

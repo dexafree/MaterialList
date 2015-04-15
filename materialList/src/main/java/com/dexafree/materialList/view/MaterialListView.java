@@ -114,14 +114,18 @@ public class MaterialListView extends RecyclerView {
     }
 
 	public void remove(Card card) {
-	        if (card.isDismissible()) {
+		if (card.isDismissible()) {
 			BusProvider.dismiss(card);
-	        }
+		}
 	}
 
     public void add(Card card) {
 		((IMaterialListAdapter) getAdapter()).add(card);
     }
+
+	public void addAtStart(Card card){
+		((IMaterialListAdapter)getAdapter()).addAtStart(card);
+	}
 
     public void addAll(Card... cards) {
 		((IMaterialListAdapter) getAdapter()).addAll(cards);

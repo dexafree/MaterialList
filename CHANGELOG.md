@@ -1,5 +1,9 @@
 # MaterialListView Changelog
 
+## 2.4.2
+* NPE prevention
+* Added the `MaterialListView.addAtStart(Card)` method (https://github.com/dexafree/MaterialList/issues/67)
+
 ## 2.4.1
 * NPE Fix (https://github.com/dexafree/MaterialList/issues/66)
 

@@ -258,6 +258,20 @@ public class MainActivity extends ActionBarActivity {
         return card;
     }
 
+    private void addMockCardAtStart(){
+        BasicImageButtonsCard card = new BasicImageButtonsCard(this);
+        card.setDrawable(R.drawable.dog);
+        card.setTitle("Hi there");
+        card.setDescription("I've been added on top!");
+        card.setLeftButtonText("LEFT");
+        card.setRightButtonText("RIGHT");
+        card.setTag("BASIC_IMAGE_BUTTONS_CARD");
+
+        card.setDismissible(true);
+
+        mListView.addAtStart(card);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -270,6 +284,9 @@ public class MainActivity extends ActionBarActivity {
         switch(item.getItemId()){
             case R.id.action_clear:
                 mListView.clear();
+                break;
+            case R.id.action_add_at_start:
+                addMockCardAtStart();
                 break;
         }
         return super.onOptionsItemSelected(item);

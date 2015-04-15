@@ -7,6 +7,10 @@
         android:title="CLEAR"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_add_at_start"
+        android:title="ADD AT START"
+        app:showAsAction="never" />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

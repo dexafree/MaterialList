@@ -53,6 +53,11 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 		return mCardList.get(position).getLayout();
 	}
 
+	public void addAtStart(Card card){
+		mCardList.add(0, card);
+		notifyDataSetChanged();
+	}
+
 	public void add(Card card) {
 		mCardList.add(card);
 		notifyDataSetChanged();

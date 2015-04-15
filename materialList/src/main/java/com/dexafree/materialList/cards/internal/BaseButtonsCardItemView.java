@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.dexafree.materialList.cards.ExtendedCard;
 import com.dexafree.materialList.R;
+import com.dexafree.materialList.cards.OnButtonPressListener;
 
 public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends BaseTextCardItemView<T> {
     private final static int DIVIDER_MARGIN_DP = 16;
@@ -36,7 +37,11 @@ public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends Ba
         leftText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnLeftButtonPressedListener().onButtonPressedListener(leftText, card);
+
+                OnButtonPressListener listener = card.getOnLeftButtonPressedListener();
+                if (listener != null) {
+                    listener.onButtonPressedListener(leftText, card);
+                }
             }
         });
 
@@ -49,7 +54,10 @@ public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends Ba
         rightText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                card.getOnRightButtonPressedListener().onButtonPressedListener(rightText, card);
+                OnButtonPressListener listener = card.getOnRightButtonPressedListener();
+                if(listener != null) {
+                    listener.onButtonPressedListener(rightText, card);
+                }
             }
         });
 

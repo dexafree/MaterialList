@@ -67,7 +67,9 @@ public class MaterialListView extends RecyclerView {
 				for (int reverseSortedPosition : reverseSortedPositions) {
 					final Card card = ((IMaterialListAdapter) getAdapter()).getCard(reverseSortedPosition);
 					((IMaterialListAdapter) getAdapter()).remove(card, false);
-					mDismissCallback.onDismiss(card, reverseSortedPosition);
+					if(mDismissCallback != null) {
+						mDismissCallback.onDismiss(card, reverseSortedPosition);
+					}
 					Log.d("DissmissListener", "delete: " + card.getClass());
 				}
 			}

@@ -1,5 +1,8 @@
 # MaterialListView Changelog
 
+## 2.4.1
+* NPE Fix (https://github.com/dexafree/MaterialList/issues/66)
+
 ## 2.4.0
 * Added OnItemClickListener
 * Fixed the OnDismiss callback not working

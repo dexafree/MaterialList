@@ -33,6 +33,13 @@ public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends Ba
 
         // Left Button - Text
         final TextView leftText = (TextView) findViewById(R.id.left_text_button);
+
+        int leftColor = card.getLeftButtonTextColor();
+
+        if(leftColor != -1){
+            leftText.setTextColor(leftColor);
+        }
+
         leftText.setText(card.getLeftButtonText().toUpperCase());
         leftText.setOnClickListener(new OnClickListener() {
             @Override
@@ -47,6 +54,13 @@ public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends Ba
 
         // Right Button - Text
         final TextView rightText = (TextView) findViewById(R.id.right_text_button);
+
+        int rightColor = card.getRightButtonTextColor();
+
+        if(rightColor != -1){
+            rightText.setTextColor(rightColor);
+        }
+
         rightText.setText(card.getRightButtonText().toUpperCase());
         if (card.getRightButtonTextColor() > -1) {
             rightText.setTextColor(card.getRightButtonTextColor());

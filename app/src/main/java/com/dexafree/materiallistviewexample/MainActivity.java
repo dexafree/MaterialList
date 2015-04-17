@@ -146,6 +146,7 @@ public class MainActivity extends ActionBarActivity {
                 card.setTag("BASIC_BUTTONS_CARD");
                 ((BasicButtonsCard) card).setLeftButtonText("LEFT");
                 ((BasicButtonsCard) card).setRightButtonText("RIGHT");
+                ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
 
                 if (position % 2 == 0)
                     ((BasicButtonsCard) card).setDividerVisible(true);

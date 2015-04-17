@@ -10,6 +10,7 @@ public abstract class ExtendedCard extends SimpleCard {
     protected String leftButtonText;
     protected String rightButtonText;
     protected int mRightButtonTextColor = -1;
+    protected int mLeftButtonTextColor = -1;
     protected OnButtonPressListener onLeftButtonPressedListener;
     protected OnButtonPressListener onRightButtonPressedListener;
     protected boolean dividerVisible = false;
@@ -56,6 +57,19 @@ public abstract class ExtendedCard extends SimpleCard {
 
     public void setRightButtonTextColorRes(int colorId) {
         setRightButtonTextColor(getResources().getColor(colorId));
+    }
+
+    public int getLeftButtonTextColor() {
+        return mLeftButtonTextColor;
+    }
+
+    public void setLeftButtonTextColor(int color) {
+        this.mLeftButtonTextColor = color;
+        BusProvider.dataSetChanged();
+    }
+
+    public void setLeftButtonTextColorRes(int colorId) {
+        setLeftButtonTextColor(getResources().getColor(colorId));
     }
 
     public boolean isDividerVisible() {

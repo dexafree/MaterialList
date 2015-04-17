@@ -1,5 +1,8 @@
 # MaterialListView Changelog
 
+## 2.4.3
+* Button color change fix (https://github.com/dexafree/MaterialList/issues/69)
+
 ## 2.4.2
 * NPE prevention
 * Added the `MaterialListView.addAtStart(Card)` method (https://github.com/dexafree/MaterialList/issues/67)

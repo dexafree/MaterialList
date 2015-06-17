@@ -40,17 +40,19 @@ public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends Ba
             leftText.setTextColor(leftColor);
         }
 
-        leftText.setText(card.getLeftButtonText().toUpperCase());
-        leftText.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(card.getLeftButtonText() != null) {
+            leftText.setText(card.getLeftButtonText().toUpperCase());
+            leftText.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                OnButtonPressListener listener = card.getOnLeftButtonPressedListener();
-                if (listener != null) {
-                    listener.onButtonPressedListener(leftText, card);
+                    OnButtonPressListener listener = card.getOnLeftButtonPressedListener();
+                    if (listener != null) {
+                        listener.onButtonPressedListener(leftText, card);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // Right Button - Text
         final TextView rightText = (TextView) findViewById(R.id.right_text_button);
@@ -61,19 +63,21 @@ public abstract class BaseButtonsCardItemView<T extends ExtendedCard> extends Ba
             rightText.setTextColor(rightColor);
         }
 
-        rightText.setText(card.getRightButtonText().toUpperCase());
-        if (card.getRightButtonTextColor() > -1) {
-            rightText.setTextColor(card.getRightButtonTextColor());
-        }
-        rightText.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnButtonPressListener listener = card.getOnRightButtonPressedListener();
-                if(listener != null) {
-                    listener.onButtonPressedListener(rightText, card);
-                }
+        if(card.getRightButtonText() != null) {
+            rightText.setText(card.getRightButtonText().toUpperCase());
+            if (card.getRightButtonTextColor() > -1) {
+                rightText.setTextColor(card.getRightButtonTextColor());
             }
-        });
+            rightText.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    OnButtonPressListener listener = card.getOnRightButtonPressedListener();
+                    if (listener != null) {
+                        listener.onButtonPressedListener(rightText, card);
+                    }
+                }
+            });
+        }
 
         // Divider
         int visibility = card.isDividerVisible() ? VISIBLE : INVISIBLE;

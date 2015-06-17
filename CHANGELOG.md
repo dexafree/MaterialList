@@ -1,5 +1,8 @@
 # MaterialListView Changelog
 
+## 2.4.4
+* Prevented NPE when ButtonsCard have no text
+
 ## 2.4.3
 * Button color change fix (https://github.com/dexafree/MaterialList/issues/69)
 

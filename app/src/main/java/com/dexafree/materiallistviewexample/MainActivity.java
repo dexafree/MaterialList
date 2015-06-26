@@ -94,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new SmallImageCard(this);
                 card.setDescription(description);
                 card.setTitle(title);
-                card.setDrawable(R.drawable.ic_launcher);
+                card.setDrawable(R.drawable.sample_android);
                 card.setDismissible(true);
                 card.setTag("SMALL_IMAGE_CARD");
                 return card;

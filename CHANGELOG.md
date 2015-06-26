@@ -1,5 +1,9 @@
 # MaterialListView Changelog
 
+## 2.4.5
+* Updated RecyclerView library version as requested: https://github.com/dexafree/MaterialList/issues/83
+* Changed ic_launcher name as requested: https://github.com/dexafree/MaterialList/issues/81
+
 ## 2.4.4
 * Prevented NPE when ButtonsCard have no text
 

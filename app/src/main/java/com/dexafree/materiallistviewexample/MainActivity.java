@@ -2,6 +2,7 @@ package com.dexafree.materiallistviewexample;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -40,6 +41,15 @@ public class MainActivity extends ActionBarActivity {
 
         // Bind the MaterialListView to a variable
         mListView = (MaterialListView) findViewById(R.id.material_listview);
+
+        Drawable drawable;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawable = getDrawable(R.drawable.divider);
+        } else {
+            drawable = getResources().getDrawable(R.drawable.divider);
+        }
+        mListView.setDivider(drawable);
+
 
         // Fill the array with mock content
         fillArray();

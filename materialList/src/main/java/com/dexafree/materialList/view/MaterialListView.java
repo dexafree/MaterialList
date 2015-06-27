@@ -3,6 +3,7 @@ package com.dexafree.materialList.view;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import com.dexafree.materialList.DividerItemDecoration;
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.controller.IMaterialListAdapter;
 import com.dexafree.materialList.controller.MaterialListAdapter;
@@ -227,5 +229,10 @@ public class MaterialListView extends RecyclerView {
         itemClickListener.setRecyclerView(this);
         super.addOnItemTouchListener(itemClickListener);
     }
+
+
+	public void setDivider(Drawable drawable) {
+		this.addItemDecoration(new DividerItemDecoration(drawable, true, true));
+	}
 
 }

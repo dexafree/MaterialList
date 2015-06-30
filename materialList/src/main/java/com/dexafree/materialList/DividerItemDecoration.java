@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -129,9 +130,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         if (parent.getLayoutManager() instanceof LinearLayoutManager) {
             LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
             return layoutManager.getOrientation();
+        } else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) parent.getLayoutManager();
+            return staggeredGridLayoutManager.getOrientation();
         } else {
             throw new IllegalStateException(
-                    "DividerItemDecoration can only be used with a LinearLayoutManager.");
+                    "DividerItemDecoration can only be used with a LinearLayoutManager or a StaggeredGridLayoutManager.");
         }
     }
 
@@ -139,9 +143,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         if (parent.getLayoutManager() instanceof LinearLayoutManager) {
             LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
             return layoutManager.getReverseLayout();
+        } else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) parent.getLayoutManager();
+            return staggeredGridLayoutManager.getReverseLayout();
         } else {
             throw new IllegalStateException(
-                    "DividerItemDecoration can only be used with a LinearLayoutManager.");
+                    "DividerItemDecoration can only be used with a LinearLayoutManager or a StaggeredGridLayoutManager.");
         }
     }
 }

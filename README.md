@@ -114,7 +114,7 @@ mListView.setOnDismissCallback(new OnDismissCallback() {
     }
 });
 ```
-You will also be able to decide if a card should be dismissible or not, just by calling Card.setCanDismiss().
+You will also be able to decide if a card should be dismissible or not, just by calling `card.setDismissible(true)`.
 
 Also, in case you wanted to dismiss your Card by code, you would only need to call `card.dismiss()`, and it will dismiss seamlessly.
 

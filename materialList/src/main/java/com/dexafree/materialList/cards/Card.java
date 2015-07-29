@@ -94,7 +94,7 @@ public class Card {
         /**
          * @param object
          */
-        public Builder setTag(@Nullable final Object object) {
+        public @NonNull Builder setTag(@Nullable final Object object) {
             mTagObject = object;
             return this;
         }
@@ -102,7 +102,7 @@ public class Card {
         /**
          *
          */
-        public Builder setDismissible() {
+        public @NonNull Builder setDismissible() {
             mDismissible = true;
             return this;
         }
@@ -111,7 +111,7 @@ public class Card {
          * @param cardRenderer
          * @return
          */
-        public Card build(@NonNull final CardRenderer cardRenderer) {
+        public @NonNull Card build(@NonNull final CardRenderer cardRenderer) {
             mCardRenderer = cardRenderer;
             return new Card(this);
         }

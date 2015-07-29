@@ -9,10 +9,12 @@ import android.view.View;
 
 import com.dexafree.materialList.cards.Card;
 
+import java.util.Observable;
+
 /**
  * Created by Fabio on 29.07.2015.
  */
-public abstract class CardRenderer<T extends CardRenderer> {
+public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     @NonNull
     protected final Context mContext;
     @ColorInt
@@ -41,6 +43,7 @@ public abstract class CardRenderer<T extends CardRenderer> {
      */
     public T setBackgroundColor(@ColorInt final int color) {
         mBackgroundColor = color;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -50,8 +53,16 @@ public abstract class CardRenderer<T extends CardRenderer> {
      * @return
      */
     public T setBackgroundResourceColor(@ColorRes final int color) {
-        mBackgroundColor = mContext.getResources().getColor(color);
+        setBackgroundColor(mContext.getResources().getColor(color));
         return (T) this;
+    }
+
+    /**
+     *
+     */
+    public void notifyDataSetChanged() {
+        setChanged();
+        notifyObservers();
     }
 
     /**

@@ -17,10 +17,6 @@ import com.dexafree.materialList.controller.MaterialListAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.controller.SwipeDismissRecyclerViewTouchListener;
-import com.dexafree.materialList.events.BusProvider;
-import com.dexafree.materialList.events.DataSetChangedEvent;
-import com.dexafree.materialList.events.DismissEvent;
-import com.squareup.otto.Subscribe;
 
 import java.util.Collection;
 
@@ -78,7 +74,13 @@ public class MaterialListView extends RecyclerView {
         setOnTouchListener(mDismissListener);
         setOnScrollListener(mDismissListener.makeScrollListener());
 
-        setAdapter(new MaterialListAdapter());
+        setAdapter(new MaterialListAdapter(new OnSwipeAnimation() {
+            @Override
+            public void animate(final int position) {
+                ViewHolder holder = findViewHolderForPosition(position);
+                mDismissListener.dismissCard(holder.itemView, position);
+            }
+        }));
 
         Log.d(getClass().getSimpleName(), "Setup...");
 
@@ -115,7 +117,7 @@ public class MaterialListView extends RecyclerView {
 
     public void remove(Card card) {
         if (card.isDismissible()) {
-            BusProvider.dismiss(card);
+            ((IMaterialListAdapter) getAdapter()).remove(card, true);
         }
     }
 
@@ -157,30 +159,6 @@ public class MaterialListView extends RecyclerView {
 
     public void setOnDismissCallback(OnDismissCallback callback) {
         mDismissCallback = callback;
-    }
-
-    @Subscribe
-    public void onNotifyDataSetChanged(DataSetChangedEvent event) {
-        getAdapter().notifyDataSetChanged();
-    }
-
-    @Subscribe
-    public void onCardDismiss(DismissEvent event) {
-        int position = ((IMaterialListAdapter) getAdapter()).getPosition(event.getDismissedCard());
-        ViewHolder holder = findViewHolderForPosition(position);
-        mDismissListener.dismissCard(holder.itemView, position);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        BusProvider.register(this);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        BusProvider.unregister(this);
     }
 
     @Override
@@ -228,4 +206,11 @@ public class MaterialListView extends RecyclerView {
         super.addOnItemTouchListener(itemClickListener);
     }
 
+    public interface OnSwipeAnimation {
+        /**
+         *
+         * @param position
+         */
+        void animate(int position);
+    }
 }

@@ -53,7 +53,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setLeftButtonText(@StringRes final int leftButtonText) {
-        mLeftButtonText = mContext.getString(leftButtonText);
+        setLeftButtonText(mContext.getString(leftButtonText));
         return (T) this;
     }
 
@@ -63,6 +63,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setLeftButtonText(final String leftButtonText) {
         mLeftButtonText = leftButtonText;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -78,7 +79,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setRightButtonText(@StringRes final int rightButtonText) {
-        mRightButtonText = mContext.getString(rightButtonText);
+        setRightButtonText(mContext.getString(rightButtonText));
         return (T) this;
     }
 
@@ -88,6 +89,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setRightButtonText(final String rightButtonText) {
         mRightButtonText = rightButtonText;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -139,6 +141,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setRightButtonTextColor(@ColorInt final int color) {
         mRightButtonTextColor = color;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -147,7 +150,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setRightButtonTextResourceColor(@ColorRes final int color) {
-        mRightButtonTextColor = mContext.getResources().getColor(color);
+        setRightButtonTextColor(mContext.getResources().getColor(color));
         return (T) this;
     }
 
@@ -165,6 +168,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setLeftButtonTextColor(@ColorInt final int color) {
         mLeftButtonTextColor = color;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -173,7 +177,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setLeftButtonTextResourceColor(@ColorRes final int color) {
-        mLeftButtonTextColor = mContext.getResources().getColor(color);
+        setLeftButtonTextColor(mContext.getResources().getColor(color));
         return (T) this;
     }
 
@@ -190,6 +194,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setDividerVisible(final boolean visible) {
         mDividerVisible = visible;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -206,6 +211,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setFullWidthDivider(final boolean fullWidthDivider) {
         mFullWidthDivider = fullWidthDivider;
+        notifyDataSetChanged();
         return (T) this;
     }
 

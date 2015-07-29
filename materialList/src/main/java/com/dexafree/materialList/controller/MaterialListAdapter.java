@@ -7,96 +7,111 @@ import android.view.ViewGroup;
 
 import com.dexafree.materialList.cards.Card;
 import com.dexafree.materialList.cards.CardLayout;
-import com.dexafree.materialList.events.BusProvider;
+import com.dexafree.materialList.view.MaterialListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapter.ViewHolder> implements IMaterialListAdapter {
-	private final List<Card> mCardList = new ArrayList<>();
+public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapter.ViewHolder> implements IMaterialListAdapter, Observer {
+    private final List<Card> mCardList = new ArrayList<>();
+    private final MaterialListView.OnSwipeAnimation mAnimation;
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
-		private final CardLayout view;
-
-		public ViewHolder(View v) {
-			super(v);
-			view = (CardLayout) v;
-		}
-
-		public void build(Card card) {
-			view.build(card);
-		}
+    public MaterialListAdapter(final MaterialListView.OnSwipeAnimation animation) {
+        mAnimation = animation;
     }
 
-	@Override
-	public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-		return new ViewHolder(LayoutInflater
-				.from(parent.getContext())
-				.inflate(viewType, parent, false));
-	}
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardLayout view;
 
-	@Override
-	public void onBindViewHolder(final ViewHolder holder, final int position) {
-		holder.build(mCardList.get(position));
-	}
+        public ViewHolder(View v) {
+            super(v);
+            view = (CardLayout) v;
+        }
 
-	@Override
-	public int getItemCount() {
-		return mCardList.size();
-	}
+        public void build(Card card) {
+            view.build(card);
+        }
+    }
 
-	@Override
-	public int getItemViewType(final int position) {
-		return mCardList.get(position).getRenderer().getLayout();
-	}
+    @Override
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        return new ViewHolder(LayoutInflater
+                .from(parent.getContext())
+                .inflate(viewType, parent, false));
+    }
 
-	public void addAtStart(Card card){
-		mCardList.add(0, card);
-		notifyDataSetChanged();
-	}
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.build(mCardList.get(position));
+    }
 
-	public void add(Card card) {
-		mCardList.add(card);
-		notifyDataSetChanged();
-	}
+    @Override
+    public int getItemCount() {
+        return mCardList.size();
+    }
 
-	public void addAll(Card... cards) {
-		addAll(Arrays.asList(cards));
-	}
+    @Override
+    public int getItemViewType(final int position) {
+        return mCardList.get(position).getRenderer().getLayout();
+    }
 
-	public void addAll(Collection<Card> cards) {
-		for (Card card : cards) {
-			add(card);
-		}
-	}
-
-	public void remove(Card card, boolean withAnimation) {
-		if (card.isDismissible()) {
-			if (withAnimation) {
-				BusProvider.dismiss(card);
-			} else {
-				mCardList.remove(card);
-				notifyDataSetChanged();
-			}
-		}
-	}
-
-    public void clear(){
-        mCardList.clear();
+    public void addAtStart(Card card) {
+        mCardList.add(0, card);
         notifyDataSetChanged();
     }
 
-	public boolean isEmpty() {
-		return mCardList.isEmpty();
-	}
+    public void add(Card card) {
+        mCardList.add(card);
+        card.getRenderer().addObserver(this);
+        notifyDataSetChanged();
+    }
 
-	public Card getCard(int position) {
-		return mCardList.get(position);
-	}
+    public void addAll(Card... cards) {
+        addAll(Arrays.asList(cards));
+    }
 
-	public int getPosition(Card card) {
-		return mCardList.indexOf(card);
-	}
+    public void addAll(Collection<Card> cards) {
+        for (Card card : cards) {
+            add(card);
+        }
+    }
+
+    public void remove(Card card, boolean animate) {
+        if (card.isDismissible()) {
+            card.getRenderer().deleteObserver(this);
+            if (animate) {
+                mAnimation.animate(getPosition(card));
+            } else {
+                mCardList.remove(card);
+                notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void clear() {
+        for (Card card : mCardList) {
+            remove(card, false);
+        }
+    }
+
+    @Override
+    public void update(final Observable observable, final Object data) {
+        notifyDataSetChanged();
+    }
+
+    public boolean isEmpty() {
+        return mCardList.isEmpty();
+    }
+
+    public Card getCard(int position) {
+        return mCardList.get(position);
+    }
+
+    public int getPosition(Card card) {
+        return mCardList.indexOf(card);
+    }
 }

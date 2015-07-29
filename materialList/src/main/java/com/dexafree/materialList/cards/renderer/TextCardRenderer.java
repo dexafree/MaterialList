@@ -51,7 +51,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setTitle(@StringRes final int title) {
-        mTitle = mContext.getString(title);
+        setTitle(mContext.getString(title));
         return (T) this;
     }
 
@@ -61,6 +61,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      */
     public T setTitle(@NonNull final String title) {
         mTitle = title;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -76,7 +77,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setDescription(@StringRes final int description) {
-        mDescription = mContext.getString(description);
+        setDescription(mContext.getString(description));
         return (T) this;
     }
 
@@ -86,6 +87,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      */
     public T setDescription(@NonNull final String description) {
         mDescription = description;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -101,7 +103,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setDrawable(@DrawableRes final int drawable) {
-        mDrawable = mContext.getResources().getDrawable(drawable);
+        setDrawable(mContext.getResources().getDrawable(drawable));
         return (T) this;
     }
 
@@ -111,6 +113,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      */
     public T setDrawable(@Nullable final Drawable drawable) {
         mDrawable = drawable;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -120,6 +123,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      */
     public T setDrawable(@Nullable final String urlImage) {
         mUrlImage = urlImage;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -144,6 +148,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      */
     public T setTitleColor(@ColorInt final int color) {
         mTitleColor = color;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -152,7 +157,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setTitleResourceColor(@ColorRes final int color) {
-        mTitleColor = mContext.getResources().getColor(color);
+        setTitleColor(mContext.getResources().getColor(color));
         return (T) this;
     }
 
@@ -170,6 +175,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      */
     public T setDescriptionColor(@ColorInt final int color) {
         mDescriptionColor = color;
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -178,7 +184,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setDescriptionResourceColor(@ColorRes final int color) {
-        mDescriptionColor = mContext.getResources().getColor(color);
+        setDescriptionColor(mContext.getResources().getColor(color));
         return (T) this;
     }
 

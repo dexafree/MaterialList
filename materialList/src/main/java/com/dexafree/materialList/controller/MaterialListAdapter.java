@@ -5,10 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dexafree.materialList.cards.Card;
+import com.dexafree.materialList.cards.CardLayout;
 import com.dexafree.materialList.events.BusProvider;
-import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.model.CardItemView;
-import com.dexafree.materialList.view.MaterialListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,24 +17,24 @@ import java.util.List;
 public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapter.ViewHolder> implements IMaterialListAdapter {
 	private final List<Card> mCardList = new ArrayList<>();
 
-	public static class ViewHolder<T extends Card> extends RecyclerView.ViewHolder {
-		private final CardItemView<T> view;
+	public static class ViewHolder extends RecyclerView.ViewHolder {
+		private final CardLayout view;
 
 		public ViewHolder(View v) {
 			super(v);
-			view = (CardItemView<T>) v;
+			view = (CardLayout) v;
 		}
 
-		public void build(T card) {
+		public void build(Card card) {
 			view.build(card);
 		}
-
     }
 
 	@Override
 	public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-		final View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-		return new ViewHolder(view);
+		return new ViewHolder(LayoutInflater
+				.from(parent.getContext())
+				.inflate(viewType, parent, false));
 	}
 
 	@Override
@@ -50,7 +49,7 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 
 	@Override
 	public int getItemViewType(final int position) {
-		return mCardList.get(position).getLayout();
+		return mCardList.get(position).getRenderer().getLayout();
 	}
 
 	public void addAtStart(Card card){

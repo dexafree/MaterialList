@@ -1,6 +1,6 @@
 package com.dexafree.materialList.controller;
 
-import com.dexafree.materialList.model.Card;
+import com.dexafree.materialList.cards.Card;
 
 import java.util.Collection;
 

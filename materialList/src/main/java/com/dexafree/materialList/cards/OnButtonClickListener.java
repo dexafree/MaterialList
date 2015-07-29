@@ -1,8 +1,12 @@
 package com.dexafree.materialList.cards;
 
 import android.view.View;
-import com.dexafree.materialList.model.Card;
 
-public interface OnButtonPressListener {
+public interface OnButtonClickListener {
+    /**
+     *
+     * @param view
+     * @param card
+     */
     void onButtonPressedListener(View view, Card card);
 }

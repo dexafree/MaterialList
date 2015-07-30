@@ -48,6 +48,8 @@ public abstract class BaseTextCardItemView<T extends SimpleCard> extends BaseCar
                 imageView.setImageDrawable(card.getDrawable());
             } else {
                 Picasso.with(getContext()).load(card.getUrlImage()).into(imageView);
+
+                        //into(imageView);
             }
         }
 

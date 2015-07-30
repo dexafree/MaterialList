@@ -61,6 +61,7 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 
     public void addAtStart(Card card) {
         mCardList.add(0, card);
+        card.getRenderer().addObserver(this);
         notifyDataSetChanged();
     }
 
@@ -93,8 +94,8 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
     }
 
     public void clear() {
-        for (Card card : mCardList) {
-            remove(card, false);
+        for (int index = 0; index < mCardList.size(); index++) {
+            remove(mCardList.get(index), false);
         }
     }
 

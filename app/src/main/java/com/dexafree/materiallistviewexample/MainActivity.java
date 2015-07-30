@@ -1,6 +1,7 @@
 package com.dexafree.materiallistviewexample;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -67,8 +68,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void fillArray() {
         for (int i = 0; i < 35; i++) {
-            Card card = getRandomCard(i);
-            mListView.add(card);
+            mListView.add(getRandomCard(i));
         }
     }
 
@@ -159,8 +159,12 @@ public class MainActivity extends ActionBarActivity {
             case 4: {
                 final WelcomeCardRenderer renderer = new WelcomeCardRenderer(this)
                         .setTitle("Welcome Card")
+                        .setTitleColor(Color.WHITE)
                         .setDescription("I am the description")
+                        .setDescriptionColor(Color.WHITE)
                         .setSubtitle("My subtitle!")
+                        .setSubtitleColor(Color.WHITE)
+                        .setBackgroundColor(Color.BLUE)
                         .setButtonText("Okay!")
                         .setOnButtonPressedListener(new OnButtonClickListener() {
                             @Override
@@ -168,8 +172,9 @@ public class MainActivity extends ActionBarActivity {
                                 Toast.makeText(mContext, "Welcome!", Toast.LENGTH_SHORT).show();
                             }
                         });
+
                 if (position % 2 == 0) {
-                    renderer.setBackgroundResourceColor(R.color.background_material_dark);
+                    renderer.setBackgroundResourceColor(android.R.color.background_dark);
                 }
 
                 return new Card.Builder(this)

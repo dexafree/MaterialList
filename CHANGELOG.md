@@ -1,5 +1,8 @@
 # MaterialListView Changelog
 
+## 2.4.6
+* Now `BigImageCard` and `BigImageButtonsCard` center the image and crop it.
+
 ## 2.4.5
 * Updated RecyclerView library version as requested: https://github.com/dexafree/MaterialList/issues/83
 * Changed ic_launcher name as requested: https://github.com/dexafree/MaterialList/issues/81

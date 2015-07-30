@@ -1,46 +1,56 @@
 package com.dexafree.materialList.cards.renderer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.dexafree.materialList.R;
 import com.dexafree.materialList.cards.Card;
 
 import java.util.Observable;
 
 /**
- * Created by Fabio on 29.07.2015.
+ * A basic card renderer.
  */
 public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     @NonNull
     protected final Context mContext;
     @ColorInt
-    private int mBackgroundColor;
+    private int mBackgroundColor = Color.WHITE;
 
     /**
+     * Creates a basic card renderer.
      *
      * @param context
+     *         to access the resources.
      */
     public CardRenderer(@NonNull final Context context) {
         mContext = context;
     }
 
     /**
+     * Get the background color.
      *
-     * @return
+     * @return the background color.
      */
-    public @ColorInt int getBackgroundColor() {
+    @ColorInt
+    public int getBackgroundColor() {
         return mBackgroundColor;
     }
 
     /**
+     * Set the background color with an real color (e.g. {@code Color.WHITE}).
      *
      * @param color
-     * @return
+     *         as real.
+     * @return the renderer.
      */
+    @NonNull
+    @SuppressWarnings("unchecked")
     public T setBackgroundColor(@ColorInt final int color) {
         mBackgroundColor = color;
         notifyDataSetChanged();
@@ -48,32 +58,39 @@ public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     }
 
     /**
+     * Set the background color with an resource color (e.g. {@code android.R.color.white}).
      *
      * @param color
-     * @return
+     *         as resource.
+     * @return the renderer.
      */
+    @NonNull
     public T setBackgroundResourceColor(@ColorRes final int color) {
-        setBackgroundColor(mContext.getResources().getColor(color));
-        return (T) this;
+        return setBackgroundColor(mContext.getResources().getColor(color));
     }
 
     /**
-     *
+     * Notifies the Card and MaterialListAdapter that the content changed.
      */
-    public void notifyDataSetChanged() {
+    protected void notifyDataSetChanged() {
         setChanged();
         notifyObservers();
     }
 
     /**
+     * Renders the content and style of the card to the view.
      *
-     * @param view
-     * @param card
+     * @param view to display the content and style on.
+     * @param card to render.
      */
-    public abstract void render(@NonNull final View view, @NonNull final Card card);
+    public void render(@NonNull final View view, @NonNull final Card card) {
+        view.findViewById(R.id.cardView).setBackgroundColor(getBackgroundColor());
+    }
 
     /**
-     * @return
+     * Get the card layout as resource.
+     *
+     * @return the card layout.
      */
     @LayoutRes
     public abstract int getLayout();

@@ -1,7 +1,6 @@
 package com.dexafree.materialList.cards.renderer;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -16,27 +15,31 @@ import android.widget.TextView;
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.cards.Card;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 /**
  * Created by Fabio on 29.07.2015.
  */
 public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardRenderer<T> {
     @ColorInt
-    private int mTitleColor = Color.BLACK;
+    private int mTitleColor;
     @ColorInt
-    private int mDescriptionColor = Color.GRAY;
+    private int mDescriptionColor;
     private String mTitle;
     private String mDescription;
     @Nullable
     private Drawable mDrawable;
     @Nullable
     private String mUrlImage;
+    private OnPicassoImageLoading mOnPicassoImageLoadingListener;
 
     /**
      * @param context
      */
     public TextCardRenderer(@NonNull final Context context) {
         super(context);
+        setTitleResourceColor(R.color.grey_title);
+        setDescriptionResourceColor(R.color.description_color);
     }
 
     /**
@@ -51,8 +54,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setTitle(@StringRes final int title) {
-        setTitle(mContext.getString(title));
-        return (T) this;
+        return setTitle(mContext.getString(title));
     }
 
     /**
@@ -77,8 +79,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setDescription(@StringRes final int description) {
-        setDescription(mContext.getString(description));
-        return (T) this;
+        return setDescription(mContext.getString(description));
     }
 
     /**
@@ -103,8 +104,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setDrawable(@DrawableRes final int drawable) {
-        setDrawable(mContext.getResources().getDrawable(drawable));
-        return (T) this;
+        return setDrawable(mContext.getResources().getDrawable(drawable));
     }
 
     /**
@@ -157,8 +157,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setTitleResourceColor(@ColorRes final int color) {
-        setTitleColor(mContext.getResources().getColor(color));
-        return (T) this;
+        return setTitleColor(mContext.getResources().getColor(color));
     }
 
     /**
@@ -184,12 +183,31 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return
      */
     public T setDescriptionResourceColor(@ColorRes final int color) {
-        setDescriptionColor(mContext.getResources().getColor(color));
+        return setDescriptionColor(mContext.getResources().getColor(color));
+    }
+
+    /**
+     *
+     * @param listener
+     * @return
+     */
+    public T setOnPicassoImageLoadingListener(@NonNull final OnPicassoImageLoading listener) {
+        mOnPicassoImageLoadingListener = listener;
         return (T) this;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public OnPicassoImageLoading getOnPicassoImageLoadingListener() {
+        return mOnPicassoImageLoadingListener;
     }
 
     @Override
     public void render(@NonNull final View view, @NonNull final Card card) {
+        super.render(view, card);
+
         // Title
         TextView title = (TextView) view.findViewById(R.id.titleTextView);
         title.setText(getTitle());
@@ -206,8 +224,16 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
             if (getImageUrl() == null || getImageUrl().isEmpty()) {
                 imageView.setImageDrawable(getDrawable());
             } else {
-                Picasso.with(mContext).load(getImageUrl()).into(imageView);
+                final RequestCreator requestCreator = Picasso.with(mContext).load(getImageUrl());
+                if(getOnPicassoImageLoadingListener() != null) {
+                    getOnPicassoImageLoadingListener().onImageLoading(requestCreator);
+                }
+                requestCreator.into(imageView);
             }
         }
+    }
+
+    public interface OnPicassoImageLoading {
+        void onImageLoading(@NonNull final RequestCreator requestCreator);
     }
 }

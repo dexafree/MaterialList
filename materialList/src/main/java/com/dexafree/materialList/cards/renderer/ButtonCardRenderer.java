@@ -39,6 +39,8 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public ButtonCardRenderer(@NonNull final Context context) {
         super(context);
+        setRightButtonTextResourceColor(R.color.orange_button);
+        setLeftButtonTextResourceColor(R.color.black_button);
     }
 
     /**
@@ -53,8 +55,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setLeftButtonText(@StringRes final int leftButtonText) {
-        setLeftButtonText(mContext.getString(leftButtonText));
-        return (T) this;
+        return setLeftButtonText(mContext.getString(leftButtonText));
     }
 
     /**
@@ -79,8 +80,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setRightButtonText(@StringRes final int rightButtonText) {
-        setRightButtonText(mContext.getString(rightButtonText));
-        return (T) this;
+        return setRightButtonText(mContext.getString(rightButtonText));
     }
 
     /**
@@ -150,8 +150,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setRightButtonTextResourceColor(@ColorRes final int color) {
-        setRightButtonTextColor(mContext.getResources().getColor(color));
-        return (T) this;
+        return setRightButtonTextColor(mContext.getResources().getColor(color));
     }
 
     /**
@@ -177,8 +176,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return
      */
     public T setLeftButtonTextResourceColor(@ColorRes final int color) {
-        setLeftButtonTextColor(mContext.getResources().getColor(color));
-        return (T) this;
+        return setLeftButtonTextColor(mContext.getResources().getColor(color));
     }
 
     /**

@@ -25,17 +25,20 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     private String mButtonText;
     private OnButtonClickListener mListener;
     @ColorInt
-    private int mSubtitleColor = Color.WHITE;
+    private int mSubtitleColor;
     @ColorInt
-    private int mDividerColor = Color.parseColor("#608DFA");
+    private int mDividerColor;
     @ColorInt
-    private int mButtonTextColor = Color.WHITE;
+    private int mButtonTextColor;
 
     /**
      * @param context
      */
     public WelcomeCardRenderer(@NonNull final Context context) {
         super(context);
+        setSubtitleColor(Color.WHITE);
+        setDividerColor(Color.parseColor("#608DFA"));
+        setButtonTextColor(Color.WHITE);
     }
 
     /**
@@ -52,8 +55,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      * @return
      */
     public WelcomeCardRenderer setSubtitle(@StringRes final int subtitle) {
-        setSubtitle(mContext.getString(subtitle));
-        return this;
+        return setSubtitle(mContext.getString(subtitle));
     }
 
     /**
@@ -123,8 +125,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      * @return
      */
     public WelcomeCardRenderer setButtonText(@StringRes final int buttonText) {
-        setButtonText(mContext.getString(buttonText));
-        return this;
+        return setButtonText(mContext.getString(buttonText));
     }
 
     /**
@@ -165,8 +166,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      * @return
      */
     public WelcomeCardRenderer setDividerResourceColor(@ColorRes final int color) {
-        setDividerColor(mContext.getResources().getColor(color));
-        return this;
+        return setDividerColor(mContext.getResources().getColor(color));
     }
 
     /**
@@ -186,8 +186,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      * @return
      */
     public WelcomeCardRenderer setButtonTextResourceColor(@ColorRes final int color) {
-        setButtonTextColor(mContext.getResources().getColor(color));
-        return this;
+        return setButtonTextColor(mContext.getResources().getColor(color));
     }
 
     /**

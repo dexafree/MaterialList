@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.dexafree.materialList.cards.renderer.CardRenderer;
 
 /**
- * A simple card with nothing on it to configure.
+ * A card.
  */
 public class Card {
     @NonNull
@@ -19,7 +19,10 @@ public class Card {
     private boolean mDismissible;
 
     /**
+     * Creates a new card.
+     *
      * @param builder
+     *         to get the card data from.
      */
     private Card(@NonNull final Builder builder) {
         mContext = builder.mContext;
@@ -29,7 +32,9 @@ public class Card {
     }
 
     /**
-     * @return the card style.
+     * Get the card renderer.
+     *
+     * @return the card renderer.
      */
     @NonNull
     public CardRenderer getRenderer() {
@@ -37,14 +42,19 @@ public class Card {
     }
 
     /**
+     * Set the tag.
+     *
      * @param object
+     *         as tag.
      */
     public void setTag(@Nullable final Object object) {
         mTagObject = object;
     }
 
     /**
-     * @return
+     * Get the tag.
+     *
+     * @return the tag.
      */
     @Nullable
     public Object getTag() {
@@ -52,21 +62,28 @@ public class Card {
     }
 
     /**
+     * Set the card dismissible.
+     *
      * @param dismissible
+     *         {@code true} to be able to remove the card or {@code false} otherwise.
      */
     public void setDismissible(final boolean dismissible) {
         mDismissible = dismissible;
     }
 
     /**
-     * @return
+     * Is the card dismissible.
+     *
+     * @return {@code true} if the card is removeable or {@code false} otherwise.
      */
     public boolean isDismissible() {
         return mDismissible;
     }
 
     /**
-     * @return
+     * Get the context.
+     *
+     * @return the context.
      */
     @NonNull
     public Context getContext() {
@@ -74,7 +91,7 @@ public class Card {
     }
 
     /**
-     *
+     * The Card Builder configures the card.
      */
     public static class Builder {
         @NonNull
@@ -85,33 +102,48 @@ public class Card {
         private boolean mDismissible;
 
         /**
+         * Creates a new Builder.
+         *
          * @param context
+         *         to access resources.
          */
         public Builder(@NonNull final Context context) {
             mContext = context;
         }
 
         /**
+         * Set a tag.
+         *
          * @param object
+         *         as tag.
          */
-        public @NonNull Builder setTag(@Nullable final Object object) {
+        public
+        @NonNull
+        Builder setTag(@Nullable final Object object) {
             mTagObject = object;
             return this;
         }
 
         /**
-         *
+         * Set the card dismissible - it is then removable.
          */
-        public @NonNull Builder setDismissible() {
+        public
+        @NonNull
+        Builder setDismissible() {
             mDismissible = true;
             return this;
         }
 
         /**
+         * Builds the card and specifies the renderer.
+         *
          * @param cardRenderer
-         * @return
+         *         to render the card with.
+         * @return the card.
          */
-        public @NonNull Card build(@NonNull final CardRenderer cardRenderer) {
+        public
+        @NonNull
+        Card build(@NonNull final CardRenderer cardRenderer) {
             mCardRenderer = cardRenderer;
             return new Card(this);
         }

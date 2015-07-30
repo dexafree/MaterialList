@@ -44,12 +44,14 @@ public abstract class BaseTextCardItemView<T extends SimpleCard> extends BaseCar
         // Image
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         if (imageView != null) {
+
+            ImageView.ScaleType scaleType = card.getImageScaleType();
+            imageView.setScaleType(scaleType);
+
             if(card.getUrlImage() == null || card.getUrlImage().isEmpty()) {
                 imageView.setImageDrawable(card.getDrawable());
             } else {
                 Picasso.with(getContext()).load(card.getUrlImage()).into(imageView);
-
-                        //into(imageView);
             }
         }
 

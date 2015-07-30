@@ -146,7 +146,7 @@ In order to use MaterialList, you can either clone the project and import it as 
 ```groovy
 dependencies {
     ...
-    compile 'com.github.dexafree:materiallist:2.4.6'
+    compile 'com.github.dexafree:materiallist:2.5.0'
 }
 ```
 

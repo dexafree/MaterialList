@@ -2,6 +2,7 @@ package com.dexafree.materialList.cards;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 
 import com.dexafree.materialList.events.BusProvider;
 
@@ -9,12 +10,14 @@ import com.dexafree.materialList.events.BusProvider;
  * The SimpleCard defines a title, description and (if it is set on the layout) an image.
  */
 public abstract class SimpleCard extends BasicCard {
+
     private String mTitle;
     private int mTitleColor = -1;
     private String mDescription;
     private int mDescriptionColor = -1;
     private Drawable mDrawable;
     private String urlImage;
+    private ImageView.ScaleType imageScaleType = ImageView.ScaleType.CENTER_CROP;
 
     public SimpleCard(Context context) {
         super(context);
@@ -91,6 +94,14 @@ public abstract class SimpleCard extends BasicCard {
 
     public void setDescriptionColorRes(int colorId) {
         setDescriptionColor(getResources().getColor(colorId));
+    }
+
+    public ImageView.ScaleType getImageScaleType() {
+        return imageScaleType;
+    }
+
+    public void setImageScaleType(ImageView.ScaleType scaleType) {
+        this.imageScaleType = scaleType;
     }
 
 }

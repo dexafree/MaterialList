@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dexafree.materialList.cards.BasicButtonsCard;
@@ -106,6 +107,7 @@ public class MainActivity extends ActionBarActivity {
                 //card.setDrawable(R.drawable.photo);
                 card.setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png");
                 card.setTag("BIG_IMAGE_CARD");
+                card.setImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 return card;
 
             case 2:

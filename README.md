@@ -165,7 +165,6 @@ You can clone the project and compile it yourself (it includes a sample), or you
 ## Credits
 * Jake Wharton: [SwipeToDismissNOA](https://github.com/JakeWharton/SwipeToDismissNOA)
 * Romain Guy: The sand picture provided as example was taken from one of his projects
-* Niek Haarman: [ListViewAnimations](https://github.com/nhaarman/ListViewAnimations)
 
 ## License
 

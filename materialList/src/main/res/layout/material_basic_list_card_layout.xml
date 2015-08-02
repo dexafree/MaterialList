@@ -42,10 +42,9 @@
                 android:paddingRight="@dimen/big_padding"
                 tools:text="By Alex Nelson"/>
 
-            <view
+            <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.nhaarman.listviewanimations.itemmanipulation.DynamicListView"
                 android:id="@+id/listView"
                 android:layout_below="@+id/descriptionTextView"
                 android:layout_alignParentLeft="true"

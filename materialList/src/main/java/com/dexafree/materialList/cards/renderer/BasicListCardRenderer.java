@@ -13,27 +13,28 @@ import android.widget.ListView;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.cards.Card;
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 
-/**
- * Created by Fabio on 29.07.2015.
- */
 public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRenderer> {
     private AdapterView.OnItemClickListener mOnItemSelectedListener;
     private ListAdapter mAdapter;
     private boolean dividerVisible;
 
     /**
+     * Creates a BasicListCardRenderer.
+     *
      * @param context
+     *         to access the resources.
      */
     public BasicListCardRenderer(@NonNull final Context context) {
         super(context);
     }
 
     /**
+     * Set the adapter of the list.
      *
      * @param adapter
-     * @return
+     *         of the list.
+     * @return the renderer.
      */
     public BasicListCardRenderer setAdapter(ListAdapter adapter) {
         mAdapter = adapter;
@@ -42,25 +43,29 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
     }
 
     /**
+     * Get the adapter of the list.
      *
-     * @return
+     * @return the adapter.
      */
     public ListAdapter getAdapter() {
         return mAdapter;
     }
 
     /**
+     * Get the visibility state of the list divider.
      *
-     * @return
+     * @return the visibility state.
      */
     public boolean isDividerVisible() {
         return dividerVisible;
     }
 
     /**
+     * Set the visibility state of the list divider.
      *
      * @param dividerVisible
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public BasicListCardRenderer setDividerVisible(final boolean dividerVisible) {
         this.dividerVisible = dividerVisible;
@@ -69,17 +74,20 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
     }
 
     /**
+     * Get the listener for on item click events.
      *
-     * @return
+     * @return the listener.
      */
     public AdapterView.OnItemClickListener getOnItemClickListener() {
         return mOnItemSelectedListener;
     }
 
     /**
+     * Set the listener for on item click events.
      *
      * @param listener
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public BasicListCardRenderer setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         this.mOnItemSelectedListener = listener;
@@ -95,7 +103,7 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
     public void render(@NonNull final View view, @NonNull final Card card) {
         super.render(view, card);
         if (getAdapter() != null) {
-            final DynamicListView listView = (DynamicListView) view.findViewById(R.id.listView);
+            final ListView listView = (ListView) view.findViewById(R.id.listView);
             if (!isDividerVisible()) {
                 listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
             }

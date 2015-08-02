@@ -17,9 +17,6 @@ import com.dexafree.materialList.R;
 import com.dexafree.materialList.cards.OnButtonClickListener;
 import com.dexafree.materialList.cards.Card;
 
-/**
- * Created by Fabio on 29.07.2015.
- */
 public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     private String mSubtitle;
     private String mButtonText;

@@ -48,24 +48,33 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
-     * @return
+     * Get the left button text.
+     *
+     * @return the left button text.
      */
     public String getLeftButtonText() {
         return mLeftButtonText;
     }
 
     /**
+     * Set the left button text as string resource.
+     *
      * @param leftButtonText
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public T setLeftButtonText(@StringRes final int leftButtonText) {
         return setLeftButtonText(mContext.getString(leftButtonText));
     }
 
     /**
+     * Set the left button text.
+     *
      * @param leftButtonText
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setLeftButtonText(final String leftButtonText) {
         mLeftButtonText = leftButtonText;
         notifyDataSetChanged(this);
@@ -73,24 +82,33 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
-     * @return
+     * Get the right button text.
+     *
+     * @return the right button text.
      */
     public String getRightButtonText() {
         return mRightButtonText;
     }
 
     /**
+     * Set the right button text as string resource.
+     *
      * @param rightButtonText
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public T setRightButtonText(@StringRes final int rightButtonText) {
         return setRightButtonText(mContext.getString(rightButtonText));
     }
 
     /**
+     * Set the right button text.
+     *
      * @param rightButtonText
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setRightButtonText(final String rightButtonText) {
         mRightButtonText = rightButtonText;
         notifyDataSetChanged(this);
@@ -98,7 +116,9 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
-     * @return
+     * Get the listener for on click events of the left button.
+     *
+     * @return the listener.
      */
     @Nullable
     public OnButtonClickListener getOnLeftButtonClickListener() {
@@ -106,16 +126,22 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
+     * Set the listener for on click events of the left button.
+     *
      * @param listener
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setOnLeftButtonClickListener(@Nullable final OnButtonClickListener listener) {
         mOnLeftButtonClickListener = listener;
         return (T) this;
     }
 
     /**
-     * @return
+     * Get the listener for on click events of the right button.
+     *
+     * @return the listener.
      */
     @Nullable
     public OnButtonClickListener getOnRightButtonClickListener() {
@@ -123,16 +149,22 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
+     * Set the listener for on click events of the right button.
+     *
      * @param listener
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setOnRightButtonClickListener(@Nullable final OnButtonClickListener listener) {
         mOnRightButtonClickListener = listener;
         return (T) this;
     }
 
     /**
-     * @return
+     * Get the right button text color as int.
+     *
+     * @return the color.
      */
     @ColorInt
     public int getRightButtonTextColor() {
@@ -140,9 +172,13 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
+     * Set the right button text color as int.
+     *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setRightButtonTextColor(@ColorInt final int color) {
         mRightButtonTextColor = color;
         notifyDataSetChanged(this);
@@ -150,15 +186,20 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
+     * Set the right button text color as resource.
+     *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public T setRightButtonTextResourceColor(@ColorRes final int color) {
         return setRightButtonTextColor(mContext.getResources().getColor(color));
     }
 
     /**
-     * @return
+     * Get the left button text color as int.
+     *
+     * @return the color.
      */
     @ColorInt
     public int getLeftButtonTextColor() {
@@ -166,9 +207,13 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
+     * Set the left button text color as int.
+     *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setLeftButtonTextColor(@ColorInt final int color) {
         mLeftButtonTextColor = color;
         notifyDataSetChanged(this);
@@ -176,24 +221,33 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
+     * Set the left button text color as resource.
+     *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public T setLeftButtonTextResourceColor(@ColorRes final int color) {
         return setLeftButtonTextColor(mContext.getResources().getColor(color));
     }
 
     /**
-     * @return
+     * Get the visibility state of the divider.
+     *
+     * @return the visibility state of the divider.
      */
     public boolean isDividerVisible() {
         return mDividerVisible;
     }
 
     /**
+     * Set the divider visible or invisible.
+     *
      * @param visible
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setDividerVisible(final boolean visible) {
         mDividerVisible = visible;
         notifyDataSetChanged(this);
@@ -201,16 +255,22 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     }
 
     /**
-     * @return
+     * Get the state of wideness of the divider.
+     *
+     * @return the wideness of the divider.
      */
     public boolean isFullWidthDivider() {
         return mFullWidthDivider;
     }
 
     /**
+     * Set the wideness of the divider to full.
+     *
      * @param fullWidthDivider
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setFullWidthDivider(final boolean fullWidthDivider) {
         mFullWidthDivider = fullWidthDivider;
         notifyDataSetChanged(this);

@@ -12,59 +12,75 @@ import java.util.Collection;
  */
 public interface IMaterialListAdapter {
     /**
+     * Add a Card.
      *
      * @param card
+     *         to add.
      */
-	void add(@NonNull final Card card);
+    void add(@NonNull final Card card);
 
     /**
+     * Add a Card at the start.
      *
      * @param card
+     *         to add at the start.
      */
-	void addAtStart(@NonNull final Card card);
+    void addAtStart(@NonNull final Card card);
 
     /**
+     * Add all Cards.
      *
      * @param cards
+     *         to add.
      */
-	void addAll(@NonNull final Card... cards);
+    void addAll(@NonNull final Card... cards);
 
     /**
+     * Add all Cards.
      *
      * @param cards
+     *         to add.
      */
-	void addAll(@NonNull final Collection<Card> cards);
+    void addAll(@NonNull final Collection<Card> cards);
 
     /**
+     * Remove a Card with or without an animation.
      *
      * @param card
-     * @param withAnimation
+     *         to remove.
+     * @param animate
+     *         {@code true} to animate the remove process or {@code false} otherwise.
      */
-	void remove(@NonNull final Card card, boolean withAnimation);
+    void remove(@NonNull final Card card, boolean animate);
 
     /**
+     * Is the list empty?
      *
-     * @return
+     * @return {@code true} if the list is empty or {@code false} otherwise.
      */
-	boolean isEmpty();
+    boolean isEmpty();
 
     /**
-     *
+     * Clears the list from all Cards.
      */
-	void clear();
+    void clear();
 
     /**
+     * Get a Card at the specified position.
      *
      * @param position
-     * @return
+     *         of the Card.
+     * @return the Card or {@code null} if the position is outside of the list range.
      */
-	@Nullable
-	Card getCard(int position);
+    @Nullable
+    Card getCard(int position);
 
     /**
+     * Get the position of a specified Card.
      *
      * @param card
-     * @return
+     *         to get the position of.
+     * @return the position.
      */
-	int getPosition(@NonNull final Card card);
+    int getPosition(@NonNull final Card card);
 }

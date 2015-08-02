@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.cards.OnButtonClickListener;
 import com.dexafree.materialList.cards.Card;
+import com.dexafree.materialList.cards.OnButtonClickListener;
 
 public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     private String mSubtitle;
@@ -29,7 +29,10 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     private int mButtonTextColor;
 
     /**
+     * Creates a WelcomeCardRenderer.
+     *
      * @param context
+     *         to access the resources.
      */
     public WelcomeCardRenderer(@NonNull final Context context) {
         super(context);
@@ -39,26 +42,31 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     }
 
     /**
+     * Get the subtitle.
      *
-     * @return
+     * @return the subtitle.
      */
     public String getSubtitle() {
         return mSubtitle;
     }
 
     /**
+     * Set the subtitle as resource.
      *
      * @param subtitle
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setSubtitle(@StringRes final int subtitle) {
         return setSubtitle(mContext.getString(subtitle));
     }
 
     /**
+     * Set the subtitle.
      *
      * @param subtitle
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setSubtitle(final String subtitle) {
         mSubtitle = subtitle;
@@ -67,17 +75,20 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     }
 
     /**
+     * Get the listener for the button click event.
      *
-     * @return
+     * @return the listener.
      */
     public OnButtonClickListener getOnButtonPressedListener() {
         return mListener;
     }
 
     /**
+     * Set the listener for the button click event.
      *
      * @param listener
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setOnButtonPressedListener(OnButtonClickListener listener) {
         mListener = listener;
@@ -85,50 +96,61 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     }
 
     /**
+     * Get the button text.
      *
-     * @return
+     * @return the button text.
      */
     public String getButtonText() {
         return mButtonText;
     }
 
     /**
+     * Get the subtitle color as int.
      *
-     * @return
+     * @return the subtitle color.
      */
+    @ColorInt
     public int getSubtitleColor() {
         return mSubtitleColor;
     }
 
     /**
+     * Get the divider color as int.
      *
-     * @return
+     * @return the divider color.
      */
+    @ColorInt
     public int getDividerColor() {
         return mDividerColor;
     }
 
     /**
+     * Get the button text color as int.
      *
-     * @return
+     * @return the button text color.
      */
+    @ColorInt
     public int getButtonTextColor() {
         return mButtonTextColor;
     }
 
     /**
+     * Set the button text as resource.
      *
      * @param buttonText
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setButtonText(@StringRes final int buttonText) {
         return setButtonText(mContext.getString(buttonText));
     }
 
     /**
+     * Set the button text.
      *
      * @param buttonText
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setButtonText(final String buttonText) {
         mButtonText = buttonText;
@@ -137,9 +159,11 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     }
 
     /**
+     * Set the subtitle color as resource.
      *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setSubtitleResourceColor(@ColorRes final int color) {
         setSubtitleColor(mContext.getResources().getColor(color));
@@ -147,9 +171,11 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     }
 
     /**
+     * Set the subtitle color as int.
      *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setSubtitleColor(@ColorInt final int color) {
         mSubtitleColor = color;
@@ -158,18 +184,22 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     }
 
     /**
+     * Set the divider color as resource.
      *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setDividerResourceColor(@ColorRes final int color) {
         return setDividerColor(mContext.getResources().getColor(color));
     }
 
     /**
+     * Set the divider color as int.
      *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setDividerColor(@ColorInt final int color) {
         mDividerColor = color;
@@ -178,18 +208,22 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     }
 
     /**
+     * Set the button text color as resource.
      *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setButtonTextResourceColor(@ColorRes final int color) {
         return setButtonTextColor(mContext.getResources().getColor(color));
     }
 
     /**
+     * Set the button text color as int.
      *
      * @param color
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public WelcomeCardRenderer setButtonTextColor(@ColorInt final int color) {
         mButtonTextColor = color;

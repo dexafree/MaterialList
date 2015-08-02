@@ -12,8 +12,6 @@ import android.view.View;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.cards.Card;
-import com.dexafree.materialList.controller.IMaterialListAdapter;
-import com.dexafree.materialList.controller.MaterialListAdapter;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.controller.SwipeDismissRecyclerViewTouchListener;
@@ -56,18 +54,21 @@ public class MaterialListView extends RecyclerView {
         mDismissListener = new SwipeDismissRecyclerViewTouchListener(this, new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
             @Override
             public boolean canDismiss(final int position) {
-                return ((IMaterialListAdapter) getAdapter()).getCard(position).isDismissible();
+                final Card card = ((IMaterialListAdapter) getAdapter()).getCard(position);
+                return card != null && card.isDismissible();
             }
 
             @Override
             public void onDismiss(final RecyclerView recyclerView, final int[] reverseSortedPositions) {
                 for (int reverseSortedPosition : reverseSortedPositions) {
                     final Card card = ((IMaterialListAdapter) getAdapter()).getCard(reverseSortedPosition);
-                    ((IMaterialListAdapter) getAdapter()).remove(card, false);
-                    if (mDismissCallback != null) {
-                        mDismissCallback.onDismiss(card, reverseSortedPosition);
+                    if(card != null) {
+                        ((IMaterialListAdapter) getAdapter()).remove(card, false);
+                        if (mDismissCallback != null) {
+                            mDismissCallback.onDismiss(card, reverseSortedPosition);
+                        }
+                        Log.d("DissmissListener", "delete: " + card.getClass());
                     }
-                    Log.d("DissmissListener", "delete: " + card.getClass());
                 }
             }
         });

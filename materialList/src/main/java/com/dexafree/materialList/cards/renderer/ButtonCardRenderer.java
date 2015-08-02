@@ -36,7 +36,10 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     private OnButtonClickListener mOnRightButtonClickListener;
 
     /**
+     * Creates a ButtonCardRenderer.
+     *
      * @param context
+     *         to access the resources.
      */
     public ButtonCardRenderer(@NonNull final Context context) {
         super(context);

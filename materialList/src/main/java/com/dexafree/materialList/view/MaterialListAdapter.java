@@ -1,4 +1,4 @@
-package com.dexafree.materialList.controller;
+package com.dexafree.materialList.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.dexafree.materialList.cards.Card;
 import com.dexafree.materialList.cards.CardLayout;
-import com.dexafree.materialList.view.MaterialListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,13 +99,6 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
         }
     }
 
-    @Override
-    public void update(final Observable observable, final Object data) {
-        if(data == null) {
-            notifyDataSetChanged();
-        }
-    }
-
     public boolean isEmpty() {
         return mCardList.isEmpty();
     }
@@ -117,5 +109,12 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 
     public int getPosition(@NonNull Card card) {
         return mCardList.indexOf(card);
+    }
+
+    @Override
+    public void update(final Observable observable, final Object data) {
+        if(data == null) {
+            notifyDataSetChanged();
+        }
     }
 }

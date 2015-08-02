@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dexafree.materialList.controller;
+package com.dexafree.materialList.listeners;
 
 import android.app.ListActivity;
 import android.app.ListFragment;

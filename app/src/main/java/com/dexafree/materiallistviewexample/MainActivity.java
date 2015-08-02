@@ -21,8 +21,8 @@ import com.dexafree.materialList.cards.renderer.BigImageCardRenderer;
 import com.dexafree.materialList.cards.renderer.SmallImageCardRenderer;
 import com.dexafree.materialList.cards.renderer.TextCardRenderer;
 import com.dexafree.materialList.cards.renderer.WelcomeCardRenderer;
-import com.dexafree.materialList.controller.OnDismissCallback;
-import com.dexafree.materialList.controller.RecyclerItemClickListener;
+import com.dexafree.materialList.listeners.OnDismissCallback;
+import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.view.MaterialListView;
 import com.squareup.picasso.RequestCreator;
 

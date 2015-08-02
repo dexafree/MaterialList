@@ -1,5 +1,8 @@
 # MaterialListView Changelog
 
+## 2.5.0
+* Now Cards that have an Image (Such as BigImageCard or BigImageButtonsCard) provide methods to choose the ScaleType (CENTER_CROP, FIT_XY...). By default is set to `CENTER_CROP`
+
 ## 2.4.6
 * Now `BigImageCard` and `BigImageButtonsCard` center the image and crop it.
 

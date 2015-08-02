@@ -16,7 +16,8 @@ import com.dexafree.materialList.cards.OnButtonClickListener;
 import com.dexafree.materialList.util.PixelUtils;
 
 /**
- * Created by Fabio on 29.07.2015.
+ * A ButtonCardRenderer will render a left and right Button, a Divider and everything like
+ * TextCardRender does.
  */
 public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends TextCardRenderer<T> {
     private final static int DIVIDER_MARGIN_DP = 16;
@@ -64,7 +65,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setLeftButtonText(final String leftButtonText) {
         mLeftButtonText = leftButtonText;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
@@ -89,7 +90,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setRightButtonText(final String rightButtonText) {
         mRightButtonText = rightButtonText;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
@@ -141,7 +142,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setRightButtonTextColor(@ColorInt final int color) {
         mRightButtonTextColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
@@ -167,7 +168,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setLeftButtonTextColor(@ColorInt final int color) {
         mLeftButtonTextColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
@@ -192,7 +193,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setDividerVisible(final boolean visible) {
         mDividerVisible = visible;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
@@ -209,7 +210,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      */
     public T setFullWidthDivider(final boolean fullWidthDivider) {
         mFullWidthDivider = fullWidthDivider;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
@@ -229,7 +230,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
                 public void onClick(View view) {
                     OnButtonClickListener listener = getOnLeftButtonClickListener();
                     if (listener != null) {
-                        listener.onButtonPressedListener(leftText, card);
+                        listener.onButtonClicked(leftText, card);
                     }
                 }
             });
@@ -247,7 +248,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
                 public void onClick(View view) {
                     OnButtonClickListener listener = getOnRightButtonClickListener();
                     if (listener != null) {
-                        listener.onButtonPressedListener(rightText, card);
+                        listener.onButtonClicked(rightText, card);
                     }
                 }
             });

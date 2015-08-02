@@ -2,11 +2,17 @@ package com.dexafree.materialList.cards;
 
 import android.view.View;
 
+/**
+ * The OnButtonClickListener will be notified if a Button is clicked on the Card.
+ */
 public interface OnButtonClickListener {
     /**
+     * A button is clicked.
      *
      * @param view
+     *         which was clicked.
      * @param card
+     *         where the view was clicked on.
      */
-    void onButtonPressedListener(View view, Card card);
+    void onButtonClicked(View view, Card card);
 }

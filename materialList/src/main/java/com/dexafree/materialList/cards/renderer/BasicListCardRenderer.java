@@ -37,7 +37,7 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
      */
     public BasicListCardRenderer setAdapter(ListAdapter adapter) {
         mAdapter = adapter;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return this;
     }
 
@@ -64,7 +64,7 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
      */
     public BasicListCardRenderer setDividerVisible(final boolean dividerVisible) {
         this.dividerVisible = dividerVisible;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return this;
     }
 

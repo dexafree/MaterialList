@@ -14,7 +14,7 @@ import com.dexafree.materialList.cards.Card;
 import java.util.Observable;
 
 /**
- * A basic card renderer.
+ * The CardRenderer will only set the background color of the Card.
  */
 public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     @NonNull
@@ -23,7 +23,7 @@ public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     private int mBackgroundColor = Color.WHITE;
 
     /**
-     * Creates a basic card renderer.
+     * Creates a basic CardRenderer.
      *
      * @param context
      *         to access the resources.
@@ -53,7 +53,7 @@ public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     @SuppressWarnings("unchecked")
     public T setBackgroundColor(@ColorInt final int color) {
         mBackgroundColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
@@ -70,11 +70,18 @@ public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     }
 
     /**
-     * Notifies the Card and MaterialListAdapter that the content changed.
+     * Notifies the MaterialListAdapter that the content changed.
      */
-    protected void notifyDataSetChanged() {
+    public void notifyDataSetChanged() {
+        notifyDataSetChanged(null);
+    }
+
+    /**
+     * Notifies the Card that the content changed.
+     */
+    public void notifyDataSetChanged(final Object object) {
         setChanged();
-        notifyObservers();
+        notifyObservers(object);
     }
 
     /**

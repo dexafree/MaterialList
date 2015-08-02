@@ -3,7 +3,8 @@ package com.dexafree.materiallistviewexample;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +19,15 @@ import com.dexafree.materialList.cards.renderer.BasicListCardRenderer;
 import com.dexafree.materialList.cards.renderer.BigImageButtonsCardRenderer;
 import com.dexafree.materialList.cards.renderer.BigImageCardRenderer;
 import com.dexafree.materialList.cards.renderer.SmallImageCardRenderer;
+import com.dexafree.materialList.cards.renderer.TextCardRenderer;
 import com.dexafree.materialList.cards.renderer.WelcomeCardRenderer;
 import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.view.MaterialListView;
+import com.squareup.picasso.RequestCreator;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private MaterialListView mListView;
 
@@ -45,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         // Set the dismiss listener
         mListView.setOnDismissCallback(new OnDismissCallback() {
             @Override
-            public void onDismiss(Card card, int position) {
+            public void onDismiss(@NonNull Card card, int position) {
                 // Show a toast
                 Toast.makeText(mContext, "You have dismissed a " + card.getTag(), Toast.LENGTH_SHORT).show();
             }
@@ -54,12 +57,12 @@ public class MainActivity extends ActionBarActivity {
         // Add the ItemTouchListener
         mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(Card card, int position) {
+            public void onItemClick(@NonNull Card card, int position) {
                 Log.d("CARD_TYPE", "" + card.getTag());
             }
 
             @Override
-            public void onItemLongClick(Card card, int position) {
+            public void onItemLongClick(@NonNull Card card, int position) {
                 Log.d("LONG_CLICK", "" + card.getTag());
             }
         });
@@ -92,7 +95,15 @@ public class MainActivity extends ActionBarActivity {
                         .build(new BigImageCardRenderer(this)
                                 .setTitle(title)
                                 .setDescription(description)
-                                .setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"));
+                                .setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
+                                .setOnPicassoImageLoadingListener(new TextCardRenderer.OnPicassoImageLoadingListener() {
+                                    @Override
+                                    public void onImageLoading(@NonNull final RequestCreator requestCreator) {
+                                        requestCreator.rotate(position * 45.0f)
+                                                .resize(200, 200)
+                                                .centerCrop();
+                                    }
+                                }));
             }
             case 2: {
                 final BasicImageButtonsCardRenderer renderer = new BasicImageButtonsCardRenderer(this)
@@ -104,14 +115,14 @@ public class MainActivity extends ActionBarActivity {
 
                 renderer.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(final View view, final Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                         renderer.setTitle("CHANGED ON RUNTIME");
                     }
                 });
                 renderer.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(final View view, final Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the right button on card " + renderer.getTitle(), Toast.LENGTH_SHORT).show();
                         mListView.remove(card);
                     }
@@ -136,13 +147,13 @@ public class MainActivity extends ActionBarActivity {
 
                 renderer.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(final View view, final Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
                 });
                 renderer.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(final View view, final Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -168,7 +179,7 @@ public class MainActivity extends ActionBarActivity {
                         .setButtonText("Okay!")
                         .setOnButtonPressedListener(new OnButtonClickListener() {
                             @Override
-                            public void onButtonPressedListener(final View view, final Card card) {
+                            public void onButtonClicked(final View view, final Card card) {
                                 Toast.makeText(mContext, "Welcome!", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -206,7 +217,7 @@ public class MainActivity extends ActionBarActivity {
 
                 renderer.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(final View view, final Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Log.d("ADDING", "CARD");
 
                         mListView.add(generateNewCard());
@@ -215,7 +226,7 @@ public class MainActivity extends ActionBarActivity {
                 });
                 renderer.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(final View view, final Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });

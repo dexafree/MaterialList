@@ -7,45 +7,76 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.dexafree.materialList.cards.renderer.CardRenderer;
+
 import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Created by Fabio on 29.07.2015.
+ * The CardLayout is a container for a CardView and it's content.
  */
 public class CardLayout extends LinearLayout implements Observer {
     private Card mCard;
     private boolean mObserves;
 
+    /**
+     * Creates a new CardLayout.
+     *
+     * @param context
+     *         for the Layout.
+     */
     public CardLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Creates a new CardLayout.
+     *
+     * @param context
+     *         for the Layout.
+     * @param attrs
+     *         for the Layout.
+     */
     public CardLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Creates a new CardLayout.
+     *
+     * @param context
+     *         for the Layout.
+     * @param attrs
+     *         for the Layout.
+     * @param defStyle
+     *         for the Layout.
+     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public CardLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     /**
+     * Renders the Card content and style to the layout.
+     *
      * @param card
+     *         to render.
      */
     public void build(@NonNull final Card card) {
         mCard = card;
-        card.getRenderer().render(this, card);
 
-        if(!mObserves) {
-            card.getRenderer().addObserver(this);
+        if (!mObserves) {
+            mCard.getRenderer().addObserver(this);
             mObserves = true;
         }
+
+        mCard.getRenderer().render(this, card);
     }
 
     /**
+     * Get the card of this layout.
      *
-     * @return
+     * @return the card.
      */
     public Card getCard() {
         return mCard;
@@ -53,6 +84,11 @@ public class CardLayout extends LinearLayout implements Observer {
 
     @Override
     public void update(final Observable observable, final Object data) {
-        build(mCard);
+        // If a render is inside of data, then update the CardLayout.
+        if(data != null && data instanceof CardRenderer) {
+            build(mCard);
+            // After updating the CardLayout inform the MaterialListAdapter
+            ((CardRenderer) observable).notifyDataSetChanged();
+        }
     }
 }

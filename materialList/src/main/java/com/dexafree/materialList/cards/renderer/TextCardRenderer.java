@@ -18,23 +18,26 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 /**
- * Created by Fabio on 29.07.2015.
+ * A TextCardRenderer will render a Title, Description and Drawable to a Card.
  */
 public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardRenderer<T> {
+    private String mTitle;
+    private String mDescription;
     @ColorInt
     private int mTitleColor;
     @ColorInt
     private int mDescriptionColor;
-    private String mTitle;
-    private String mDescription;
     @Nullable
     private Drawable mDrawable;
     @Nullable
     private String mUrlImage;
-    private OnPicassoImageLoading mOnPicassoImageLoadingListener;
+    private OnPicassoImageLoadingListener mOnPicassoImageLoadingListenerListener;
 
     /**
+     * Creates a TextCardRenderer.
+     *
      * @param context
+     *         to access the resources.
      */
     public TextCardRenderer(@NonNull final Context context) {
         super(context);
@@ -43,99 +46,134 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     }
 
     /**
-     * @return
+     * Get the title.
+     *
+     * @return the title.
      */
     public String getTitle() {
         return mTitle;
     }
 
     /**
+     * Set the title with a string resource.
+     *
      * @param title
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public T setTitle(@StringRes final int title) {
         return setTitle(mContext.getString(title));
     }
 
     /**
+     * Set the title.
+     *
      * @param title
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setTitle(@NonNull final String title) {
         mTitle = title;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
     /**
-     * @return
+     * Get the description.
+     *
+     * @return the description.
      */
     public String getDescription() {
         return mDescription;
     }
 
     /**
+     * Set the description with a string resource.
+     *
      * @param description
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public T setDescription(@StringRes final int description) {
         return setDescription(mContext.getString(description));
     }
 
     /**
+     * Set the description.
+     *
      * @param description
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setDescription(@NonNull final String description) {
         mDescription = description;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
     /**
-     * @return
+     * Get the drawable.
+     *
+     * @return the drawable.
      */
     public Drawable getDrawable() {
         return mDrawable;
     }
 
     /**
+     * Set the drawable with a drawable resource.
+     *
      * @param drawable
-     * @return
+     *         to set.
+     * @return the renderer.
      */
     public T setDrawable(@DrawableRes final int drawable) {
         return setDrawable(mContext.getResources().getDrawable(drawable));
     }
 
     /**
+     * Set the drawable.
+     *
      * @param drawable
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setDrawable(@Nullable final Drawable drawable) {
         mDrawable = drawable;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
     /**
+     * Set the drawable with a web url.
+     *
      * @param urlImage
-     * @return
+     *         to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setDrawable(@Nullable final String urlImage) {
         mUrlImage = urlImage;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
     /**
-     * @return
+     * Get the web url.
+     *
+     * @return the url.
      */
     public String getImageUrl() {
         return mUrlImage;
     }
 
     /**
-     * @return
+     * Get the title color as int.
+     *
+     * @return the color.
      */
     @ColorInt
     public int getTitleColor() {
@@ -143,25 +181,34 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     }
 
     /**
+     * Set the title color as int.
+     *
      * @param color
-     * @return
+     *         to set as int.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setTitleColor(@ColorInt final int color) {
         mTitleColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
     /**
+     * Set the title color as resource.
+     *
      * @param color
-     * @return
+     *         to set as resource.
+     * @return the renderer.
      */
     public T setTitleResourceColor(@ColorRes final int color) {
         return setTitleColor(mContext.getResources().getColor(color));
     }
 
     /**
-     * @return
+     * Get the description color as int.
+     *
+     * @return the color.
      */
     @ColorInt
     public int getDescriptionColor() {
@@ -169,39 +216,47 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     }
 
     /**
-     * @param color
-     * @return
+     * Set the description color as int.
+     *
+     * @param color to set.
+     * @return the renderer.
      */
+    @SuppressWarnings("unchecked")
     public T setDescriptionColor(@ColorInt final int color) {
         mDescriptionColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return (T) this;
     }
 
     /**
-     * @param color
-     * @return
+     * Set the description color as resource.
+     *
+     * @param color to set.
+     * @return the renderer.
      */
     public T setDescriptionResourceColor(@ColorRes final int color) {
         return setDescriptionColor(mContext.getResources().getColor(color));
     }
 
     /**
+     * Set the listener for image customizations.
      *
-     * @param listener
-     * @return
+     * @param listener to set.
+     * @return the renderer.
      */
-    public T setOnPicassoImageLoadingListener(@NonNull final OnPicassoImageLoading listener) {
-        mOnPicassoImageLoadingListener = listener;
+    @SuppressWarnings("unchecked")
+    public T setOnPicassoImageLoadingListener(@NonNull final OnPicassoImageLoadingListener listener) {
+        mOnPicassoImageLoadingListenerListener = listener;
         return (T) this;
     }
 
     /**
+     * Get the listener.
      *
-     * @return
+     * @return the listener.
      */
-    public OnPicassoImageLoading getOnPicassoImageLoadingListener() {
-        return mOnPicassoImageLoadingListener;
+    public OnPicassoImageLoadingListener getOnPicassoImageLoadingListener() {
+        return mOnPicassoImageLoadingListenerListener;
     }
 
     @Override
@@ -225,7 +280,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
                 imageView.setImageDrawable(getDrawable());
             } else {
                 final RequestCreator requestCreator = Picasso.with(mContext).load(getImageUrl());
-                if(getOnPicassoImageLoadingListener() != null) {
+                if (getOnPicassoImageLoadingListener() != null) {
                     getOnPicassoImageLoadingListener().onImageLoading(requestCreator);
                 }
                 requestCreator.into(imageView);
@@ -233,7 +288,17 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
         }
     }
 
-    public interface OnPicassoImageLoading {
+    /**
+     * The OnPicassoImageLoadingListener will be called, if an image is loaded from an url to an
+     * ImageView.
+     */
+    public interface OnPicassoImageLoadingListener {
+        /**
+         * An image is loaded from an url and can be customized now.
+         *
+         * @param requestCreator
+         *         to customize the image.
+         */
         void onImageLoading(@NonNull final RequestCreator requestCreator);
     }
 }

@@ -5,13 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.dexafree.materialList.R;
 
-/**
- * Created by Fabio on 29.07.2015.
- */
 public class BigImageCardRenderer extends TextCardRenderer<BigImageCardRenderer> {
-    /**
-     * @param context
-     */
     public BigImageCardRenderer(@NonNull final Context context) {
         super(context);
     }

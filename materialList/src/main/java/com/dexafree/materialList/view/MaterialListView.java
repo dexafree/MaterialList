@@ -187,7 +187,7 @@ public class MaterialListView extends RecyclerView {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    void checkIfEmpty() {
+    private void checkIfEmpty() {
         if (emptyView != null) {
             emptyView.setVisibility(getAdapter().getItemCount() > 0 ? GONE : VISIBLE);
         }

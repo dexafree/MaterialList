@@ -5,13 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.dexafree.materialList.R;
 
-/**
- * Created by Fabio on 29.07.2015.
- */
 public class BasicImageButtonsCardRenderer extends ButtonCardRenderer<BasicImageButtonsCardRenderer> {
-    /**
-     * @param context
-     */
     public BasicImageButtonsCardRenderer(@NonNull final Context context) {
         super(context);
     }

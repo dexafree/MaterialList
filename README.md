@@ -70,10 +70,13 @@ MaterialListView mListView = (MaterialListView) findViewById(R.id.material_listv
 ### 3. Step: Add Cards to the MaterialListView
 
 ```java
-SmallImageCard card = new SmallImageCard(context);
-card.setDescription(description);
-card.setTitle(title);
-card.setDrawable(R.drawable.ic_launcher);
+Card card = new Card.Builder(this)
+              .setTag("SMALL_IMAGE_CARD")
+              .setDismissible()
+              .build(new SmallImageCardRenderer(this)
+                      .setTitle(title)
+                      .setDescription(description)
+                      .setDrawable(R.drawable.sample_android));
 
 mListView.add(card);
 ```
@@ -89,13 +92,13 @@ Since version 2.4.0, you can add your listeners
 mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
 
     @Override
-    public void onItemClick(CardItemView view, int position) {
-        Log.d("CARD_TYPE", view.getTag().toString());
+    public void onItemClick(Card card, int position) {
+        Log.d("CARD_TYPE", card.getTag().toString());
     }
 
     @Override
-    public void onItemLongClick(CardItemView view, int position) {
-        Log.d("LONG_CLICK", view.getTag().toString());
+    public void onItemLongClick(Card card, int position) {
+        Log.d("LONG_CLICK", card.getTag().toString());
     }
 });
 ```
@@ -115,8 +118,6 @@ mListView.setOnDismissCallback(new OnDismissCallback() {
 });
 ```
 You will also be able to decide if a card should be dismissible or not, just by calling Card.setCanDismiss().
-
-Also, in case you wanted to dismiss your Card by code, you would only need to call `card.dismiss()`, and it will dismiss seamlessly.
 
 Check also the **Recovering data from the cards** section in order to be able to recover the Card's content
 
@@ -165,7 +166,6 @@ You can clone the project and compile it yourself (it includes a sample), or you
 * Jake Wharton: [SwipeToDismissNOA](https://github.com/JakeWharton/SwipeToDismissNOA)
 * Romain Guy: The sand picture provided as example was taken from one of his projects
 * Niek Haarman: [ListViewAnimations](https://github.com/nhaarman/ListViewAnimations)
-* Square: [Otto](https://github.com/square/otto)
 
 ## License
 

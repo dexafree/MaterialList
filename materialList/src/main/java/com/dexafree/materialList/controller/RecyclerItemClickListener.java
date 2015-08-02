@@ -1,6 +1,7 @@
 package com.dexafree.materialList.controller;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -14,10 +15,10 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
 
     private RecyclerView mRecyclerView;
 
-    public static interface OnItemClickListener {
-        public void onItemClick(Card card, int position);
+    public interface OnItemClickListener {
+        void onItemClick(@NonNull final Card card, int position);
 
-        public void onItemLongClick(Card card, int position);
+        void onItemLongClick(@NonNull final Card card, int position);
     }
 
     private OnItemClickListener mListener;

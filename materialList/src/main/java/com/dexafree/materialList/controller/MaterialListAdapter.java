@@ -1,5 +1,6 @@
 package com.dexafree.materialList.controller;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +21,14 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
     private final List<Card> mCardList = new ArrayList<>();
     private final MaterialListView.OnSwipeAnimation mAnimation;
 
-    public MaterialListAdapter(final MaterialListView.OnSwipeAnimation animation) {
+    public MaterialListAdapter(@NonNull final MaterialListView.OnSwipeAnimation animation) {
         mAnimation = animation;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final CardLayout view;
 
-        public ViewHolder(View v) {
+        public ViewHolder(@NonNull final View v) {
             super(v);
             view = (CardLayout) v;
         }
@@ -59,29 +60,29 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
         return mCardList.get(position).getRenderer().getLayout();
     }
 
-    public void addAtStart(Card card) {
+    public void addAtStart(@NonNull final Card card) {
         mCardList.add(0, card);
         card.getRenderer().addObserver(this);
         notifyDataSetChanged();
     }
 
-    public void add(Card card) {
+    public void add(@NonNull final Card card) {
         mCardList.add(card);
         card.getRenderer().addObserver(this);
         notifyDataSetChanged();
     }
 
-    public void addAll(Card... cards) {
+    public void addAll(@NonNull final Card... cards) {
         addAll(Arrays.asList(cards));
     }
 
-    public void addAll(Collection<Card> cards) {
+    public void addAll(@NonNull final Collection<Card> cards) {
         for (Card card : cards) {
             add(card);
         }
     }
 
-    public void remove(Card card, boolean animate) {
+    public void remove(@NonNull final Card card, boolean animate) {
         if (card.isDismissible()) {
             card.getRenderer().deleteObserver(this);
             if (animate) {
@@ -101,7 +102,9 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 
     @Override
     public void update(final Observable observable, final Object data) {
-        notifyDataSetChanged();
+        if(data == null) {
+            notifyDataSetChanged();
+        }
     }
 
     public boolean isEmpty() {
@@ -112,7 +115,7 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
         return mCardList.get(position);
     }
 
-    public int getPosition(Card card) {
+    public int getPosition(@NonNull Card card) {
         return mCardList.indexOf(card);
     }
 }

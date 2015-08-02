@@ -65,7 +65,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      */
     public WelcomeCardRenderer setSubtitle(final String subtitle) {
         mSubtitle = subtitle;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return this;
     }
 
@@ -135,7 +135,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      */
     public WelcomeCardRenderer setButtonText(final String buttonText) {
         mButtonText = buttonText;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return this;
     }
 
@@ -156,7 +156,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      */
     public WelcomeCardRenderer setSubtitleColor(@ColorInt final int color) {
         mSubtitleColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return this;
     }
 
@@ -176,7 +176,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      */
     public WelcomeCardRenderer setDividerColor(@ColorInt final int color) {
         mDividerColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return this;
     }
 
@@ -196,7 +196,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      */
     public WelcomeCardRenderer setButtonTextColor(@ColorInt final int color) {
         mButtonTextColor = color;
-        notifyDataSetChanged();
+        notifyDataSetChanged(this);
         return this;
     }
 
@@ -230,7 +230,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
             @Override
             public void onClick(View view) {
                 if (getOnButtonPressedListener() != null) {
-                    getOnButtonPressedListener().onButtonPressedListener(button, card);
+                    getOnButtonPressedListener().onButtonClicked(button, card);
                 }
             }
         });

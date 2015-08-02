@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.dexafree.materialList.cards.renderer.CardRenderer;
 
 /**
- * A card.
+ * A basic Card. The CardRenderer will define the specific content and style.
  */
 public class Card {
     @NonNull
@@ -117,9 +117,8 @@ public class Card {
          * @param object
          *         as tag.
          */
-        public
         @NonNull
-        Builder setTag(@Nullable final Object object) {
+        public Builder setTag(@Nullable final Object object) {
             mTagObject = object;
             return this;
         }
@@ -127,9 +126,8 @@ public class Card {
         /**
          * Set the card dismissible - it is then removable.
          */
-        public
         @NonNull
-        Builder setDismissible() {
+        public Builder setDismissible() {
             mDismissible = true;
             return this;
         }
@@ -141,9 +139,8 @@ public class Card {
          *         to render the card with.
          * @return the card.
          */
-        public
         @NonNull
-        Card build(@NonNull final CardRenderer cardRenderer) {
+        public Card build(@NonNull final CardRenderer cardRenderer) {
             mCardRenderer = cardRenderer;
             return new Card(this);
         }

@@ -72,8 +72,7 @@ MaterialListView mListView = (MaterialListView) findViewById(R.id.material_listv
 ```java
 Card card = new Card.Builder(this)
                             .setTag("BASIC_IMAGE_BUTTONS_CARD")
-                            .withRenderer(BasicImageButtonsCardProvider.class)
-                            .withConfig(BasicImageButtonsCardProvider.class)
+                            .withProvider(BasicImageButtonsCardProvider.class)
                             .setTitle("I'm new")
                             .setDescription("I've been generated on runtime!")
                             .setDrawable(R.drawable.dog)

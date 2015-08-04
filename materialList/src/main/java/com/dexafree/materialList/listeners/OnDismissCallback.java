@@ -2,7 +2,7 @@ package com.dexafree.materialList.listeners;
 
 import android.support.annotation.NonNull;
 
-import com.dexafree.materialList.cards.Card;
+import com.dexafree.materialList.card.Card;
 
 /**
  * The OnDismissCallback will be notified if a Card is dismissed.

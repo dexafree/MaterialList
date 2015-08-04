@@ -1,6 +1,5 @@
-package com.dexafree.materialList.cards.renderer;
+package com.dexafree.materialList.card.provider;
 
-import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,22 +11,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.cards.Card;
+import com.dexafree.materialList.card.Card;
 
-public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRenderer> {
+public class BasicListCardProvider extends TextCardProvider<BasicListCardProvider> {
     private AdapterView.OnItemClickListener mOnItemSelectedListener;
     private ListAdapter mAdapter;
     private boolean dividerVisible;
-
-    /**
-     * Creates a BasicListCardRenderer.
-     *
-     * @param context
-     *         to access the resources.
-     */
-    public BasicListCardRenderer(@NonNull final Context context) {
-        super(context);
-    }
 
     /**
      * Set the adapter of the list.
@@ -36,9 +25,9 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
      *         of the list.
      * @return the renderer.
      */
-    public BasicListCardRenderer setAdapter(ListAdapter adapter) {
+    public BasicListCardProvider setAdapter(ListAdapter adapter) {
         mAdapter = adapter;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return this;
     }
 
@@ -67,9 +56,9 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
      *         to set.
      * @return the renderer.
      */
-    public BasicListCardRenderer setDividerVisible(final boolean dividerVisible) {
+    public BasicListCardProvider setDividerVisible(final boolean dividerVisible) {
         this.dividerVisible = dividerVisible;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return this;
     }
 
@@ -89,7 +78,7 @@ public class BasicListCardRenderer extends TextCardRenderer<BasicListCardRendere
      *         to set.
      * @return the renderer.
      */
-    public BasicListCardRenderer setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+    public BasicListCardProvider setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         this.mOnItemSelectedListener = listener;
         return this;
     }

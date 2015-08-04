@@ -1,6 +1,5 @@
-package com.dexafree.materialList.cards.renderer;
+package com.dexafree.materialList.card.provider;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -13,14 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.cards.Card;
+import com.dexafree.materialList.card.Card;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 /**
- * A TextCardRenderer will render a Title, Description and Drawable to a Card.
+ * A TextCardProvider will render a Title, Description and Drawable to a Card.
  */
-public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardRenderer<T> {
+public abstract class TextCardProvider<T extends TextCardProvider> extends CardProvider<T> {
     private String mTitle;
     private String mDescription;
     @ColorInt
@@ -33,14 +32,9 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     private String mUrlImage;
     private OnPicassoImageLoadingListener mOnPicassoImageLoadingListenerListener;
 
-    /**
-     * Creates a TextCardRenderer.
-     *
-     * @param context
-     *         to access the resources.
-     */
-    public TextCardRenderer(@NonNull final Context context) {
-        super(context);
+    @Override
+    protected void onCreated() {
+        super.onCreated();
         setTitleResourceColor(R.color.grey_title);
         setDescriptionResourceColor(R.color.description_color);
     }
@@ -62,7 +56,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return the renderer.
      */
     public T setTitle(@StringRes final int title) {
-        return setTitle(mContext.getString(title));
+        return setTitle(getContext().getString(title));
     }
 
     /**
@@ -75,7 +69,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     @SuppressWarnings("unchecked")
     public T setTitle(@NonNull final String title) {
         mTitle = title;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -96,7 +90,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return the renderer.
      */
     public T setDescription(@StringRes final int description) {
-        return setDescription(mContext.getString(description));
+        return setDescription(getContext().getString(description));
     }
 
     /**
@@ -109,7 +103,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     @SuppressWarnings("unchecked")
     public T setDescription(@NonNull final String description) {
         mDescription = description;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -130,7 +124,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return the renderer.
      */
     public T setDrawable(@DrawableRes final int drawable) {
-        return setDrawable(mContext.getResources().getDrawable(drawable));
+        return setDrawable(getContext().getResources().getDrawable(drawable));
     }
 
     /**
@@ -143,7 +137,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     @SuppressWarnings("unchecked")
     public T setDrawable(@Nullable final Drawable drawable) {
         mDrawable = drawable;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -157,7 +151,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     @SuppressWarnings("unchecked")
     public T setDrawable(@Nullable final String urlImage) {
         mUrlImage = urlImage;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -190,7 +184,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     @SuppressWarnings("unchecked")
     public T setTitleColor(@ColorInt final int color) {
         mTitleColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -202,7 +196,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return the renderer.
      */
     public T setTitleResourceColor(@ColorRes final int color) {
-        return setTitleColor(mContext.getResources().getColor(color));
+        return setTitleColor(getContext().getResources().getColor(color));
     }
 
     /**
@@ -224,7 +218,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
     @SuppressWarnings("unchecked")
     public T setDescriptionColor(@ColorInt final int color) {
         mDescriptionColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -235,7 +229,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
      * @return the renderer.
      */
     public T setDescriptionResourceColor(@ColorRes final int color) {
-        return setDescriptionColor(mContext.getResources().getColor(color));
+        return setDescriptionColor(getContext().getResources().getColor(color));
     }
 
     /**
@@ -279,7 +273,7 @@ public abstract class TextCardRenderer<T extends TextCardRenderer> extends CardR
             if (getImageUrl() == null || getImageUrl().isEmpty()) {
                 imageView.setImageDrawable(getDrawable());
             } else {
-                final RequestCreator requestCreator = Picasso.with(mContext).load(getImageUrl());
+                final RequestCreator requestCreator = Picasso.with(getContext()).load(getImageUrl());
                 if (getOnPicassoImageLoadingListener() != null) {
                     getOnPicassoImageLoadingListener().onImageLoading(requestCreator);
                 }

@@ -1,6 +1,5 @@
-package com.dexafree.materialList.cards.renderer;
+package com.dexafree.materialList.card.provider;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -14,10 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.cards.Card;
-import com.dexafree.materialList.cards.OnButtonClickListener;
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.OnButtonClickListener;
 
-public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
+public class WelcomeCardProvider extends TextCardProvider<WelcomeCardProvider> {
     private String mSubtitle;
     private String mButtonText;
     private OnButtonClickListener mListener;
@@ -29,13 +28,9 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     private int mButtonTextColor;
 
     /**
-     * Creates a WelcomeCardRenderer.
-     *
-     * @param context
-     *         to access the resources.
+     * Creates a WelcomeCardProvider.
      */
-    public WelcomeCardRenderer(@NonNull final Context context) {
-        super(context);
+    public WelcomeCardProvider() {
         setSubtitleColor(Color.WHITE);
         setDividerColor(Color.parseColor("#608DFA"));
         setButtonTextColor(Color.WHITE);
@@ -57,8 +52,8 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setSubtitle(@StringRes final int subtitle) {
-        return setSubtitle(mContext.getString(subtitle));
+    public WelcomeCardProvider setSubtitle(@StringRes final int subtitle) {
+        return setSubtitle(getContext().getString(subtitle));
     }
 
     /**
@@ -68,9 +63,9 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setSubtitle(final String subtitle) {
+    public WelcomeCardProvider setSubtitle(final String subtitle) {
         mSubtitle = subtitle;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return this;
     }
 
@@ -90,7 +85,7 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setOnButtonPressedListener(OnButtonClickListener listener) {
+    public WelcomeCardProvider setOnButtonPressedListener(OnButtonClickListener listener) {
         mListener = listener;
         return this;
     }
@@ -141,8 +136,8 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setButtonText(@StringRes final int buttonText) {
-        return setButtonText(mContext.getString(buttonText));
+    public WelcomeCardProvider setButtonText(@StringRes final int buttonText) {
+        return setButtonText(getContext().getString(buttonText));
     }
 
     /**
@@ -152,9 +147,9 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setButtonText(final String buttonText) {
+    public WelcomeCardProvider setButtonText(final String buttonText) {
         mButtonText = buttonText;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return this;
     }
 
@@ -165,8 +160,8 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setSubtitleResourceColor(@ColorRes final int color) {
-        setSubtitleColor(mContext.getResources().getColor(color));
+    public WelcomeCardProvider setSubtitleResourceColor(@ColorRes final int color) {
+        setSubtitleColor(getContext().getResources().getColor(color));
         return this;
     }
 
@@ -177,9 +172,9 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setSubtitleColor(@ColorInt final int color) {
+    public WelcomeCardProvider setSubtitleColor(@ColorInt final int color) {
         mSubtitleColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return this;
     }
 
@@ -190,8 +185,8 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setDividerResourceColor(@ColorRes final int color) {
-        return setDividerColor(mContext.getResources().getColor(color));
+    public WelcomeCardProvider setDividerResourceColor(@ColorRes final int color) {
+        return setDividerColor(getContext().getResources().getColor(color));
     }
 
     /**
@@ -201,9 +196,9 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setDividerColor(@ColorInt final int color) {
+    public WelcomeCardProvider setDividerColor(@ColorInt final int color) {
         mDividerColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return this;
     }
 
@@ -214,8 +209,8 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setButtonTextResourceColor(@ColorRes final int color) {
-        return setButtonTextColor(mContext.getResources().getColor(color));
+    public WelcomeCardProvider setButtonTextResourceColor(@ColorRes final int color) {
+        return setButtonTextColor(getContext().getResources().getColor(color));
     }
 
     /**
@@ -225,9 +220,9 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
      *         to set.
      * @return the renderer.
      */
-    public WelcomeCardRenderer setButtonTextColor(@ColorInt final int color) {
+    public WelcomeCardProvider setButtonTextColor(@ColorInt final int color) {
         mButtonTextColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return this;
     }
 
@@ -270,6 +265,6 @@ public class WelcomeCardRenderer extends TextCardRenderer<WelcomeCardRenderer> {
     private Drawable resize(Drawable image, int width, int height) {
         Bitmap b = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResize = Bitmap.createScaledBitmap(b, width, height, false);
-        return new BitmapDrawable(mContext.getResources(), bitmapResize);
+        return new BitmapDrawable(getContext().getResources(), bitmapResize);
     }
 }

@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.dexafree.materialList.cards.Card;
-import com.dexafree.materialList.cards.CardLayout;
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.CardLayout;
 
 
 // From http://stackoverflow.com/a/26196831/1610001

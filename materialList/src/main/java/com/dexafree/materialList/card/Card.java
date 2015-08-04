@@ -1,33 +1,30 @@
-package com.dexafree.materialList.cards;
+package com.dexafree.materialList.card;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.dexafree.materialList.cards.renderer.CardRenderer;
+import com.dexafree.materialList.card.provider.CardProvider;
 
 /**
- * A basic Card. The CardRenderer will define the specific content and style.
+ * A basic Card.
  */
 public class Card {
     @NonNull
-    private final Context mContext;
-    @NonNull
-    private CardRenderer mCardRenderer;
+    private CardProvider mProvider;
     @Nullable
-    private Object mTagObject;
+    private Object mTag;
     private boolean mDismissible;
 
     /**
-     * Creates a new card.
+     * Creates a new Card.
      *
      * @param builder
-     *         to get the card data from.
+     *         to get the Card data from.
      */
     private Card(@NonNull final Builder builder) {
-        mContext = builder.mContext;
-        mCardRenderer = builder.mCardRenderer;
-        mTagObject = builder.mTagObject;
+        mProvider = builder.mProvider;
+        mTag = builder.mTag;
         mDismissible = builder.mDismissible;
     }
 
@@ -38,7 +35,17 @@ public class Card {
      */
     @NonNull
     public CardRenderer getRenderer() {
-        return mCardRenderer;
+        return mProvider;
+    }
+
+    /**
+     * Get the card content.
+     *
+     * @return the card content.
+     */
+    @NonNull
+    public CardConfig getConfig() {
+        return mProvider;
     }
 
     /**
@@ -48,7 +55,7 @@ public class Card {
      *         as tag.
      */
     public void setTag(@Nullable final Object object) {
-        mTagObject = object;
+        mTag = object;
     }
 
     /**
@@ -58,7 +65,7 @@ public class Card {
      */
     @Nullable
     public Object getTag() {
-        return mTagObject;
+        return mTag;
     }
 
     /**
@@ -81,25 +88,15 @@ public class Card {
     }
 
     /**
-     * Get the context.
-     *
-     * @return the context.
-     */
-    @NonNull
-    public Context getContext() {
-        return mContext;
-    }
-
-    /**
      * The Card Builder configures the card.
      */
     public static class Builder {
         @NonNull
         private final Context mContext;
-        private CardRenderer mCardRenderer;
         @Nullable
-        private Object mTagObject;
+        private Object mTag;
         private boolean mDismissible;
+        private CardProvider mProvider;
 
         /**
          * Creates a new Builder.
@@ -119,7 +116,7 @@ public class Card {
          */
         @NonNull
         public Builder setTag(@Nullable final Object object) {
-            mTagObject = object;
+            mTag = object;
             return this;
         }
 
@@ -133,15 +130,37 @@ public class Card {
         }
 
         /**
-         * Builds the card and specifies the renderer.
+         * Set the provider.
          *
-         * @param cardRenderer
-         *         to render the card with.
+         * @param content
+         *         provider which handel all the content and style.
+         * @param <T>
+         *         as type of {@code CardProvider}
+         * @return the content provider to config.
+         */
+        @SuppressWarnings("unchecked")
+        public <T extends CardProvider> T withProvider(Class<T> content) {
+            try {
+                mProvider = content.newInstance();
+                ((CardConfig) mProvider).setContext(mContext);
+                ((CardConfig) mProvider).setBuilder(this);
+                return (T) mProvider;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        /**
+         * Builds the card.
+         *
          * @return the card.
          */
         @NonNull
-        public Card build(@NonNull final CardRenderer cardRenderer) {
-            mCardRenderer = cardRenderer;
+        public Card build() {
+            if (mProvider == null) {
+                throw new IllegalStateException("You have to define the Card Provider");
+            }
             return new Card(this);
         }
     }

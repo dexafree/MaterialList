@@ -1,6 +1,5 @@
-package com.dexafree.materialList.cards.renderer;
+package com.dexafree.materialList.card.provider;
 
-import android.content.Context;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -11,15 +10,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.cards.Card;
-import com.dexafree.materialList.cards.OnButtonClickListener;
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.OnButtonClickListener;
 import com.dexafree.materialList.util.PixelUtils;
 
 /**
- * A ButtonCardRenderer will render a left and right Button, a Divider and everything like
- * TextCardRender does.
+ * A ButtonCardProvider will render a left and right Button, a Divider and everything like
+ * TextCardProvider does.
  */
-public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends TextCardRenderer<T> {
+public abstract class ButtonCardProvider<T extends ButtonCardProvider> extends TextCardProvider<T> {
     private final static int DIVIDER_MARGIN_DP = 16;
 
     @ColorInt
@@ -35,14 +34,9 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     @Nullable
     private OnButtonClickListener mOnRightButtonClickListener;
 
-    /**
-     * Creates a ButtonCardRenderer.
-     *
-     * @param context
-     *         to access the resources.
-     */
-    public ButtonCardRenderer(@NonNull final Context context) {
-        super(context);
+    @Override
+    protected void onCreated() {
+        super.onCreated();
         setRightButtonTextResourceColor(R.color.orange_button);
         setLeftButtonTextResourceColor(R.color.black_button);
     }
@@ -64,7 +58,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return the renderer.
      */
     public T setLeftButtonText(@StringRes final int leftButtonText) {
-        return setLeftButtonText(mContext.getString(leftButtonText));
+        return setLeftButtonText(getContext().getString(leftButtonText));
     }
 
     /**
@@ -77,7 +71,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     @SuppressWarnings("unchecked")
     public T setLeftButtonText(final String leftButtonText) {
         mLeftButtonText = leftButtonText;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -98,7 +92,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return the renderer.
      */
     public T setRightButtonText(@StringRes final int rightButtonText) {
-        return setRightButtonText(mContext.getString(rightButtonText));
+        return setRightButtonText(getContext().getString(rightButtonText));
     }
 
     /**
@@ -111,7 +105,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     @SuppressWarnings("unchecked")
     public T setRightButtonText(final String rightButtonText) {
         mRightButtonText = rightButtonText;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -181,7 +175,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     @SuppressWarnings("unchecked")
     public T setRightButtonTextColor(@ColorInt final int color) {
         mRightButtonTextColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -193,7 +187,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return the renderer.
      */
     public T setRightButtonTextResourceColor(@ColorRes final int color) {
-        return setRightButtonTextColor(mContext.getResources().getColor(color));
+        return setRightButtonTextColor(getContext().getResources().getColor(color));
     }
 
     /**
@@ -216,7 +210,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     @SuppressWarnings("unchecked")
     public T setLeftButtonTextColor(@ColorInt final int color) {
         mLeftButtonTextColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -228,7 +222,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
      * @return the renderer.
      */
     public T setLeftButtonTextResourceColor(@ColorRes final int color) {
-        return setLeftButtonTextColor(mContext.getResources().getColor(color));
+        return setLeftButtonTextColor(getContext().getResources().getColor(color));
     }
 
     /**
@@ -250,7 +244,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     @SuppressWarnings("unchecked")
     public T setDividerVisible(final boolean visible) {
         mDividerVisible = visible;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -273,7 +267,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
     @SuppressWarnings("unchecked")
     public T setFullWidthDivider(final boolean fullWidthDivider) {
         mFullWidthDivider = fullWidthDivider;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -327,7 +321,7 @@ public abstract class ButtonCardRenderer<T extends ButtonCardRenderer> extends T
             if (isFullWidthDivider()) {
                 ((ViewGroup.MarginLayoutParams) divider.getLayoutParams()).setMargins(0, 0, 0, 0);
             } else {
-                int dividerMarginPx = (int) PixelUtils.dpToPx(mContext, DIVIDER_MARGIN_DP);
+                int dividerMarginPx = (int) PixelUtils.dpToPx(getContext(), DIVIDER_MARGIN_DP);
                 // Set the margin
                 ((ViewGroup.MarginLayoutParams) divider.getLayoutParams()).setMargins(
                         dividerMarginPx,

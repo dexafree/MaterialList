@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.cards.Card;
+import com.dexafree.materialList.card.Card;
 import com.dexafree.materialList.listeners.OnDismissCallback;
 import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.listeners.SwipeDismissRecyclerViewTouchListener;

@@ -3,7 +3,7 @@ package com.dexafree.materialList.view;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.dexafree.materialList.cards.Card;
+import com.dexafree.materialList.card.Card;
 
 import java.util.Collection;
 

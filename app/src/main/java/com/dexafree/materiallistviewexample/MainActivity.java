@@ -11,16 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.dexafree.materialList.cards.Card;
-import com.dexafree.materialList.cards.OnButtonClickListener;
-import com.dexafree.materialList.cards.renderer.BasicButtonsCardRenderer;
-import com.dexafree.materialList.cards.renderer.BasicImageButtonsCardRenderer;
-import com.dexafree.materialList.cards.renderer.BasicListCardRenderer;
-import com.dexafree.materialList.cards.renderer.BigImageButtonsCardRenderer;
-import com.dexafree.materialList.cards.renderer.BigImageCardRenderer;
-import com.dexafree.materialList.cards.renderer.SmallImageCardRenderer;
-import com.dexafree.materialList.cards.renderer.TextCardRenderer;
-import com.dexafree.materialList.cards.renderer.WelcomeCardRenderer;
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.OnButtonClickListener;
+import com.dexafree.materialList.card.provider.BasicButtonsCardProvider;
+import com.dexafree.materialList.card.provider.BasicImageButtonsCardProvider;
+import com.dexafree.materialList.card.provider.BasicListCardProvider;
+import com.dexafree.materialList.card.provider.BigImageButtonsCardProvider;
+import com.dexafree.materialList.card.provider.BigImageCardProvider;
+import com.dexafree.materialList.card.provider.SmallImageCardProvider;
+import com.dexafree.materialList.card.provider.TextCardProvider;
+import com.dexafree.materialList.card.provider.WelcomeCardProvider;
 import com.dexafree.materialList.listeners.OnDismissCallback;
 import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.view.MaterialListView;
@@ -84,74 +84,81 @@ public class MainActivity extends AppCompatActivity {
                 return new Card.Builder(this)
                         .setTag("SMALL_IMAGE_CARD")
                         .setDismissible()
-                        .build(new SmallImageCardRenderer(this)
-                                .setTitle(title)
-                                .setDescription(description)
-                                .setDrawable(R.drawable.sample_android));
+                        .withProvider(SmallImageCardProvider.class)
+                        .setTitle(title)
+                        .setDescription(description)
+                        .setDrawable(R.drawable.sample_android)
+                        .endConfig()
+                        .build();
             }
             case 1: {
                 return new Card.Builder(this)
                         .setTag("BIG_IMAGE_CARD")
-                        .build(new BigImageCardRenderer(this)
-                                .setTitle(title)
-                                .setDescription(description)
-                                .setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
-                                .setOnPicassoImageLoadingListener(new TextCardRenderer.OnPicassoImageLoadingListener() {
-                                    @Override
-                                    public void onImageLoading(@NonNull final RequestCreator requestCreator) {
-                                        requestCreator.rotate(position * 45.0f)
-                                                .resize(200, 200)
-                                                .centerCrop();
-                                    }
-                                }));
+                        .withProvider(BigImageCardProvider.class)
+                        .setTitle(title)
+                        .setDescription(description)
+                        .setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
+                        .setOnPicassoImageLoadingListener(new TextCardProvider.OnPicassoImageLoadingListener() {
+                            @Override
+                            public void onImageLoading(@NonNull final RequestCreator requestCreator) {
+                                requestCreator.rotate(position * 45.0f)
+                                        .resize(200, 200)
+                                        .centerCrop();
+                            }
+                        })
+                        .endConfig()
+                        .build();
             }
             case 2: {
-                final BasicImageButtonsCardRenderer renderer = new BasicImageButtonsCardRenderer(this)
+                final BasicImageButtonsCardProvider provider = new Card.Builder(this)
+                        .setTag("BASIC_IMAGE_BUTTON_CARD")
+                        .setDismissible()
+                        .withProvider(BasicImageButtonsCardProvider.class)
                         .setTitle(title)
                         .setDescription(description)
                         .setDrawable(R.drawable.dog)
                         .setLeftButtonText("left")
                         .setRightButtonText("right");
 
-                renderer.setOnLeftButtonClickListener(new OnButtonClickListener() {
+                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
                     public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-                        renderer.setTitle("CHANGED ON RUNTIME");
+                        provider.setTitle("CHANGED ON RUNTIME");
                     }
                 });
-                renderer.setOnRightButtonClickListener(new OnButtonClickListener() {
+                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
                     public void onButtonClicked(final View view, final Card card) {
-                        Toast.makeText(mContext, "You have pressed the right button on card " + renderer.getTitle(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "You have pressed the right button on card " + provider.getTitle(), Toast.LENGTH_SHORT).show();
                         mListView.remove(card);
                     }
                 });
 
                 if (position % 2 == 0) {
-                    renderer.setDividerVisible(true);
+                    provider.setDividerVisible(true);
                 }
 
-                return new Card.Builder(this)
-                        .setTag("BASIC_IMAGE_BUTTON_CARD")
-                        .setDismissible()
-                        .build(renderer);
+                return provider.endConfig().build();
             }
             case 3: {
-                final BasicButtonsCardRenderer renderer = new BasicButtonsCardRenderer(this)
+                final BasicButtonsCardProvider provider = new Card.Builder(this)
+                        .setTag("BASIC_BUTTONS_CARD")
+                        .setDismissible()
+                        .withProvider(BasicButtonsCardProvider.class)
                         .setTitle(title)
                         .setDescription(description)
                         .setLeftButtonText("left")
                         .setRightButtonText("right")
                         .setRightButtonTextResourceColor(R.color.accent_material_dark);
 
-                renderer.setOnLeftButtonClickListener(new OnButtonClickListener() {
+                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
                     public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
                 });
-                renderer.setOnRightButtonClickListener(new OnButtonClickListener() {
+                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
                     public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
@@ -159,16 +166,16 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 if (position % 2 == 0) {
-                    renderer.setDividerVisible(true);
+                    provider.setDividerVisible(true);
                 }
 
-                return new Card.Builder(this)
-                        .setTag("BASIC_BUTTONS_CARD")
-                        .setDismissible()
-                        .build(renderer);
+                return provider.endConfig().build();
             }
             case 4: {
-                final WelcomeCardRenderer renderer = new WelcomeCardRenderer(this)
+                final WelcomeCardProvider provider = new Card.Builder(this)
+                        .setTag("WELCOME_CARD")
+                        .setDismissible()
+                        .withProvider(WelcomeCardProvider.class)
                         .setTitle("Welcome Card")
                         .setTitleColor(Color.WHITE)
                         .setDescription("I am the description")
@@ -185,13 +192,10 @@ public class MainActivity extends AppCompatActivity {
                         });
 
                 if (position % 2 == 0) {
-                    renderer.setBackgroundResourceColor(android.R.color.background_dark);
+                    provider.setBackgroundResourceColor(android.R.color.background_dark);
                 }
 
-                return new Card.Builder(this)
-                        .setTag("WELCOME_CARD")
-                        .setDismissible()
-                        .build(renderer);
+                return provider.endConfig().build();
             }
             case 5: {
                 BasicListAdapter adapter = new BasicListAdapter(this);
@@ -202,20 +206,25 @@ public class MainActivity extends AppCompatActivity {
                 return new Card.Builder(this)
                         .setTag("LIST_CARD")
                         .setDismissible()
-                        .build(new BasicListCardRenderer(this)
-                                .setTitle("List Card")
-                                .setDescription("Take a list")
-                                .setAdapter(adapter));
+                        .withProvider(BasicListCardProvider.class)
+                        .setTitle("List Card")
+                        .setDescription("Take a list")
+                        .setAdapter(adapter)
+                        .endConfig()
+                        .build();
             }
             default: {
-                final BigImageButtonsCardRenderer renderer = new BigImageButtonsCardRenderer(this)
+                final BigImageButtonsCardProvider provider = new Card.Builder(this)
+                        .setTag("BIG_IMAGE_BUTTONS_CARD")
+                        .setDismissible()
+                        .withProvider(BigImageButtonsCardProvider.class)
                         .setTitle(title)
                         .setDescription(description)
                         .setDrawable(R.drawable.photo)
                         .setLeftButtonText("add card")
                         .setRightButtonText("right button");
 
-                renderer.setOnLeftButtonClickListener(new OnButtonClickListener() {
+                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
                     public void onButtonClicked(final View view, final Card card) {
                         Log.d("ADDING", "CARD");
@@ -224,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
                 });
-                renderer.setOnRightButtonClickListener(new OnButtonClickListener() {
+                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
                     public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
@@ -232,13 +241,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 if (position % 2 == 0) {
-                    renderer.setDividerVisible(true);
+                    provider.setDividerVisible(true);
                 }
 
-                return new Card.Builder(this)
-                        .setTag("BIG_IMAGE_BUTTONS_CARD")
-                        .setDismissible()
-                        .build(renderer);
+                return provider.endConfig().build();
             }
         }
     }
@@ -246,22 +252,26 @@ public class MainActivity extends AppCompatActivity {
     private Card generateNewCard() {
         return new Card.Builder(this)
                 .setTag("BASIC_IMAGE_BUTTONS_CARD")
-                .build(new BasicImageButtonsCardRenderer(this)
-                        .setTitle("I'm new")
-                        .setDescription("I've been generated on runtime!")
-                        .setDrawable(R.drawable.dog));
+                .withProvider(BasicImageButtonsCardProvider.class)
+                .setTitle("I'm new")
+                .setDescription("I've been generated on runtime!")
+                .setDrawable(R.drawable.dog)
+                .endConfig()
+                .build();
     }
 
     private void addMockCardAtStart() {
         mListView.addAtStart(new Card.Builder(this)
                 .setTag("BASIC_IMAGE_BUTTONS_CARD")
                 .setDismissible()
-                .build(new BasicImageButtonsCardRenderer(this)
-                        .setTitle("Hi there")
-                        .setDescription("I've been added on top!")
-                        .setLeftButtonText("left")
-                        .setRightButtonText("right")
-                        .setDrawable(R.drawable.dog)));
+                .withProvider(BasicImageButtonsCardProvider.class)
+                .setTitle("Hi there")
+                .setDescription("I've been added on top!")
+                .setLeftButtonText("left")
+                .setRightButtonText("right")
+                .setDrawable(R.drawable.dog)
+                .endConfig()
+                .build());
     }
 
     @Override

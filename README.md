@@ -71,12 +71,14 @@ MaterialListView mListView = (MaterialListView) findViewById(R.id.material_listv
 
 ```java
 Card card = new Card.Builder(this)
-              .setTag("SMALL_IMAGE_CARD")
-              .setDismissible()
-              .build(new SmallImageCardRenderer(this)
-                      .setTitle(title)
-                      .setDescription(description)
-                      .setDrawable(R.drawable.sample_android));
+                            .setTag("BASIC_IMAGE_BUTTONS_CARD")
+                            .withRenderer(BasicImageButtonsCardProvider.class)
+                            .withConfig(BasicImageButtonsCardProvider.class)
+                            .setTitle("I'm new")
+                            .setDescription("I've been generated on runtime!")
+                            .setDrawable(R.drawable.dog)
+                            .endConfig()
+                            .build()
 
 mListView.add(card);
 ```

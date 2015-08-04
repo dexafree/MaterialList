@@ -1,36 +1,22 @@
-package com.dexafree.materialList.cards.renderer;
+package com.dexafree.materialList.card.provider;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.dexafree.materialList.R;
-import com.dexafree.materialList.cards.Card;
-
-import java.util.Observable;
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.CardConfig;
+import com.dexafree.materialList.card.CardRenderer;
 
 /**
- * The CardRenderer will only set the background color of the Card.
+ * The CardProvider will only set the background color of the Card.
  */
-public abstract class CardRenderer<T extends CardRenderer> extends Observable {
-    @NonNull
-    protected final Context mContext;
+public abstract class CardProvider<T extends CardProvider> extends CardConfig implements CardRenderer {
     @ColorInt
     private int mBackgroundColor = Color.WHITE;
-
-    /**
-     * Creates a basic CardRenderer.
-     *
-     * @param context
-     *         to access the resources.
-     */
-    public CardRenderer(@NonNull final Context context) {
-        mContext = context;
-    }
 
     /**
      * Get the background color.
@@ -53,7 +39,7 @@ public abstract class CardRenderer<T extends CardRenderer> extends Observable {
     @SuppressWarnings("unchecked")
     public T setBackgroundColor(@ColorInt final int color) {
         mBackgroundColor = color;
-        notifyDataSetChanged(this);
+        notifyDataSetChanged();
         return (T) this;
     }
 
@@ -66,39 +52,19 @@ public abstract class CardRenderer<T extends CardRenderer> extends Observable {
      */
     @NonNull
     public T setBackgroundResourceColor(@ColorRes final int color) {
-        return setBackgroundColor(mContext.getResources().getColor(color));
-    }
-
-    /**
-     * Notifies the MaterialListAdapter that the content changed.
-     */
-    public void notifyDataSetChanged() {
-        notifyDataSetChanged(null);
-    }
-
-    /**
-     * Notifies the Card that the content changed.
-     */
-    public void notifyDataSetChanged(final Object object) {
-        setChanged();
-        notifyObservers(object);
+        return setBackgroundColor(getContext().getResources().getColor(color));
     }
 
     /**
      * Renders the content and style of the card to the view.
      *
-     * @param view to display the content and style on.
-     * @param card to render.
+     * @param view
+     *         to display the content and style on.
+     * @param card
+     *         to render.
      */
+
     public void render(@NonNull final View view, @NonNull final Card card) {
         view.findViewById(R.id.cardView).setBackgroundColor(getBackgroundColor());
     }
-
-    /**
-     * Get the card layout as resource.
-     *
-     * @return the card layout.
-     */
-    @LayoutRes
-    public abstract int getLayout();
 }

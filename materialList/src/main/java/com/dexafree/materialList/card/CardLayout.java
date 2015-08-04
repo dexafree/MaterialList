@@ -1,4 +1,4 @@
-package com.dexafree.materialList.cards;
+package com.dexafree.materialList.card;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -6,8 +6,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
-
-import com.dexafree.materialList.cards.renderer.CardRenderer;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -18,6 +16,7 @@ import java.util.Observer;
 public class CardLayout extends LinearLayout implements Observer {
     private Card mCard;
     private boolean mObserves;
+    private boolean mSwitch;
 
     /**
      * Creates a new CardLayout.
@@ -66,7 +65,7 @@ public class CardLayout extends LinearLayout implements Observer {
         mCard = card;
 
         if (!mObserves) {
-            mCard.getRenderer().addObserver(this);
+            mCard.getConfig().addObserver(this);
             mObserves = true;
         }
 
@@ -84,11 +83,12 @@ public class CardLayout extends LinearLayout implements Observer {
 
     @Override
     public void update(final Observable observable, final Object data) {
-        // If a render is inside of data, then update the CardLayout.
-        if(data != null && data instanceof CardRenderer) {
+        // Switch the state... Only react on every second request...
+        mSwitch = !mSwitch;
+        if(mSwitch) {
             build(mCard);
-            // After updating the CardLayout inform the MaterialListAdapter
-            ((CardRenderer) observable).notifyDataSetChanged();
+            // ... otherwise here comes the endless loop!
+            ((CardConfig) observable).notifyDataSetChanged();
         }
     }
 }

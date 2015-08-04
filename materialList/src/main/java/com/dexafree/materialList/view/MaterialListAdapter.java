@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dexafree.materialList.cards.Card;
-import com.dexafree.materialList.cards.CardLayout;
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.CardLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,18 +56,18 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 
     @Override
     public int getItemViewType(final int position) {
-        return mCardList.get(position).getRenderer().getLayout();
+        return mCardList.get(position).getConfig().getLayout();
     }
 
     public void addAtStart(@NonNull final Card card) {
         mCardList.add(0, card);
-        card.getRenderer().addObserver(this);
+        card.getConfig().addObserver(this);
         notifyDataSetChanged();
     }
 
     public void add(@NonNull final Card card) {
         mCardList.add(card);
-        card.getRenderer().addObserver(this);
+        card.getConfig().addObserver(this);
         notifyDataSetChanged();
     }
 
@@ -83,7 +83,7 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 
     public void remove(@NonNull final Card card, boolean animate) {
         if (card.isDismissible()) {
-            card.getRenderer().deleteObserver(this);
+            card.getConfig().deleteObserver(this);
             if (animate) {
                 mAnimation.animate(getPosition(card));
             } else {

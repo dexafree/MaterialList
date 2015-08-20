@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.dexafree.materialList.cards.internal.SmallImageCardItemView
+<com.dexafree.materialList.card.CardLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MainLayout">
@@ -54,4 +54,4 @@
 
     </android.support.v7.widget.CardView>
 
-</com.dexafree.materialList.cards.internal.SmallImageCardItemView>
+</com.dexafree.materialList.card.CardLayout>

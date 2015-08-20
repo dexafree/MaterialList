@@ -1,81 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.dexafree.materialList.cards.internal.BigImageButtonsCardItemView
+<com.dexafree.materialList.card.CardLayout
+    style="@style/MainLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/MainLayout">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardView"
-        card_view:cardCornerRadius="@dimen/card_corner_radius"
-        style="@style/MainCardView">
+        style="@style/MainCardView"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="@dimen/card_corner_radius">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
-                android:id="@+id/imageView"/>
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
 
             <TextView
+                android:id="@+id/titleTextView"
                 style="@style/CardTitle"
                 android:layout_alignBottom="@+id/imageView"
-                android:id="@+id/titleTextView"
                 tools:text="Title"/>
 
             <TextView
+                android:id="@+id/descriptionTextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/descriptionTextView"
-                android:textColor="@color/description_color"
-                android:padding="@dimen/big_padding"
-                android:textSize="@dimen/description_size"
                 android:layout_below="@+id/imageView"
+                android:padding="@dimen/big_padding"
+                android:textColor="@color/description_color"
+                android:textSize="@dimen/description_size"
                 tools:text="Test description"/>
 
             <View
                 android:id="@+id/cardDivider"
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="@color/divider_grey"
-                android:layout_below="@+id/descriptionTextView"
                 android:layout_alignLeft="@+id/titleTextView"
                 android:layout_alignStart="@+id/titleTextView"
-                android:visibility="invisible"/>
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/left_text_button"
                 android:layout_below="@+id/descriptionTextView"
-                android:layout_marginTop="@dimen/big_padding"
-                android:layout_marginBottom="@dimen/small_padding"
-                android:paddingLeft="@dimen/big_padding"
-                android:paddingRight="@dimen/big_padding"
-                android:paddingBottom="@dimen/small_padding"
-                style="@style/LeftButtonBaseStyle"/>
+                android:background="@color/divider_grey"
+                android:visibility="invisible"/>
 
             <TextView
+                android:id="@+id/left_text_button"
+                style="@style/LeftButtonBaseStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/right_text_button"
-                android:layout_toRightOf="@+id/left_text_button"
-                android:layout_alignBottom="@+id/left_text_button"
-                android:paddingLeft="@dimen/small_padding"
+                android:layout_below="@+id/descriptionTextView"
+                android:layout_marginBottom="@dimen/small_padding"
+                android:layout_marginTop="@dimen/big_padding"
                 android:paddingBottom="@dimen/small_padding"
-                style="@style/RightButtonBaseStyle"/>
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"/>
+
+            <TextView
+                android:id="@+id/right_text_button"
+                style="@style/RightButtonBaseStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/left_text_button"
+                android:layout_toRightOf="@+id/left_text_button"
+                android:paddingBottom="@dimen/small_padding"
+                android:paddingLeft="@dimen/small_padding"/>
 
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 
-
-
-</com.dexafree.materialList.cards.internal.BigImageButtonsCardItemView>
+</com.dexafree.materialList.card.CardLayout>

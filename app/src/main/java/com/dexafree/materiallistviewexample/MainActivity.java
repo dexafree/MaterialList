@@ -1,33 +1,33 @@
 package com.dexafree.materiallistviewexample;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dexafree.materialList.cards.BasicButtonsCard;
-import com.dexafree.materialList.cards.BasicImageButtonsCard;
-import com.dexafree.materialList.cards.BasicListCard;
-import com.dexafree.materialList.cards.BigImageButtonsCard;
-import com.dexafree.materialList.cards.BigImageCard;
-import com.dexafree.materialList.cards.OnButtonPressListener;
-import com.dexafree.materialList.cards.SimpleCard;
-import com.dexafree.materialList.cards.SmallImageCard;
-import com.dexafree.materialList.cards.WelcomeCard;
-import com.dexafree.materialList.controller.OnDismissCallback;
-import com.dexafree.materialList.controller.RecyclerItemClickListener;
-import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.model.CardItemView;
+import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.OnButtonClickListener;
+import com.dexafree.materialList.card.provider.BasicButtonsCardProvider;
+import com.dexafree.materialList.card.provider.BasicImageButtonsCardProvider;
+import com.dexafree.materialList.card.provider.BasicListCardProvider;
+import com.dexafree.materialList.card.provider.BigImageButtonsCardProvider;
+import com.dexafree.materialList.card.provider.BigImageCardProvider;
+import com.dexafree.materialList.card.provider.SmallImageCardProvider;
+import com.dexafree.materialList.card.provider.TextCardProvider;
+import com.dexafree.materialList.card.provider.WelcomeCardProvider;
+import com.dexafree.materialList.listeners.OnDismissCallback;
+import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.view.MaterialListView;
+import com.squareup.picasso.RequestCreator;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private MaterialListView mListView;
 
@@ -48,26 +48,22 @@ public class MainActivity extends ActionBarActivity {
         // Set the dismiss listener
         mListView.setOnDismissCallback(new OnDismissCallback() {
             @Override
-            public void onDismiss(Card card, int position) {
-
-                // Recover the tag linked to the Card
-                String tag = card.getTag().toString();
-
+            public void onDismiss(@NonNull Card card, int position) {
                 // Show a toast
-                Toast.makeText(mContext, "You have dismissed a "+tag, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "You have dismissed a " + card.getTag(), Toast.LENGTH_SHORT).show();
             }
         });
 
         // Add the ItemTouchListener
         mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(CardItemView view, int position) {
-                Log.d("CARD_TYPE", view.getTag().toString());
+            public void onItemClick(@NonNull Card card, int position) {
+                Log.d("CARD_TYPE", "" + card.getTag());
             }
 
             @Override
-            public void onItemLongClick(CardItemView view, int position) {
-                Log.d("LONG_CLICK", view.getTag().toString());
+            public void onItemLongClick(@NonNull Card card, int position) {
+                Log.d("LONG_CLICK", "" + card.getTag());
             }
         });
 
@@ -75,8 +71,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void fillArray() {
         for (int i = 0; i < 35; i++) {
-            Card card = getRandomCard(i);
-            mListView.add(card);
+            mListView.add(getRandomCard(i));
         }
     }
 
@@ -84,197 +79,200 @@ public class MainActivity extends ActionBarActivity {
         String title = "Card number " + (position + 1);
         String description = "Lorem ipsum dolor sit amet";
 
-        int type = position % 6;
+        switch (position % 6) {
+            case 0: {
+                return new Card.Builder(this)
+                        .setTag("SMALL_IMAGE_CARD")
+                        .setDismissible()
+                        .withProvider(SmallImageCardProvider.class)
+                        .setTitle(title)
+                        .setDescription(description)
+                        .setDrawable(R.drawable.sample_android)
+                        .endConfig()
+                        .build();
+            }
+            case 1: {
+                return new Card.Builder(this)
+                        .setTag("BIG_IMAGE_CARD")
+                        .withProvider(BigImageCardProvider.class)
+                        .setTitle(title)
+                        .setDescription(description)
+                        .setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
+                        .setOnPicassoImageLoadingListener(new TextCardProvider.OnPicassoImageLoadingListener() {
+                            @Override
+                            public void onImageLoading(@NonNull final RequestCreator requestCreator) {
+                                requestCreator.rotate(position * 45.0f)
+                                        .resize(200, 200)
+                                        .centerCrop();
+                            }
+                        })
+                        .endConfig()
+                        .build();
+            }
+            case 2: {
+                final BasicImageButtonsCardProvider provider = new Card.Builder(this)
+                        .setTag("BASIC_IMAGE_BUTTON_CARD")
+                        .setDismissible()
+                        .withProvider(BasicImageButtonsCardProvider.class)
+                        .setTitle(title)
+                        .setDescription(description)
+                        .setDrawable(R.drawable.dog)
+                        .setLeftButtonText("left")
+                        .setRightButtonText("right");
 
-        SimpleCard card;
-        Drawable icon;
-
-        switch (type) {
-
-            case 0:
-                card = new SmallImageCard(this);
-                card.setDescription(description);
-                card.setTitle(title);
-                card.setDrawable(R.drawable.sample_android);
-                card.setDismissible(true);
-                card.setTag("SMALL_IMAGE_CARD");
-                return card;
-
-            case 1:
-                card = new BigImageCard(this);
-                card.setDescription(description);
-                card.setTitle(title);
-                //card.setDrawable(R.drawable.photo);
-                card.setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png");
-                card.setTag("BIG_IMAGE_CARD");
-                card.setImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                return card;
-
-            case 2:
-                card = new BasicImageButtonsCard(this);
-                card.setDescription(description);
-                card.setTitle(title);
-                card.setDrawable(R.drawable.dog);
-                card.setTag("BASIC_IMAGE_BUTTON_CARD");
-                ((BasicImageButtonsCard) card).setLeftButtonText("LEFT");
-                ((BasicImageButtonsCard) card).setRightButtonText("RIGHT");
-
-                if (position % 2 == 0)
-                    ((BasicImageButtonsCard) card).setDividerVisible(true);
-
-                ((BasicImageButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
+                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(View view, Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-                        ((SimpleCard) card).setTitle("CHANGED ON RUNTIME");
+                        provider.setTitle("CHANGED ON RUNTIME");
                     }
                 });
-
-                ((BasicImageButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
+                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(View view, Card card) {
-                        Toast.makeText(mContext, "You have pressed the right button on card " + ((SimpleCard) card).getTitle(), Toast.LENGTH_SHORT).show();
+                    public void onButtonClicked(final View view, final Card card) {
+                        Toast.makeText(mContext, "You have pressed the right button on card " + provider.getTitle(), Toast.LENGTH_SHORT).show();
                         mListView.remove(card);
                     }
                 });
-                card.setDismissible(true);
 
-                return card;
+                if (position % 2 == 0) {
+                    provider.setDividerVisible(true);
+                }
 
-            case 3:
-                card = new BasicButtonsCard(this);
-                card.setDescription(description);
-                card.setTitle(title);
-                card.setTag("BASIC_BUTTONS_CARD");
-                ((BasicButtonsCard) card).setLeftButtonText("LEFT");
-                ((BasicButtonsCard) card).setRightButtonText("RIGHT");
-                ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
+                return provider.endConfig().build();
+            }
+            case 3: {
+                final BasicButtonsCardProvider provider = new Card.Builder(this)
+                        .setTag("BASIC_BUTTONS_CARD")
+                        .setDismissible()
+                        .withProvider(BasicButtonsCardProvider.class)
+                        .setTitle(title)
+                        .setDescription(description)
+                        .setLeftButtonText("left")
+                        .setRightButtonText("right")
+                        .setRightButtonTextResourceColor(R.color.accent_material_dark);
 
-                if (position % 2 == 0)
-                    ((BasicButtonsCard) card).setDividerVisible(true);
-
-                ((BasicButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
+                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(View view, Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                ((BasicButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
+                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(View view, Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
-                card.setDismissible(true);
 
+                if (position % 2 == 0) {
+                    provider.setDividerVisible(true);
+                }
 
-                return card;
+                return provider.endConfig().build();
+            }
+            case 4: {
+                final WelcomeCardProvider provider = new Card.Builder(this)
+                        .setTag("WELCOME_CARD")
+                        .setDismissible()
+                        .withProvider(WelcomeCardProvider.class)
+                        .setTitle("Welcome Card")
+                        .setTitleColor(Color.WHITE)
+                        .setDescription("I am the description")
+                        .setDescriptionColor(Color.WHITE)
+                        .setSubtitle("My subtitle!")
+                        .setSubtitleColor(Color.WHITE)
+                        .setBackgroundColor(Color.BLUE)
+                        .setButtonText("Okay!")
+                        .setOnButtonPressedListener(new OnButtonClickListener() {
+                            @Override
+                            public void onButtonClicked(final View view, final Card card) {
+                                Toast.makeText(mContext, "Welcome!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-            case 4:
-                card = new WelcomeCard(this);
-                card.setTitle("Welcome Card");
-                card.setDescription("I am the description");
-                card.setTag("WELCOME_CARD");
-                ((WelcomeCard) card).setSubtitle("My subtitle!");
-                ((WelcomeCard) card).setButtonText("Okay!");
-                ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(View view, Card card) {
-                        Toast.makeText(mContext, "Welcome!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (position % 2 == 0) {
+                    provider.setBackgroundResourceColor(android.R.color.background_dark);
+                }
 
-                if (position % 2 == 0)
-                    ((WelcomeCard) card).setBackgroundColorRes(R.color.background_material_dark);
-                card.setDismissible(true);
-
-                return card;
-
-            case 5:
-                card = new BasicListCard(this);
-                card.setTitle("List Card");
-                card.setDescription("Take a list");
+                return provider.endConfig().build();
+            }
+            case 5: {
                 BasicListAdapter adapter = new BasicListAdapter(this);
                 adapter.add("Text1");
                 adapter.add("Text2");
                 adapter.add("Text3");
-                card.setTag("LIST_CARD");
-                ((BasicListCard) card).setAdapter(adapter);
-                /*
-                ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                return new Card.Builder(this)
+                        .setTag("LIST_CARD")
+                        .setDismissible()
+                        .withProvider(BasicListCardProvider.class)
+                        .setTitle("List Card")
+                        .setDescription("Take a list")
+                        .setAdapter(adapter)
+                        .endConfig()
+                        .build();
+            }
+            default: {
+                final BigImageButtonsCardProvider provider = new Card.Builder(this)
+                        .setTag("BIG_IMAGE_BUTTONS_CARD")
+                        .setDismissible()
+                        .withProvider(BigImageButtonsCardProvider.class)
+                        .setTitle(title)
+                        .setDescription(description)
+                        .setDrawable(R.drawable.photo)
+                        .setLeftButtonText("add card")
+                        .setRightButtonText("right button");
+
+                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    	// Do what ever you want...
-                    }
-                });
-                */
-                card.setDismissible(true);
-
-                return card;
-
-            default:
-                card = new BigImageButtonsCard(this);
-                card.setDescription(description);
-                card.setTitle(title);
-                card.setDrawable(R.drawable.photo);
-                card.setTag("BIG_IMAGE_BUTTONS_CARD");
-                ((BigImageButtonsCard) card).setLeftButtonText("ADD CARD");
-                ((BigImageButtonsCard) card).setRightButtonText("RIGHT BUTTON");
-
-                if (position % 2 == 0) {
-                    ((BigImageButtonsCard) card).setDividerVisible(true);
-                }
-
-                ((BigImageButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(View view, Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Log.d("ADDING", "CARD");
 
                         mListView.add(generateNewCard());
                         Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                ((BigImageButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
+                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
                     @Override
-                    public void onButtonPressedListener(View view, Card card) {
+                    public void onButtonClicked(final View view, final Card card) {
                         Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
                     }
                 });
-                card.setDismissible(true);
 
+                if (position % 2 == 0) {
+                    provider.setDividerVisible(true);
+                }
 
-                return card;
-
+                return provider.endConfig().build();
+            }
         }
-
     }
 
     private Card generateNewCard() {
-        SimpleCard card = new BasicImageButtonsCard(this);
-        card.setDrawable(R.drawable.dog);
-        card.setTitle("I'm new");
-        card.setDescription("I've been generated on runtime!");
-        card.setTag("BASIC_IMAGE_BUTTONS_CARD");
-
-        return card;
+        return new Card.Builder(this)
+                .setTag("BASIC_IMAGE_BUTTONS_CARD")
+                .withProvider(BasicImageButtonsCardProvider.class)
+                .setTitle("I'm new")
+                .setDescription("I've been generated on runtime!")
+                .setDrawable(R.drawable.dog)
+                .endConfig()
+                .build();
     }
 
-    private void addMockCardAtStart(){
-        BasicImageButtonsCard card = new BasicImageButtonsCard(this);
-        card.setDrawable(R.drawable.dog);
-        card.setTitle("Hi there");
-        card.setDescription("I've been added on top!");
-        card.setLeftButtonText("LEFT");
-        card.setRightButtonText("RIGHT");
-        card.setTag("BASIC_IMAGE_BUTTONS_CARD");
-
-        card.setDismissible(true);
-
-        mListView.addAtStart(card);
+    private void addMockCardAtStart() {
+        mListView.addAtStart(new Card.Builder(this)
+                .setTag("BASIC_IMAGE_BUTTONS_CARD")
+                .setDismissible()
+                .withProvider(BasicImageButtonsCardProvider.class)
+                .setTitle("Hi there")
+                .setDescription("I've been added on top!")
+                .setLeftButtonText("left")
+                .setRightButtonText("right")
+                .setDrawable(R.drawable.dog)
+                .endConfig()
+                .build());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -284,7 +282,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_clear:
                 mListView.clear();
                 break;

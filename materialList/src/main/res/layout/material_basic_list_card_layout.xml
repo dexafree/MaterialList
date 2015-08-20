@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.dexafree.materialList.cards.internal.BasicListCardItemView
+<com.dexafree.materialList.card.CardLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MainLayout">
@@ -42,10 +42,9 @@
                 android:paddingRight="@dimen/big_padding"
                 tools:text="By Alex Nelson"/>
 
-            <view
+            <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.nhaarman.listviewanimations.itemmanipulation.DynamicListView"
                 android:id="@+id/listView"
                 android:layout_below="@+id/descriptionTextView"
                 android:layout_alignParentLeft="true"
@@ -59,4 +58,4 @@
 
     </android.support.v7.widget.CardView>
 
-</com.dexafree.materialList.cards.internal.BasicListCardItemView>
+</com.dexafree.materialList.card.CardLayout>

@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dexafree.materialList.controller;
+package com.dexafree.materialList.listeners;
 
 import android.graphics.Rect;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -89,7 +90,7 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
 	private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
 
 	// Transient properties
-	private List<PendingDismissData> mPendingDismisses = new ArrayList<PendingDismissData>();
+	private List<PendingDismissData> mPendingDismisses = new ArrayList<>();
 	private int mDismissAnimationRefCount = 0;
 	private float mDownX;
 	private float mDownY;
@@ -341,7 +342,7 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
 		}
 
 		@Override
-		public int compareTo(PendingDismissData other) {
+		public int compareTo(@NonNull PendingDismissData other) {
 			// Sort by descending position
 			return other.position - position;
 		}

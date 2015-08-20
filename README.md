@@ -3,6 +3,8 @@
 > ### Warning!
 > MaterialList v3 changes the way Cards are built, and its API is not backwards compatible.
 > Read the changes and learn how to build your cards in the Wiki.
+> 
+> Also the v3 version should be considered experimental
 
 MaterialList is an Android library created to help all Android developers get the beautiful CardViews that Google shows at its [official design specifications](http://www.google.com/design/spec/components/cards.html#cards-usage).
 

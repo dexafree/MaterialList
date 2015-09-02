@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.dexafree.materialList.R;
@@ -65,6 +66,6 @@ public abstract class CardProvider<T extends CardProvider> extends CardConfig im
      */
 
     public void render(@NonNull final View view, @NonNull final Card card) {
-        view.findViewById(R.id.cardView).setBackgroundColor(getBackgroundColor());
+        ((CardView)view.findViewById(R.id.cardView)).setCardBackgroundColor(getBackgroundColor());
     }
 }

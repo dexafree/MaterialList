@@ -1,5 +1,16 @@
 # MaterialListView Changelog
 
+# MaterialList v3
+
+## 3.0.0
+* **Builder Pattern**: to easily create new Cards
+* **Observer Pattern**: to replace the Eventbus Otto with native Java Observers
+* **Library shrinking**: by replacing Libraries with an easy java implementation
+* **Java Doc**: added to understand the code much easier and faster
+* Thanks to [Fabio Hellmann](https://github.com/FHellmann)
+
+# MaterialList v2
+
 ## 2.5.0
 * Now Cards that have an Image (Such as BigImageCard or BigImageButtonsCard) provide methods to choose the ScaleType (CENTER_CROP, FIT_XY...). By default is set to `CENTER_CROP`
 

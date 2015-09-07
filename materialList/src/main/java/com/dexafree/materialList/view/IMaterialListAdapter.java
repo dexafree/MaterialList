@@ -61,9 +61,14 @@ public interface IMaterialListAdapter {
     boolean isEmpty();
 
     /**
-     * Clears the list from all Cards.
+     * Clears the list from all Cards (only if dismissable).
      */
     void clear();
+
+    /**
+     * Clears the list from all Cards (even if they are not dismissable).
+     */
+    void clearAll();
 
     /**
      * Get a Card at the specified position.

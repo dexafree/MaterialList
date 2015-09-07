@@ -2,6 +2,11 @@
 
 # MaterialList v3
 
+## 3.0.1
+* Clear method now divided:
+    * `clear` removes the dismissible Cards.
+    * `clearAll` dismisses all the Cards.
+
 ## 3.0.0
 * **Builder Pattern**: to easily create new Cards
 * **Observer Pattern**: to replace the Eventbus Otto with native Java Observers

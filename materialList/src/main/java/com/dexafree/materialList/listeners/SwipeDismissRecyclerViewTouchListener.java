@@ -72,10 +72,8 @@ import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
  * <p/>
  * <p>This class Requires API level 12 or later due to use of {@link ViewPropertyAnimator}.</p>
  * <p/>
- * <p>For a generalized {@link View.OnTouchListener} that makes any view dismissable, see {@link
- * SwipeDismissTouchListener}.</p>
+ * <p>For a generalized {@link View.OnTouchListener} that makes any view dismissable.</p>
  *
- * @see SwipeDismissTouchListener
  */
 public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListener {
 	// Cached ViewConfiguration and system-wide constant values
@@ -390,7 +388,7 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
 					mCallbacks.onDismiss(mRecyclerView, dismissPositions);
 
 					// Reset mDownPosition to avoid MotionEvent.ACTION_UP trying to start a dismiss
-					// animation with a stale position
+					// animation withProvider a stale position
 					mDownPosition = ListView.INVALID_POSITION;
 
 					ViewGroup.LayoutParams lp;

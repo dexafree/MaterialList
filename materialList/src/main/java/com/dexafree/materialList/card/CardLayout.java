@@ -16,7 +16,6 @@ import java.util.Observer;
 public class CardLayout extends LinearLayout implements Observer {
     private Card mCard;
     private boolean mObserves;
-    private boolean mSwitch;
 
     /**
      * Creates a new CardLayout.
@@ -65,11 +64,11 @@ public class CardLayout extends LinearLayout implements Observer {
         mCard = card;
 
         if (!mObserves) {
-            mCard.getConfig().addObserver(this);
+            mCard.getProvider().addObserver(this);
             mObserves = true;
         }
 
-        mCard.getRenderer().render(this, card);
+        mCard.getProvider().render(this, card);
     }
 
     /**
@@ -83,12 +82,9 @@ public class CardLayout extends LinearLayout implements Observer {
 
     @Override
     public void update(final Observable observable, final Object data) {
-        // Switch the state... Only react on every second request...
-        mSwitch = !mSwitch;
-        if(mSwitch) {
+        if(data == null) {
             build(mCard);
-            // ... otherwise here comes the endless loop!
-            ((CardConfig) observable).notifyDataSetChanged();
+            ((CardProvider) observable).notifyDataSetChanged(getCard());
         }
     }
 }

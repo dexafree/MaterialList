@@ -3,12 +3,14 @@ package com.dexafree.materialList.view;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.card.Card;
@@ -16,23 +18,21 @@ import com.dexafree.materialList.listeners.OnDismissCallback;
 import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.listeners.SwipeDismissRecyclerViewTouchListener;
 
-import java.util.Collection;
 
-
-public class MaterialListView extends RecyclerView {
+public class MaterialListView extends FrameLayout {
 
     private static final int DEFAULT_COLUMNS_PORTRAIT = 1;
     private static final int DEFAULT_COLUMNS_LANDSCAPE = 2;
 
     private OnDismissCallback mDismissCallback;
     private SwipeDismissRecyclerViewTouchListener mDismissListener;
-    private View emptyView;
-
+    private RecyclerView mRecyclerView;
+    private View mEmptyView;
     private int mColumnCount;
     private int mColumnCountLandscape = DEFAULT_COLUMNS_LANDSCAPE;
     private int mColumnCountPortrait = DEFAULT_COLUMNS_PORTRAIT;
 
-    final AdapterDataObserver observer = new AdapterDataObserver() {
+    final RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
         @Override
         public void onChanged() {
             super.onChanged();
@@ -51,49 +51,62 @@ public class MaterialListView extends RecyclerView {
     public MaterialListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mDismissListener = new SwipeDismissRecyclerViewTouchListener(this, new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
-            @Override
-            public boolean canDismiss(final int position) {
-                final Card card = ((IMaterialListAdapter) getAdapter()).getCard(position);
-                return card != null && card.isDismissible();
-            }
+        mRecyclerView = new RecyclerView(context, attrs, defStyle);
+        addView(mRecyclerView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
 
-            @Override
-            public void onDismiss(final RecyclerView recyclerView, final int[] reverseSortedPositions) {
-                for (int reverseSortedPosition : reverseSortedPositions) {
-                    final Card card = ((IMaterialListAdapter) getAdapter()).getCard(reverseSortedPosition);
-                    if(card != null) {
-                        ((IMaterialListAdapter) getAdapter()).remove(card, false);
-                        if (mDismissCallback != null) {
-                            mDismissCallback.onDismiss(card, reverseSortedPosition);
-                        }
-                        Log.d("DissmissListener", "delete: " + card.getClass());
+        mDismissListener = new SwipeDismissRecyclerViewTouchListener(mRecyclerView,
+                new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
+                    @Override
+                    public boolean canDismiss(final int position) {
+                        final Card card = getAdapter().getCard(position);
+                        return card != null && card.isDismissible();
                     }
-                }
-            }
-        });
-        setOnTouchListener(mDismissListener);
-        setOnScrollListener(mDismissListener.makeScrollListener());
+
+                    @Override
+                    public void onDismiss(final RecyclerView recyclerView,
+                                          final int[] reverseSortedPositions) {
+                        for (int reverseSortedPosition : reverseSortedPositions) {
+                            final Card card = getAdapter().getCard(reverseSortedPosition);
+                            if (card != null) {
+                                getAdapter().remove(card, false);
+                                if (mDismissCallback != null) {
+                                    mDismissCallback.onDismiss(card, reverseSortedPosition);
+                                }
+                            }
+                        }
+                    }
+                });
+        mRecyclerView.setOnTouchListener(mDismissListener);
+        mRecyclerView.setOnScrollListener(mDismissListener.makeScrollListener());
 
         setAdapter(new MaterialListAdapter(new OnSwipeAnimation() {
             @Override
             public void animate(final int position) {
-                ViewHolder holder = findViewHolderForPosition(position);
-                mDismissListener.dismissCard(holder.itemView, position);
+                RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForPosition(position);
+                if(holder != null) {
+                    mDismissListener.dismissCard(holder.itemView, position);
+                }
+            }
+        }, new OnAdapterItemsChanged() {
+            @Override
+            public void onAddItem(int position, boolean scroll) {
+                if (scroll) {
+                    mRecyclerView.scrollToPosition(position);
+                }
+                checkIfEmpty();
+            }
+
+            @Override
+            public void onRemoveItem() {
+                checkIfEmpty();
             }
         }));
 
-        Log.d(getClass().getSimpleName(), "Setup...");
-
         if (attrs != null) {
             // get the number of columns
-            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialListView, defStyle, 0);
-
-            if (typedArray.hasValue(R.styleable.MaterialListView_column_count_landscape) ||
-                    typedArray.hasValue(R.styleable.MaterialListView_column_count_portrait) ||
-                    typedArray.hasValue(R.styleable.MaterialListView_column_count)) {
-                Log.d(getClass().getSimpleName(), "Has ColumnCount set");
-            }
+            TypedArray typedArray = context.obtainStyledAttributes(attrs,
+                    R.styleable.MaterialListView, defStyle, 0);
 
             mColumnCount = typedArray.getInteger(R.styleable.MaterialListView_column_count, 0);
             if (mColumnCount > 0) {
@@ -116,54 +129,73 @@ public class MaterialListView extends RecyclerView {
         }
     }
 
-    public void remove(Card card) {
-        if (card.isDismissible()) {
-            ((IMaterialListAdapter) getAdapter()).remove(card, true);
-        }
-    }
-
-    public void add(Card card) {
-        ((IMaterialListAdapter) getAdapter()).add(card);
-    }
-
-    public void addAtStart(Card card) {
-        ((IMaterialListAdapter) getAdapter()).addAtStart(card);
-    }
-
-    public void addAll(Card... cards) {
-        ((IMaterialListAdapter) getAdapter()).addAll(cards);
-    }
-
-    public void addAll(Collection<Card> cards) {
-        ((IMaterialListAdapter) getAdapter()).addAll(cards);
-    }
-
-    public void clear() {
-        ((MaterialListAdapter) getAdapter()).clear();
-    }
-
-    public void clearAll() {
-        ((MaterialListAdapter) getAdapter()).clearAll();
-    }
-
-    @Override
-    public void setAdapter(final Adapter adapter) {
-        final Adapter oldAdapter = getAdapter();
+    private <T extends MaterialListAdapter> void setAdapter(@NonNull final T adapter) {
+        final RecyclerView.Adapter oldAdapter = mRecyclerView.getAdapter();
         if (oldAdapter != null) {
             oldAdapter.unregisterAdapterDataObserver(observer);
         }
-        if (adapter != null) {
-            if (adapter instanceof IMaterialListAdapter) {
-                super.setAdapter(adapter);
-                adapter.registerAdapterDataObserver(observer);
-            } else {
-                throw new IllegalArgumentException("The Adapter must implement IMaterialListAdapter");
-            }
-        }
+        mRecyclerView.setAdapter(adapter);
+        adapter.registerAdapterDataObserver(observer);
+    }
+
+    public MaterialListAdapter getAdapter() {
+        return (MaterialListAdapter) mRecyclerView.getAdapter();
+    }
+
+    public void setItemAnimator(@NonNull final RecyclerView.ItemAnimator animator) {
+        mRecyclerView.setItemAnimator(animator);
+    }
+
+    @NonNull
+    public RecyclerView.ItemAnimator getItemAnimator() {
+        return mRecyclerView.getItemAnimator();
+    }
+
+    @NonNull
+    public RecyclerView getRecyclerView() {
+        return mRecyclerView;
+    }
+
+    public int getColumnCount() {
+        return mColumnCount;
+    }
+
+    public void setColumnCount(int columnCount) {
+        mColumnCount = columnCount;
+    }
+
+    public int getColumnCountLandscape() {
+        return mColumnCountLandscape;
+    }
+
+    public void setColumnCountLandscape(int columnCountLandscape) {
+        mColumnCountLandscape = columnCountLandscape;
+    }
+
+    public int getColumnCountPortrait() {
+        return mColumnCountPortrait;
+    }
+
+    public void setColumnCountPortrait(int columnCountPortrait) {
+        mColumnCountPortrait = columnCountPortrait;
     }
 
     public void setOnDismissCallback(OnDismissCallback callback) {
         mDismissCallback = callback;
+    }
+
+    public void setEmptyView(View emptyView) {
+        mEmptyView = emptyView;
+        addView(mEmptyView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        checkIfEmpty();
+    }
+
+    public void addOnItemTouchListener(RecyclerItemClickListener.OnItemClickListener listener) {
+        RecyclerItemClickListener itemClickListener =
+                new RecyclerItemClickListener(getContext(), listener);
+        itemClickListener.setRecyclerView(mRecyclerView);
+        mRecyclerView.addOnItemTouchListener(itemClickListener);
     }
 
     @Override
@@ -180,12 +212,12 @@ public class MaterialListView extends RecyclerView {
 
     private void setColumnLayout(int columnCount) {
         if (columnCount > 1) {
-            setLayoutManager(new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL));
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(columnCount,
+                    StaggeredGridLayoutManager.VERTICAL));
         } else {
-            setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.VERTICAL, false));
         }
-
-        Log.d(getClass().getSimpleName(), "ColumnCount=" + columnCount);
     }
 
     private boolean isLandscape() {
@@ -193,29 +225,37 @@ public class MaterialListView extends RecyclerView {
     }
 
     private void checkIfEmpty() {
-        if (emptyView != null) {
-            emptyView.setVisibility(getAdapter().getItemCount() > 0 ? GONE : VISIBLE);
+        if (mEmptyView != null) {
+            mEmptyView.setVisibility(getAdapter().isEmpty() ? VISIBLE : GONE);
+            mRecyclerView.setVisibility(getAdapter().isEmpty() ? GONE : VISIBLE);
         }
     }
 
-    public void setEmptyView(View emptyView) {
-        this.emptyView = emptyView;
-        checkIfEmpty();
-    }
-
-    public void addOnItemTouchListener(RecyclerItemClickListener.OnItemClickListener listener) {
-
-        RecyclerItemClickListener itemClickListener = new RecyclerItemClickListener(getContext(), listener);
-
-        itemClickListener.setRecyclerView(this);
-        super.addOnItemTouchListener(itemClickListener);
-    }
-
-    public interface OnSwipeAnimation {
+    /**
+     *
+     */
+    interface OnSwipeAnimation {
         /**
          *
          * @param position
          */
-        void animate(int position);
+        void animate(final int position);
+    }
+
+    /**
+     *
+     */
+    interface OnAdapterItemsChanged {
+        /**
+         *
+         * @param position
+         * @param scroll
+         */
+        void onAddItem(final int position, boolean scroll);
+
+        /**
+         *
+         */
+        void onRemoveItem();
     }
 }

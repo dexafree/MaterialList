@@ -1,9 +1,10 @@
 package com.dexafree.materialList.card.provider;
 
 import android.database.DataSetObserver;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,11 +13,17 @@ import android.widget.ListView;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.card.Card;
+import com.dexafree.materialList.card.CardProvider;
 
-public class BasicListCardProvider extends TextCardProvider<BasicListCardProvider> {
+public class ListCardProvider extends CardProvider<ListCardProvider> {
     private AdapterView.OnItemClickListener mOnItemSelectedListener;
     private ListAdapter mAdapter;
-    private boolean dividerVisible;
+
+    @Override
+    protected void onCreated() {
+        super.onCreated();
+        setLayout(R.layout.material_list_card_layout);
+    }
 
     /**
      * Set the adapter of the list.
@@ -25,7 +32,7 @@ public class BasicListCardProvider extends TextCardProvider<BasicListCardProvide
      *         of the list.
      * @return the renderer.
      */
-    public BasicListCardProvider setAdapter(ListAdapter adapter) {
+    public ListCardProvider setAdapter(ListAdapter adapter) {
         mAdapter = adapter;
         notifyDataSetChanged();
         return this;
@@ -38,28 +45,6 @@ public class BasicListCardProvider extends TextCardProvider<BasicListCardProvide
      */
     public ListAdapter getAdapter() {
         return mAdapter;
-    }
-
-    /**
-     * Get the visibility state of the list divider.
-     *
-     * @return the visibility state.
-     */
-    public boolean isDividerVisible() {
-        return dividerVisible;
-    }
-
-    /**
-     * Set the visibility state of the list divider.
-     *
-     * @param dividerVisible
-     *         to set.
-     * @return the renderer.
-     */
-    public BasicListCardProvider setDividerVisible(final boolean dividerVisible) {
-        this.dividerVisible = dividerVisible;
-        notifyDataSetChanged();
-        return this;
     }
 
     /**
@@ -78,14 +63,9 @@ public class BasicListCardProvider extends TextCardProvider<BasicListCardProvide
      *         to set.
      * @return the renderer.
      */
-    public BasicListCardProvider setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+    public ListCardProvider setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         this.mOnItemSelectedListener = listener;
         return this;
-    }
-
-    @Override
-    public int getLayout() {
-        return R.layout.material_basic_list_card_layout;
     }
 
     @Override
@@ -93,9 +73,13 @@ public class BasicListCardProvider extends TextCardProvider<BasicListCardProvide
         super.render(view, card);
         if (getAdapter() != null) {
             final ListView listView = (ListView) view.findViewById(R.id.listView);
-            if (!isDividerVisible()) {
-                listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
-            }
+            listView.setScrollbarFadingEnabled(true);
+            listView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return false; // That the gesture detection is correct
+                }
+            });
             listView.setAdapter(getAdapter());
             listView.getAdapter().registerDataSetObserver(new DataSetObserver() {
                 @Override
@@ -124,7 +108,7 @@ public class BasicListCardProvider extends TextCardProvider<BasicListCardProvide
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + listView.getDividerHeight() * (adapter.getCount() - 1);
+        params.height = totalHeight;
 
         listView.setLayoutParams(params);
         listView.requestLayout();

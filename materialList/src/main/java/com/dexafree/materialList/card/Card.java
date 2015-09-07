@@ -4,14 +4,14 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.dexafree.materialList.card.provider.CardProvider;
+import com.dexafree.materialList.card.event.DismissEvent;
 
 /**
  * A basic Card.
  */
 public class Card {
     @NonNull
-    private CardProvider mProvider;
+    private final CardProvider mProvider;
     @Nullable
     private Object mTag;
     private boolean mDismissible;
@@ -19,8 +19,7 @@ public class Card {
     /**
      * Creates a new Card.
      *
-     * @param builder
-     *         to get the Card data from.
+     * @param builder to get the Card data from.
      */
     private Card(@NonNull final Builder builder) {
         mProvider = builder.mProvider;
@@ -29,30 +28,19 @@ public class Card {
     }
 
     /**
-     * Get the card renderer.
-     *
-     * @return the card renderer.
-     */
-    @NonNull
-    public CardRenderer getRenderer() {
-        return mProvider;
-    }
-
-    /**
      * Get the card content.
      *
      * @return the card content.
      */
     @NonNull
-    public CardConfig getConfig() {
+    public CardProvider getProvider() {
         return mProvider;
     }
 
     /**
      * Set the tag.
      *
-     * @param object
-     *         as tag.
+     * @param object as tag.
      */
     public void setTag(@Nullable final Object object) {
         mTag = object;
@@ -71,8 +59,7 @@ public class Card {
     /**
      * Set the card dismissible.
      *
-     * @param dismissible
-     *         {@code true} to be able to remove the card or {@code false} otherwise.
+     * @param dismissible {@code true} to be able to remove the card or {@code false} otherwise.
      */
     public void setDismissible(final boolean dismissible) {
         mDismissible = dismissible;
@@ -85,6 +72,13 @@ public class Card {
      */
     public boolean isDismissible() {
         return mDismissible;
+    }
+
+    /**
+     * Removes the card.
+     */
+    public void dismiss() {
+        getProvider().notifyDataSetChanged(new DismissEvent(this));
     }
 
     /**
@@ -101,8 +95,7 @@ public class Card {
         /**
          * Creates a new Builder.
          *
-         * @param context
-         *         to access resources.
+         * @param context to access resources.
          */
         public Builder(@NonNull final Context context) {
             mContext = context;
@@ -111,8 +104,7 @@ public class Card {
         /**
          * Set a tag.
          *
-         * @param object
-         *         as tag.
+         * @param object as tag.
          */
         @NonNull
         public Builder setTag(@Nullable final Object object) {
@@ -132,23 +124,16 @@ public class Card {
         /**
          * Set the provider.
          *
-         * @param content
-         *         provider which handel all the content and style.
-         * @param <T>
-         *         as type of {@code CardProvider}
+         * @param content provider which handel all the content and style.
+         * @param <T>     as type of {@code CardProvider}
          * @return the content provider to config.
          */
-        @SuppressWarnings("unchecked")
-        public <T extends CardProvider> T withProvider(Class<T> content) {
-            try {
-                mProvider = content.newInstance();
-                ((CardConfig) mProvider).setContext(mContext);
-                ((CardConfig) mProvider).setBuilder(this);
-                return (T) mProvider;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
+        @NonNull
+        public <T extends CardProvider> T withProvider(T content) {
+            mProvider = content;
+            content.setContext(mContext);
+            content.setBuilder(this);
+            return content;
         }
 
         /**

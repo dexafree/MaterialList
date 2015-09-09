@@ -594,7 +594,7 @@ public class CardProvider<T extends CardProvider> extends Observable {
         // The card background
         final CardView cardView = findViewById(view, R.id.cardView, CardView.class);
         if (cardView != null) {
-            cardView.setBackgroundColor(getBackgroundColor());
+            cardView.setCardBackgroundColor(getBackgroundColor());
         }
 
         // Title

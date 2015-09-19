@@ -140,16 +140,13 @@
         <item name="android:paddingRight">16dp</item>
     </style>
 
-    <style name="Material_Action">
+    <style name="Material_Action" parent="@style/Base.TextAppearance.AppCompat.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">36dp</item>
         <item name="android:minWidth">88dp</item>
         <item name="android:padding">8dp</item>
-        <item name="android:textColor">@color/black_button</item>
-        <item name="android:textStyle">bold</item>
-        <!--<item name="android:textAllCaps">true</item>-->
-        <item name="android:textSize">@dimen/button_size</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:buttonStyle">@style/Base.Widget.AppCompat.Button</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
     <style name="PrimaryButtonBaseStyle" parent="@style/Material_Action">

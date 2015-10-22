@@ -2,6 +2,10 @@
 
 # MaterialList v3
 
+## 3.1.0
+* [Styles, Templates, Empty View, Simplifications, Code Refactoring, Animations, Actions](https://github.com/dexafree/MaterialList/pull/98)
+* Thanks to [Fabio Hellmann](https://github.com/FHellmann)
+
 ## 3.0.1
 * Clear method now divided:
     * `clear` removes the dismissible Cards.

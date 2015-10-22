@@ -9,22 +9,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dexafree.materialList.card.Card;
-import com.dexafree.materialList.card.OnButtonClickListener;
-import com.dexafree.materialList.card.provider.BasicButtonsCardProvider;
-import com.dexafree.materialList.card.provider.BasicImageButtonsCardProvider;
-import com.dexafree.materialList.card.provider.BasicListCardProvider;
-import com.dexafree.materialList.card.provider.BigImageButtonsCardProvider;
-import com.dexafree.materialList.card.provider.BigImageCardProvider;
-import com.dexafree.materialList.card.provider.SmallImageCardProvider;
-import com.dexafree.materialList.card.provider.TextCardProvider;
-import com.dexafree.materialList.card.provider.WelcomeCardProvider;
+import com.dexafree.materialList.card.CardProvider;
+import com.dexafree.materialList.card.OnActionClickListener;
+import com.dexafree.materialList.card.action.TextViewAction;
+import com.dexafree.materialList.card.action.WelcomeButtonAction;
+import com.dexafree.materialList.card.provider.ListCardProvider;
 import com.dexafree.materialList.listeners.OnDismissCallback;
 import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.view.MaterialListView;
+import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
+
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,8 +45,20 @@ public class MainActivity extends AppCompatActivity {
 
         // Bind the MaterialListView to a variable
         mListView = (MaterialListView) findViewById(R.id.material_listview);
+        mListView.setItemAnimator(new SlideInLeftAnimator());
+        mListView.getItemAnimator().setAddDuration(300);
+        mListView.getItemAnimator().setRemoveDuration(300);
 
-        // Fill the array with mock content
+        final ImageView emptyView = new ImageView(this);
+        emptyView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        mListView.setEmptyView(emptyView);
+        Picasso.with(this)
+                .load("https://www.skyverge.com/wp-content/uploads/2012/05/github-logo.png")
+                .resize(100, 100)
+                .centerInside()
+                .into(emptyView);
+
+        // Fill the array withProvider mock content
         fillArray();
 
         // Set the dismiss listener
@@ -70,37 +86,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillArray() {
+        List<Card> cards = new ArrayList<>();
         for (int i = 0; i < 35; i++) {
-            mListView.add(getRandomCard(i));
+            cards.add(getRandomCard(i));
         }
+        mListView.getAdapter().addAll(cards);
     }
 
     private Card getRandomCard(final int position) {
         String title = "Card number " + (position + 1);
         String description = "Lorem ipsum dolor sit amet";
 
-        switch (position % 6) {
+        switch (position % 7) {
             case 0: {
                 return new Card.Builder(this)
                         .setTag("SMALL_IMAGE_CARD")
                         .setDismissible()
-                        .withProvider(SmallImageCardProvider.class)
+                        .withProvider(new CardProvider())
+                        .setLayout(R.layout.material_small_image_card)
                         .setTitle(title)
                         .setDescription(description)
                         .setDrawable(R.drawable.sample_android)
+                        .setDrawableConfiguration(new CardProvider.OnImageConfigListener() {
+                            @Override
+                            public void onImageConfigure(@NonNull final RequestCreator requestCreator) {
+                                requestCreator.rotate(position * 90.0f)
+                                        .resize(150, 150)
+                                        .centerCrop();
+                            }
+                        })
                         .endConfig()
                         .build();
             }
             case 1: {
                 return new Card.Builder(this)
                         .setTag("BIG_IMAGE_CARD")
-                        .withProvider(BigImageCardProvider.class)
+                        .withProvider(new CardProvider())
+                        .setLayout(R.layout.material_big_image_card_layout)
                         .setTitle(title)
-                        .setDescription(description)
+                        .setSubtitle(description)
                         .setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
-                        .setOnPicassoImageLoadingListener(new TextCardProvider.OnPicassoImageLoadingListener() {
+                        .setDrawableConfiguration(new CardProvider.OnImageConfigListener() {
                             @Override
-                            public void onImageLoading(@NonNull final RequestCreator requestCreator) {
+                            public void onImageConfigure(@NonNull final RequestCreator requestCreator) {
                                 requestCreator.rotate(position * 45.0f)
                                         .resize(200, 200)
                                         .centerCrop();
@@ -110,30 +138,40 @@ public class MainActivity extends AppCompatActivity {
                         .build();
             }
             case 2: {
-                final BasicImageButtonsCardProvider provider = new Card.Builder(this)
+                final CardProvider provider = new Card.Builder(this)
                         .setTag("BASIC_IMAGE_BUTTON_CARD")
                         .setDismissible()
-                        .withProvider(BasicImageButtonsCardProvider.class)
+                        .withProvider(new CardProvider<>())
+                        .setLayout(R.layout.material_basic_image_buttons_card_layout)
                         .setTitle(title)
                         .setDescription(description)
                         .setDrawable(R.drawable.dog)
-                        .setLeftButtonText("left")
-                        .setRightButtonText("right");
-
-                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
-                    @Override
-                    public void onButtonClicked(final View view, final Card card) {
-                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-                        provider.setTitle("CHANGED ON RUNTIME");
-                    }
-                });
-                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
-                    @Override
-                    public void onButtonClicked(final View view, final Card card) {
-                        Toast.makeText(mContext, "You have pressed the right button on card " + provider.getTitle(), Toast.LENGTH_SHORT).show();
-                        mListView.remove(card);
-                    }
-                });
+                        .setDrawableConfiguration(new CardProvider.OnImageConfigListener() {
+                            @Override
+                            public void onImageConfigure(@NonNull RequestCreator requestCreator) {
+                                requestCreator.fit();
+                            }
+                        })
+                        .addAction(R.id.left_text_button, new TextViewAction(this)
+                                .setText("left")
+                                .setTextResourceColor(R.color.black_button)
+                                .setListener(new OnActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(View view, Card card) {
+                                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
+                                        card.getProvider().setTitle("CHANGED ON RUNTIME");
+                                    }
+                                }))
+                        .addAction(R.id.right_text_button, new TextViewAction(this)
+                                .setText("right")
+                                .setTextResourceColor(R.color.orange_button)
+                                .setListener(new OnActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(View view, Card card) {
+                                        Toast.makeText(mContext, "You have pressed the right button on card " + card.getProvider().getTitle(), Toast.LENGTH_SHORT).show();
+                                        card.dismiss();
+                                    }
+                                }));
 
                 if (position % 2 == 0) {
                     provider.setDividerVisible(true);
@@ -142,28 +180,31 @@ public class MainActivity extends AppCompatActivity {
                 return provider.endConfig().build();
             }
             case 3: {
-                final BasicButtonsCardProvider provider = new Card.Builder(this)
+                final CardProvider provider = new Card.Builder(this)
                         .setTag("BASIC_BUTTONS_CARD")
                         .setDismissible()
-                        .withProvider(BasicButtonsCardProvider.class)
+                        .withProvider(new CardProvider())
+                        .setLayout(R.layout.material_basic_buttons_card)
                         .setTitle(title)
                         .setDescription(description)
-                        .setLeftButtonText("left")
-                        .setRightButtonText("right")
-                        .setRightButtonTextResourceColor(R.color.accent_material_dark);
-
-                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
-                    @Override
-                    public void onButtonClicked(final View view, final Card card) {
-                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
-                    @Override
-                    public void onButtonClicked(final View view, final Card card) {
-                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        .addAction(R.id.left_text_button, new TextViewAction(this)
+                                .setText("left")
+                                .setTextResourceColor(R.color.black_button)
+                                .setListener(new OnActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(View view, Card card) {
+                                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
+                                    }
+                                }))
+                        .addAction(R.id.right_text_button, new TextViewAction(this)
+                                .setText("right")
+                                .setTextResourceColor(R.color.accent_material_dark)
+                                .setListener(new OnActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(View view, Card card) {
+                                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                                    }
+                                }));
 
                 if (position % 2 == 0) {
                     provider.setDividerVisible(true);
@@ -172,10 +213,11 @@ public class MainActivity extends AppCompatActivity {
                 return provider.endConfig().build();
             }
             case 4: {
-                final WelcomeCardProvider provider = new Card.Builder(this)
+                final CardProvider provider = new Card.Builder(this)
                         .setTag("WELCOME_CARD")
                         .setDismissible()
-                        .withProvider(WelcomeCardProvider.class)
+                        .withProvider(new CardProvider())
+                        .setLayout(R.layout.material_welcome_card_layout)
                         .setTitle("Welcome Card")
                         .setTitleColor(Color.WHITE)
                         .setDescription("I am the description")
@@ -183,13 +225,15 @@ public class MainActivity extends AppCompatActivity {
                         .setSubtitle("My subtitle!")
                         .setSubtitleColor(Color.WHITE)
                         .setBackgroundColor(Color.BLUE)
-                        .setButtonText("Okay!")
-                        .setOnButtonPressedListener(new OnButtonClickListener() {
-                            @Override
-                            public void onButtonClicked(final View view, final Card card) {
-                                Toast.makeText(mContext, "Welcome!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        .addAction(R.id.ok_button, new WelcomeButtonAction(this)
+                                .setText("Okay!")
+                                .setTextColor(Color.WHITE)
+                                .setListener(new OnActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(View view, Card card) {
+                                        Toast.makeText(mContext, "Welcome!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }));
 
                 if (position % 2 == 0) {
                     provider.setBackgroundResourceColor(android.R.color.background_dark);
@@ -198,15 +242,16 @@ public class MainActivity extends AppCompatActivity {
                 return provider.endConfig().build();
             }
             case 5: {
-                BasicListAdapter adapter = new BasicListAdapter(this);
-                adapter.add("Text1");
-                adapter.add("Text2");
-                adapter.add("Text3");
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+                adapter.add("Hello");
+                adapter.add("World");
+                adapter.add("!");
 
                 return new Card.Builder(this)
                         .setTag("LIST_CARD")
                         .setDismissible()
-                        .withProvider(BasicListCardProvider.class)
+                        .withProvider(new ListCardProvider())
+                        .setLayout(R.layout.material_list_card_layout)
                         .setTitle("List Card")
                         .setDescription("Take a list")
                         .setAdapter(adapter)
@@ -214,31 +259,35 @@ public class MainActivity extends AppCompatActivity {
                         .build();
             }
             default: {
-                final BigImageButtonsCardProvider provider = new Card.Builder(this)
+                final CardProvider provider = new Card.Builder(this)
                         .setTag("BIG_IMAGE_BUTTONS_CARD")
                         .setDismissible()
-                        .withProvider(BigImageButtonsCardProvider.class)
+                        .withProvider(new CardProvider())
+                        .setLayout(R.layout.material_image_with_buttons_card)
                         .setTitle(title)
                         .setDescription(description)
                         .setDrawable(R.drawable.photo)
-                        .setLeftButtonText("add card")
-                        .setRightButtonText("right button");
+                        .addAction(R.id.left_text_button, new TextViewAction(this)
+                                .setText("add card")
+                                .setTextResourceColor(R.color.black_button)
+                                .setListener(new OnActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(View view, Card card) {
+                                        Log.d("ADDING", "CARD");
 
-                provider.setOnLeftButtonClickListener(new OnButtonClickListener() {
-                    @Override
-                    public void onButtonClicked(final View view, final Card card) {
-                        Log.d("ADDING", "CARD");
-
-                        mListView.add(generateNewCard());
-                        Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                provider.setOnRightButtonClickListener(new OnButtonClickListener() {
-                    @Override
-                    public void onButtonClicked(final View view, final Card card) {
-                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                        mListView.getAdapter().add(generateNewCard());
+                                        Toast.makeText(mContext, "Added new card", Toast.LENGTH_SHORT).show();
+                                    }
+                                }))
+                        .addAction(R.id.right_text_button, new TextViewAction(this)
+                                .setText("right button")
+                                .setTextResourceColor(R.color.accent_material_dark)
+                                .setListener(new OnActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(View view, Card card) {
+                                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                                    }
+                                }));
 
                 if (position % 2 == 0) {
                     provider.setDividerVisible(true);
@@ -252,7 +301,8 @@ public class MainActivity extends AppCompatActivity {
     private Card generateNewCard() {
         return new Card.Builder(this)
                 .setTag("BASIC_IMAGE_BUTTONS_CARD")
-                .withProvider(BasicImageButtonsCardProvider.class)
+                .withProvider(new CardProvider())
+                .setLayout(R.layout.material_basic_image_buttons_card_layout)
                 .setTitle("I'm new")
                 .setDescription("I've been generated on runtime!")
                 .setDrawable(R.drawable.dog)
@@ -261,14 +311,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addMockCardAtStart() {
-        mListView.addAtStart(new Card.Builder(this)
+        mListView.getAdapter().addAtStart(new Card.Builder(this)
                 .setTag("BASIC_IMAGE_BUTTONS_CARD")
                 .setDismissible()
-                .withProvider(BasicImageButtonsCardProvider.class)
+                .withProvider(new CardProvider())
+                .setLayout(R.layout.material_basic_image_buttons_card_layout)
                 .setTitle("Hi there")
                 .setDescription("I've been added on top!")
-                .setLeftButtonText("left")
-                .setRightButtonText("right")
+                .addAction(R.id.left_text_button, new TextViewAction(this)
+                        .setText("left")
+                        .setTextResourceColor(R.color.black_button))
+                .addAction(R.id.right_text_button, new TextViewAction(this)
+                        .setText("right")
+                        .setTextResourceColor(R.color.orange_button))
                 .setDrawable(R.drawable.dog)
                 .endConfig()
                 .build());
@@ -284,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_clear:
-                mListView.clearAll();
+                mListView.getAdapter().clearAll();
                 break;
             case R.id.action_add_at_start:
                 addMockCardAtStart();

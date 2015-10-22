@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 21
-        versionCode 301
-        versionName "3.0.1"
+        targetSdkVersion 23
+        versionCode 310
+        versionName "3.1.0"
     }
     buildTypes {
         release {
@@ -20,11 +20,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:cardview-v7:22.2.0'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:cardview-v7:23.1.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.nineoldandroids:library:2.4.0'
-	compile 'com.squareup.picasso:picasso:2.4.0'
+	compile 'com.squareup.picasso:picasso:2.5.2'
 }
 
 // Script to upload plugin to Maven

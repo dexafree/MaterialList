@@ -22,6 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':materialList')
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'jp.wasabeef:recyclerview-animators:1.2.2'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'jp.wasabeef:recyclerview-animators:2.0.0'
 }

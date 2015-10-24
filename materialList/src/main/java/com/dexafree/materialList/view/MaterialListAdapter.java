@@ -65,7 +65,17 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
         return mCardList.get(position).getProvider().getLayout();
     }
 
-    private void add(final int position, @NonNull final Card card, final boolean scroll) {
+    /**
+     * Add a Card at a specific position with or without a scroll animation.
+     *
+     * @param position
+     *         of the card to insert.
+     * @param card
+     *         to insert.
+     * @param scroll
+     *         will trigger an animation if it is set to <code>true</code> otherwise not.
+     */
+    public void add(final int position, @NonNull final Card card, final boolean scroll) {
         mCardList.add(position, card);
         card.getProvider().addObserver(this);
         mItemAnimation.onAddItem(position, scroll);
@@ -75,8 +85,10 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
     /**
      * Add a Card at a specific position.
      *
-     * @param position of the card to insert.
-     * @param card to insert.
+     * @param position
+     *         of the card to insert.
+     * @param card
+     *         to insert.
      */
     public void add(final int position, @NonNull final Card card) {
         add(position, card, true);
@@ -209,7 +221,7 @@ public class MaterialListAdapter extends RecyclerView.Adapter<MaterialListAdapte
 
     @Override
     public void update(final Observable observable, final Object data) {
-        if(data instanceof DismissEvent) {
+        if (data instanceof DismissEvent) {
             remove(((DismissEvent) data).getCard(), true);
         }
         if (data instanceof Card) {

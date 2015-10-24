@@ -12,4 +12,9 @@
         app:column_count_portrait="1"
         app:column_count_landscape="2"/>
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
 </RelativeLayout>

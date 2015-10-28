@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.dexafree.materialList.R;
 import com.dexafree.materialList.card.Card;
@@ -19,22 +17,19 @@ import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.listeners.SwipeDismissRecyclerViewTouchListener;
 
 
-public class MaterialListView extends FrameLayout {
+public class MaterialListView extends RecyclerView {
 
     private static final int DEFAULT_COLUMNS_PORTRAIT = 1;
     private static final int DEFAULT_COLUMNS_LANDSCAPE = 2;
 
     private OnDismissCallback mDismissCallback;
     private SwipeDismissRecyclerViewTouchListener mDismissListener;
-    private RecyclerView mRecyclerView;
     private View mEmptyView;
     private int mColumnCount;
     private int mColumnCountLandscape = DEFAULT_COLUMNS_LANDSCAPE;
     private int mColumnCountPortrait = DEFAULT_COLUMNS_PORTRAIT;
-
-    final RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
-        @Override
-        public void onChanged() {
+    private final AdapterDataObserver mEmptyViewObserver = new AdapterDataObserver() {
+        @Override public void onChanged() {
             super.onChanged();
             checkIfEmpty();
         }
@@ -51,11 +46,7 @@ public class MaterialListView extends FrameLayout {
     public MaterialListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mRecyclerView = new RecyclerView(context, attrs, defStyle);
-        addView(mRecyclerView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-
-        mDismissListener = new SwipeDismissRecyclerViewTouchListener(mRecyclerView,
+        mDismissListener = new SwipeDismissRecyclerViewTouchListener(this,
                 new SwipeDismissRecyclerViewTouchListener.DismissCallbacks() {
                     @Override
                     public boolean canDismiss(final int position) {
@@ -77,14 +68,14 @@ public class MaterialListView extends FrameLayout {
                         }
                     }
                 });
-        mRecyclerView.setOnTouchListener(mDismissListener);
-        mRecyclerView.setOnScrollListener(mDismissListener.makeScrollListener());
+        setOnTouchListener(mDismissListener);
+        setOnScrollListener(mDismissListener.makeScrollListener());
 
         setAdapter(new MaterialListAdapter(new OnSwipeAnimation() {
             @Override
             public void animate(final int position) {
-                RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForPosition(position);
-                if(holder != null) {
+                RecyclerView.ViewHolder holder = findViewHolderForPosition(position);
+                if (holder != null) {
                     mDismissListener.dismissCard(holder.itemView, position);
                 }
             }
@@ -92,7 +83,7 @@ public class MaterialListView extends FrameLayout {
             @Override
             public void onAddItem(int position, boolean scroll) {
                 if (scroll) {
-                    mRecyclerView.scrollToPosition(position);
+                    scrollToPosition(position);
                 }
                 checkIfEmpty();
             }
@@ -129,31 +120,18 @@ public class MaterialListView extends FrameLayout {
         }
     }
 
-    private <T extends MaterialListAdapter> void setAdapter(@NonNull final T adapter) {
-        final RecyclerView.Adapter oldAdapter = mRecyclerView.getAdapter();
+    public <T extends MaterialListAdapter> void setAdapter(@NonNull final T adapter) {
+        final RecyclerView.Adapter oldAdapter = getAdapter();
         if (oldAdapter != null) {
-            oldAdapter.unregisterAdapterDataObserver(observer);
+            oldAdapter.unregisterAdapterDataObserver(mEmptyViewObserver);
         }
-        mRecyclerView.setAdapter(adapter);
-        adapter.registerAdapterDataObserver(observer);
+        super.setAdapter(adapter);
+        adapter.registerAdapterDataObserver(mEmptyViewObserver);
     }
 
+    @Override
     public MaterialListAdapter getAdapter() {
-        return (MaterialListAdapter) mRecyclerView.getAdapter();
-    }
-
-    public void setItemAnimator(@NonNull final RecyclerView.ItemAnimator animator) {
-        mRecyclerView.setItemAnimator(animator);
-    }
-
-    @NonNull
-    public RecyclerView.ItemAnimator getItemAnimator() {
-        return mRecyclerView.getItemAnimator();
-    }
-
-    @NonNull
-    public RecyclerView getRecyclerView() {
-        return mRecyclerView;
+        return (MaterialListAdapter) super.getAdapter();
     }
 
     public int getColumnCount() {
@@ -186,16 +164,14 @@ public class MaterialListView extends FrameLayout {
 
     public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
-        addView(mEmptyView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
         checkIfEmpty();
     }
 
     public void addOnItemTouchListener(RecyclerItemClickListener.OnItemClickListener listener) {
         RecyclerItemClickListener itemClickListener =
                 new RecyclerItemClickListener(getContext(), listener);
-        itemClickListener.setRecyclerView(mRecyclerView);
-        mRecyclerView.addOnItemTouchListener(itemClickListener);
+        itemClickListener.setRecyclerView(this);
+        addOnItemTouchListener(itemClickListener);
     }
 
     @Override
@@ -212,10 +188,10 @@ public class MaterialListView extends FrameLayout {
 
     private void setColumnLayout(int columnCount) {
         if (columnCount > 1) {
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(columnCount,
+            setLayoutManager(new StaggeredGridLayoutManager(columnCount,
                     StaggeredGridLayoutManager.VERTICAL));
         } else {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+            setLayoutManager(new LinearLayoutManager(getContext(),
                     LinearLayoutManager.VERTICAL, false));
         }
     }
@@ -227,7 +203,7 @@ public class MaterialListView extends FrameLayout {
     private void checkIfEmpty() {
         if (mEmptyView != null) {
             mEmptyView.setVisibility(getAdapter().isEmpty() ? VISIBLE : GONE);
-            mRecyclerView.setVisibility(getAdapter().isEmpty() ? GONE : VISIBLE);
+            setVisibility(getAdapter().isEmpty() ? GONE : VISIBLE);
         }
     }
 

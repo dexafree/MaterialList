@@ -25,10 +25,10 @@ import com.dexafree.materialList.view.MaterialListView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mListView.getItemAnimator().setAddDuration(300);
         mListView.getItemAnimator().setRemoveDuration(300);
 
-        final ImageView emptyView = new ImageView(this);
+        final ImageView emptyView = (ImageView) findViewById(R.id.imageView);
         emptyView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         mListView.setEmptyView(emptyView);
         Picasso.with(this)

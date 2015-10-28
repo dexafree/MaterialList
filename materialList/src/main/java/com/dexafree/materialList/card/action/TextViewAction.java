@@ -5,6 +5,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.TextView;
 
@@ -47,6 +48,10 @@ public class TextViewAction extends Action {
         this.mActionText = text;
         notifyActionChanged();
         return this;
+    }
+
+    public TextViewAction setText(@StringRes final int textId) {
+        return setText(getContext().getString(textId));
     }
 
     @Nullable

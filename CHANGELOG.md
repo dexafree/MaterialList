@@ -2,6 +2,11 @@
 
 # MaterialList v3
 
+## 3.1.2
+* More methods: Add the string resource option to TextViewAction; Open add with scroll option in MaterialListAdapter
+* BugFix: Fixed the scroll behaivor with SwipeDismissLayout
+* Thanks to [Fabio Hellmann](https://github.com/FHellmann)
+
 ## 3.1.1
 * Updated [RecyclerViewAnimators](https://github.com/wasabeef/recyclerview-animators) for latest RecyclerView compatibility
 

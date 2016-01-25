@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,6 +42,9 @@ public class CardProvider<T extends CardProvider> extends Observable {
     private String mDescription;
     private boolean mDividerVisible;
     private boolean mFullWidthDivider;
+    private int mTitleGravity;
+    private int mSubtitleGravity;
+    private int mDescriptionGravity;
 
     @ColorInt
     private int mBackgroundColor = Color.WHITE;
@@ -218,6 +222,20 @@ public class CardProvider<T extends CardProvider> extends Observable {
     }
 
     /**
+     * Set Gravity of title.
+     *
+     * @param titleGravity
+     * @return the renderer.
+     */
+
+    @NonNull
+    @SuppressWarnings("unchecked")
+    public T setTitleGravity(final int titleGravity) {
+        mTitleGravity = titleGravity;
+        notifyDataSetChanged();
+        return (T) this;
+    }
+    /**
      * Get the subtitle.
      *
      * @return the subtitle.
@@ -252,6 +270,20 @@ public class CardProvider<T extends CardProvider> extends Observable {
     }
 
     /**
+     * Set Gravity of subtitle
+     *
+     * @param subtitleGravity
+     * @return the renderer.
+     */
+    @NonNull
+    @SuppressWarnings("unchecked")
+    public T setSubtitleGravity(final int subtitleGravity) {
+        mSubtitleGravity = subtitleGravity;
+        notifyDataSetChanged();
+        return (T) this;
+    }
+
+    /**
      * Get the description.
      *
      * @return the description.
@@ -281,6 +313,20 @@ public class CardProvider<T extends CardProvider> extends Observable {
     @SuppressWarnings("unchecked")
     public T setDescription(@NonNull final String description) {
         mDescription = description;
+        notifyDataSetChanged();
+        return (T) this;
+    }
+
+    /**
+     *Set Gravity of description
+     *
+     * @param descriptionGravity to set.
+     * @return the renderer.
+     */
+    @NonNull
+    @SuppressWarnings("unchecked")
+    public T setDescriptionGravity(final int descriptionGravity) {
+        mDescriptionGravity = descriptionGravity;
         notifyDataSetChanged();
         return (T) this;
     }
@@ -392,6 +438,16 @@ public class CardProvider<T extends CardProvider> extends Observable {
     }
 
     /**
+     * Get the title gravity as int.
+     *
+     * @return the gravity.
+     */
+
+    public int getTitleGravity(){
+        return mTitleGravity;
+    }
+
+    /**
      * Set the title color as int.
      *
      * @param color to set as int.
@@ -427,6 +483,15 @@ public class CardProvider<T extends CardProvider> extends Observable {
     }
 
     /**
+     * Get the subtitle gravity as int.
+     *
+     * @return the subtitle gravity.
+     */
+    public int getSubtitleGravity(){
+        return mSubtitleGravity;
+    }
+
+    /**
      * Set the subtitle color as resource.
      *
      * @param color to set.
@@ -459,6 +524,15 @@ public class CardProvider<T extends CardProvider> extends Observable {
     @ColorInt
     public int getDescriptionColor() {
         return mDescriptionColor;
+    }
+
+    /**
+     * Get the description gravity as int.
+     *
+     * @return the gravity.
+     */
+    public int getDescriptionGravity() {
+        return mDescriptionGravity;
     }
 
     /**
@@ -602,6 +676,7 @@ public class CardProvider<T extends CardProvider> extends Observable {
         if (title != null) {
             title.setText(getTitle());
             title.setTextColor(getTitleColor());
+            title.setGravity(getTitleGravity());
         }
 
         // Subtitle
@@ -609,6 +684,7 @@ public class CardProvider<T extends CardProvider> extends Observable {
         if (subtitle != null) {
             subtitle.setText(getSubtitle());
             subtitle.setTextColor(getSubtitleColor());
+            subtitle.setGravity(getSubtitleGravity());
             if (getSubtitle() == null || getSubtitle().isEmpty()) {
                 subtitle.setVisibility(View.GONE);
             } else {
@@ -621,6 +697,7 @@ public class CardProvider<T extends CardProvider> extends Observable {
         if (supportingText != null) {
             supportingText.setText(getDescription());
             supportingText.setTextColor(getDescriptionColor());
+            supportingText.setGravity(getDescriptionGravity());
         }
 
         // Image

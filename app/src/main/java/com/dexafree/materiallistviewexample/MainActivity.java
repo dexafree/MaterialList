@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         .setLayout(R.layout.material_big_image_card_layout)
                         .setTitle(title)
                         .setSubtitle(description)
+                        .setSubtitleGravity(Gravity.END)
                         .setDrawable("https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
                         .setDrawableConfiguration(new CardProvider.OnImageConfigListener() {
                             @Override
@@ -144,7 +146,9 @@ public class MainActivity extends AppCompatActivity {
                         .withProvider(new CardProvider<>())
                         .setLayout(R.layout.material_basic_image_buttons_card_layout)
                         .setTitle(title)
+                        .setTitleGravity(Gravity.END)
                         .setDescription(description)
+                        .setDescriptionGravity(Gravity.END)
                         .setDrawable(R.drawable.dog)
                         .setDrawableConfiguration(new CardProvider.OnImageConfigListener() {
                             @Override

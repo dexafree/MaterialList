@@ -2,6 +2,10 @@
 
 # MaterialList v3
 
+## 3.1.3
+* Merged [add setGravity function for use in RTL languages](https://github.com/dexafree/MaterialList/pull/119)
+* Thanks to [bkhezry](https://github.com/bkhezry)
+
 ## 3.1.2
 * More methods: Add the string resource option to TextViewAction; Open add with scroll option in MaterialListAdapter
 * BugFix: Fixed the scroll behaivor with SwipeDismissLayout

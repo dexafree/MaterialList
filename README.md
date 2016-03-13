@@ -85,7 +85,7 @@ Card card = new Card.Builder(this)
                             .endConfig()
                             .build()
 
-mListView.add(card);
+mListView.getAdapter().(card);
 ```
 
 There are also some Cards that may show a Divider between the content and the buttons. For further reference, [read the Wiki page](https://github.com/dexafree/MaterialList/wiki/Dividers)

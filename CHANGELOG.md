@@ -2,6 +2,9 @@
 
 # MaterialList v3
 
+## 3.2.1
+* Travis CI fix
+
 ## 3.2.0
 * Merged [Update README.md](https://github.com/dexafree/MaterialList/pull/130)
 * Merged [Update README.md](https://github.com/dexafree/MaterialList/pull/90)

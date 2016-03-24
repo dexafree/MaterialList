@@ -2,6 +2,12 @@
 
 # MaterialList v3
 
+## 3.2.0
+* Merged [Update README.md](https://github.com/dexafree/MaterialList/pull/130)
+* Merged [Update README.md](https://github.com/dexafree/MaterialList/pull/90)
+* Updated Support Versions to 23.2.1
+* Changed Card height to `wrap_content` in order to provide compatibility with the last support library
+
 ## 3.1.3
 * Merged [add setGravity function for use in RTL languages](https://github.com/dexafree/MaterialList/pull/119)
 * Thanks to [bkhezry](https://github.com/bkhezry)

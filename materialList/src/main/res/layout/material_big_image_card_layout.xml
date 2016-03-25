@@ -11,23 +11,36 @@
             style="@style/Material_Card_View"
             card_view:cardCornerRadius="@dimen/card_corner_radius"
             card_view:cardElevation="@dimen/card_elevation">
-
-        <FrameLayout
+                <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@null"/>
 
-            <ImageView android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:id="@+id/image"
-                       android:contentDescription="@null"
-                       android:adjustViewBounds="true"
-                       android:scaleType="centerCrop"/>
+                <TextView
+                        android:id="@+id/title"
+                        style="@style/Material_Card_Title"
+                        android:layout_gravity="bottom"
+                        tools:text="Title"/>
+            </FrameLayout>
 
-            <TextView android:id="@+id/title"
-                      style="@style/Material_Card_Title"
-                      android:layout_gravity="bottom"
-                      tools:text="Title"/>
-        </FrameLayout>
+            <TextView
+                    style="@style/Material_Card_Subtitle_24dp"
+                    android:id="@+id/supportingText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/big_padding"
+                    android:textColor="@color/description_color"
+                    android:textSize="@dimen/description_size"
+                    tools:text="Test description"/>
 
     </android.support.v7.widget.CardView>
 

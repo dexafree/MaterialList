@@ -1,5 +1,13 @@
 # MaterialList [![Build Status](https://travis-ci.org/dexafree/MaterialList.svg?branch=master)](https://travis-ci.org/dexafree/MaterialList) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dexafree/materiallist/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.github.dexafree/materiallist) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialList-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1161)
 
+## Discontinued
+
+This library will not receive any updates, as I do not have the time or knowledge to improve it.
+
+If anyone forks it and wants to mantain it, please let me know and I will add a link to the mantained version.
+
+-----
+
 > ### Warning!
 > MaterialList v3 changes the way Cards are built, and its API is not backwards compatible.
 > Read the changes and learn how to build your cards in the Wiki.

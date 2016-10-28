@@ -84,14 +84,15 @@ MaterialListView mListView = (MaterialListView) findViewById(R.id.material_listv
 ### 3. Step: Add Cards to the MaterialListView
 
 ```java
-Card card = new Card.Builder(this)
-                            .setTag("BASIC_IMAGE_BUTTONS_CARD")
-                            .withProvider(BasicImageButtonsCardProvider.class)
-                            .setTitle("I'm new")
-                            .setDescription("I've been generated on runtime!")
-                            .setDrawable(R.drawable.dog)
-                            .endConfig()
-                            .build()
+        Card card = new Card.Builder(getActivity().getApplicationContext())
+                .setTag("BASIC_IMAGE_BUTTONS_CARD")
+                .setDismissible()
+                .withProvider(new CardProvider<>())
+                .setTitle("I'm new")
+                .setDescription("I've been generated on runtime!")
+                .setDrawable(R.drawable.notes)
+                .endConfig()
+                .build();
 
 mListView.getAdapter.add(card);
 ```

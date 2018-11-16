@@ -706,7 +706,7 @@ public class CardProvider<T extends CardProvider> extends Observable {
             if (getDrawable() != null) {
                 imageView.setImageDrawable(getDrawable());
             } else {
-                final RequestCreator requestCreator = Picasso.with(getContext())
+                final RequestCreator requestCreator = Picasso.get()
                         .load(getImageUrl());
                 if (getOnImageConfigListenerListener() != null) {
                     getOnImageConfigListenerListener().onImageConfigure(requestCreator);

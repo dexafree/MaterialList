@@ -24,7 +24,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.nineoldandroids:library:2.4.0'
-	compile 'com.squareup.picasso:picasso:2.5.2'
+	compile 'com.squareup.picasso:picasso:2.71828'
 }
 
 // Script to upload plugin to Maven

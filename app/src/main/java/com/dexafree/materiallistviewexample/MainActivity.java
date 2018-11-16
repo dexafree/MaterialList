@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView emptyView = (ImageView) findViewById(R.id.imageView);
         emptyView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         mListView.setEmptyView(emptyView);
-        Picasso.with(this)
+        Picasso.get()
                 .load("https://www.skyverge.com/wp-content/uploads/2012/05/github-logo.png")
                 .resize(100, 100)
                 .centerInside()
